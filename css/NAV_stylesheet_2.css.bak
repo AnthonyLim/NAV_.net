@@ -1,0 +1,657 @@
+<STYLE type="text/css">
+<!-- 
+
+/***********************************************/
+/* nav_global.css                            */
+/***********************************************/
+
+/***********************************************/
+/* HTML tag styles                             */
+/***********************************************/
+
+
+TH, FONT, TD, P, B, I, STRONG, U, EM, BLOCKQUOTE, LI, OL, CAPTION, DL, DT, DD, select,pre {font-size:11px;font-family:Arial,sans-serif;}
+textarea {
+font-family:Arial, Helvetica, sans-serif;
+border: 3px solid #cccccc;
+padding: 1px;
+background-position: bottom right;
+background-repeat: no-repeat;
+}
+
+body{
+	font-family: Arial,sans-serif;
+	color: #000000;
+	line-height: 1.166;
+	margin: 0px;
+	padding: 0px;
+}
+
+/******* hyperlink and anchor tag styles *******/
+
+a:link, a:visited{
+	font-size:11.5px;	
+	color: #980125;
+	text-decoration: none;
+}
+
+a:hover{
+	text-decoration: none;
+	font-size:11px;
+}
+
+/************** header tag styles **************/
+
+h1{
+ font: bold 180% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;
+}
+
+h2{
+ font: bold 150% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;  
+}
+
+h3{
+ font: bold 130% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;
+ margin-bottom: 1px;
+}
+
+h4{
+ font: bold 120% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;
+ margin-left: 0.5in;
+}
+
+h5{
+ font: bold 110% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;
+ margin-left: 1in;
+}
+
+h6{
+ font: bold 100% Arial,sans-serif;
+ color: #000000;
+ margin: 0px;
+ padding: 0px;
+ margin-left: 1.5in;
+}
+
+
+
+
+/*************** list tag styles ***************/
+
+ul{
+ list-style-type: square;
+ font-size:11px;
+}
+
+ul ul{
+ list-style-type: disc;
+ font-size:11px;
+}
+
+ul ul ul{
+ list-style-type: none;
+ font-size:11px;
+}
+
+/********* form and related tag styles *********/
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+label{
+ font: bold 1em Arial,sans-serif;
+ color: #334d55;
+}
+				
+input{
+font-family: Arial,sans-serif;
+font-size:11px;
+}
+
+/***********************************************/
+/* Layout Divs                                 */
+/***********************************************/
+#pagecell1{
+	position:absolute;
+	top: 160px;
+	left: 2%;
+	right: 2%;
+	width:95.6%;
+	background-color: #ffffff;
+}
+
+#tl {
+	position:absolute;
+	top: -1px;
+	left: -1px;
+	margin: 0px;
+	padding: 0px;
+	z-index: 100;
+}
+
+#tr {
+	font-size:11px;
+	position:absolute;
+	top: -1px;
+	right: -1px;
+	margin: 0px;
+	padding: 0px;
+	z-index: 100;
+}
+
+#masthead{
+	position: absolute;
+	top: 0px;
+	left: 2%;
+	right: 2%;
+	width:95.6%;
+	
+}
+
+#pageNav{
+	float: left;
+	width:178px;
+	padding: 0px;
+	background-color: #F5f7f7;
+	border-right: 1px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+	font: small Verdana,sans-serif;
+}
+
+#content{
+	padding: 0px 11px 0px 0px;
+	margin:0px 0px 0px 178px;
+	border-left: 1px solid #ccd2d2;
+}
+
+
+/***********************************************/
+/* Component Divs                              */
+/***********************************************/
+#siteName{
+	margin: 0px;
+	padding: 16px 0px 8px 0px;
+	color: #ffffff;
+	font-weight: normal;
+}
+
+/************** utility styles *****************/
+
+#utility{
+	font: 75% Verdana,sans-serif;
+	position: absolute;
+	top: 16px;
+	right: 0px;
+	color: #919999;
+}
+
+/************** pageName styles ****************/
+
+#pageName{
+	padding: 0px 0px 14px 11px;
+	margin: 0px;
+	border-bottom:1px solid #ccd2d2;
+}
+
+/************* globalNav styles ****************/
+/* Main Menu bar background settings */
+#globalNav{
+	position: relative;
+	width: 100%;
+	min-width: 640px;
+	color: #A9AAAA;	
+	padding: 0px;
+	margin: 0px;
+	background-color: #00135D;
+	height: 32px;
+}
+/* Sub-Main Menu bar background settings */
+#globalNavsub {
+	height: 24px;
+	background-color: #999999;
+}
+
+
+#gnl {
+	position: absolute;
+	top: 0px;
+	left:0px;
+	color: #14ACAA;
+}
+
+#gnr {
+	position: absolute;
+	top: 0px;
+	right:0px;
+}
+
+#globalLink{
+	position: absolute;
+	top: 6px;
+	min-width: 640px;
+	padding: 0px;
+	margin: 0px;
+	left: 11px;
+	z-index: 100;
+}
+#Language {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #FFFFFF;
+	position: relative;
+	z-index: 100;
+	width: 180px;
+	float: right;
+	right: 1%;
+	top: 8px;
+}
+
+
+
+a.glink, a.glink:visited{
+	font-size: 9pt;
+	color: #FFFFFF;	
+	font-weight: normal;
+	margin: 0px;
+	padding: 2px 5px 4px 5px;
+}
+
+a.glink:hover{
+	text-decoration: none;
+	font-size: 9pt;
+	font-weight: normal;
+	margin: 0px;
+	padding: 2px 5px 4px 5px;
+}
+
+
+a.tagglink, a.tagglink:visited{
+	font-size: 9pt;
+	color: #FFFFFF;	
+	font-weight: normal;
+	margin: 0px;
+	padding: 2px 5px 4px 5px;
+}
+
+a.tagglink:hover{
+	text-decoration: none;
+	font-size: 9pt;
+	font-weight: normal;
+	margin: 0px;
+	padding: 2px 5px 4px 5px;
+}
+.skipLinks {display: none;}
+
+/************ subglobalNav styles **************/
+/* Sub-Main Menu bar vertical tab settings */
+
+.subglobalNav{
+	position: absolute;	
+	top: 113px;
+	left: 0px;
+	/*width: 100%;*/
+	min-width: 640px;
+	height: 20px;
+	color: #ffffff;
+	visibility: hidden;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 15px;
+}
+
+.subglobalNav a:link, .subglobalNav a:visited {
+	font-size: 9pt;
+	color: #ffffff;
+}
+
+.subglobalNav a:hover{
+	color: #ffffff;
+	font-size: 9pt;
+}
+
+
+.footerNav a:link, .subglobalNav a:visited {
+	font-size: 9pt;
+	/* color: #000000; */
+	color: #ffffff;
+}
+
+.footerNav a:hover{
+	color: #A9AAAA;
+	font-size: 9pt;
+}
+
+
+/************** feature styles *****************/
+
+.feature{
+	padding: 0px 0px 11px 11px;
+	font-size: 80%;
+	min-height: 200px;
+	height: 200px;
+}
+html>body .feature {height: auto;}
+
+.feature h3{
+	font: bold 175% Arial,sans-serif;
+	color: #000000;
+	padding: 30px 0px 5px 0px;
+}
+
+.feature img{
+	float: left;
+	padding: 0px 11px 0px 0px;
+}
+
+
+/*************** story styles ******************/
+
+.story {
+	padding: 11px 0px 0px 11px;
+	font-size: 80%;
+}
+
+.story h3{
+	font: bold 125% Arial,sans-serif;
+	color: #000000;
+}
+
+.story p {
+	padding: 0px 0px 11px 0px;
+}
+
+.story a.capsule{
+	font: bold 1em Arial,sans-serif;
+	color: #000000;
+	display:block;
+	padding-bottom: 5px;
+}
+
+.story a.capsule:hover{
+	text-decoration: none;
+}
+
+td.storyLeft{
+	padding-right: 12px;
+}
+
+
+/************** siteInfo styles ****************/
+
+#siteInfo{
+	clear: both;
+	border-top: 1px solid #A9AAAA;	
+	font-size: 9pt;
+	color: #A9AAAA;
+	padding: 10px 10px 10px 10px;
+	margin-top: 0px;
+}
+
+
+/************ sectionLinks styles **************/
+
+#sectionLinks{
+	margin: 0px;
+	padding: 0px;
+
+}
+
+#sectionLinks h3{
+	padding: 10px 0px 2px 10px;
+	border-bottom: 1px solid #A9AAAA;
+}
+
+#sectionLinks a:link, #sectionLinks a:visited {
+	display: block;
+	border-top: 1px solid #ffffff;
+	border-bottom: 1px solid #A9AAAA;
+	background-image: url(bg_nav.jpg);
+	font-weight: bold;
+	padding: 3px 0px 3px 10px;
+	color: #21536A;
+}
+
+#sectionLinks a:hover{
+	border-top: 1px solid #A9AAAA;
+	background-color: #DDEEFF;
+	background-image: none;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+
+/************* relatedLinks styles **************/
+
+.relatedLinks{
+	margin: 0px;
+	padding: 0px 0px 10px 10px;
+	border-bottom: 1px solid #A9AAAA;
+}
+
+.relatedLinks h3{
+	padding: 10px 0px 2px 0px;
+}
+
+.relatedLinks a{
+	display: block; 
+}
+
+
+/**************** advert styles *****************/
+
+#advert{
+	padding: 10px;
+}
+
+#advert img{
+	display: block;
+}
+
+/********************* TD styles **********************/
+#td_location {
+	font-family: Arial;
+	font-size: 8pt;
+	color: #333333;
+	padding-left: 10px;
+	vertical-align: bottom;
+	padding-bottom: 10px;
+	border-left-width: 1px;
+	border-left-style: dotted;
+	border-left-color: #666666;
+}
+#td_body {
+	font-family: Arial;
+	font-size: 9pt;
+}
+#Tabs {
+	background-image: url(/images/tab_divider.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+#SecondaryTabs {
+	background-image: url(/images/tab_divider.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+	font-size: 9pt;
+	color: #000000;
+}
+
+#TabContent {
+	font-family: Arial;
+	font-size: 9pt;
+	color: #000000;
+	vertical-align: top;
+}
+
+#TableHead {
+	font-family: Arial;
+	font-size: 8pt;
+	font-weight: bold;
+	color: #727272;
+	border-top-width: thin;
+	border-top-style: solid;
+	border-top-color: #A9AAAA;
+	border-bottom-width: thin;
+	border-bottom-style: solid;
+	border-bottom-color: #A9AAAA;
+}
+
+#TableBottom {
+	font-family: Arial;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #727272;
+	border-top-width: thin;
+	border-top-style: solid;
+	border-top-color: #A9AAAA;	
+}
+
+#TableDivs {
+	border-bottom-width: 1px;
+	font-size: 9pt;
+	border-bottom-style: dotted;
+	border-bottom-color: #A9AAAA;
+}
+
+
+#TableDivsPlain {
+	border-bottom-width: 0px;
+	font-size: 9pt;	
+	font-family:Arial, Helvetica, sans-serif;
+	border-bottom-color: #A9AAAA;
+}
+
+#TableDivsArial {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	font-family:Arial, Helvetica, sans-serif;
+	border-bottom-color: #A9AAAA;
+}
+
+#TDHeading {
+	border-bottom-width: 1px;
+	font-size: 10pt;	
+	font-family:Arial, Helvetica, sans-serif;
+	border-bottom-color: #A9AAAA;
+}
+
+#TDHeadingBold {
+	border-bottom-width: 1px;
+	font-size: 10.5pt;	
+	font-weight: bold;
+	font-family:Arial, Helvetica, sans-serif;
+	border-bottom-color: #A9AAAA;
+}
+
+#TDColumnGain {
+	border-bottom-width: 1px;	
+	border-bottom-style: dotted;
+	border-bottom-color: #A9AAAA;
+	font-size: 8pt;	
+	font-family:Arial, Helvetica, sans-serif;
+	color: #2A8701;
+}
+
+#TDColumnLoss {
+	border-bottom-width: 1px;
+	border-bottom-style: dotted;
+	border-bottom-color: #A9AAAA;
+	font-size: 8pt;		
+	font-family:Arial, Helvetica, sans-serif;
+	color: #CC0000;
+}
+
+#TDHeadingLoss {
+	border-bottom-width: 1px;
+	font-size: 10.5pt;	
+	font-family:Arial, Helvetica, sans-serif;
+	color: #CC0000;
+}
+
+#TDHeadingGain {
+	border-bottom-width: 1px;
+	font-size: 10.5pt;	
+	font-family:Arial, Helvetica, sans-serif;
+	color: #2A8701;
+}
+
+
+
+
+#ReadOnly {	
+	font-size: 8pt;	
+	font-family:Arial, Helvetica, sans-serif;	
+	background-color: #E0E0E0;
+	
+}
+
+#DataEntryEdit {
+	font-family: Arial;
+	font-size: 9pt;
+	font-weight: bold;
+	color: #000000;	
+	background-color: #DFDFE0;
+}
+
+#Alert {
+	font-family: Arial;
+	font-size: 12pt;
+	font-weight: bold;
+	color: #C40303;		
+}
+	
+}
+
+
+
+
+/* Custom Elements (set with class=)*/
+.xl	{font-size: 200%;}
+.data	{font-size: 80%;}
+.small	{font-size: 75%;}
+.tiny	{font-size: 50%;}
+
+
+#loading {
+
+	width: 200px;
+
+	height: 100px;
+
+	background-color: #A9AAAA;
+
+	position: absolute;
+
+	left: 50%;
+
+	top: 50%;
+
+	margin-top: -50px;
+
+	margin-left: -100px;
+
+	text-align: center;
+
+}
+
+
+/********************* GridView control styles **********************/.GridViewHead { font-family: Arial, Helvetica, sans-serif;font-size:11px; font-weight: bold;color: #000000; border-top-width: thin; border-top-style: solid; border-top-color: #A9AAAA;border-bottom-width: thin;border-bottom-style: solid;border-bottom-color: #A9AAAA;}.GridViewRows {border-bottom-width: 1px;font-size:11px;border-bottom-style: dotted;font-family:Arial, Helvetica, sans-serif;border-bottom-color: #A9AAAA;}.GridViewPager {font-family: Arial, Helvetica, sans-serif;font-size:11px;font-weight: bold;color: #fffff;border-top-width: thin;border-top-style: solid;border-top-color: #A9AAAA;}.GridViewPager span {font-weight: bold;font-size:12px;}/****************************option tag for dropdown list items**************************************/option{font-size:11px;font-family:Arial, Helvetica, sans-serif;text-decoration: none;}</STYLE>

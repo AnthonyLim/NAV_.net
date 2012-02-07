@@ -1,0 +1,794 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{476EEDBC-855A-482F-B670-2BE1B364E3E3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NAV</RootNamespace>
+    <AssemblyName>NAV</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=3.5.50927.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\AjaxControlToolkit.Binary.NET35\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.1.3.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL" />
+    <Reference Include="SmsNav, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Users\KiteSystemsPhilsInc\Downloads\NAV - codes\SMS\sms\SmsNav\SmsNav\bin\Debug\SmsNav.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Admin\EmailSignedConfirmation_List.aspx.cs">
+      <DependentUpon>EmailSignedConfirmation_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EmailSignedConfirmation_List.aspx.designer.cs">
+      <DependentUpon>EmailSignedConfirmation_List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\EmailTemplate_List.aspx.cs">
+      <DependentUpon>EmailTemplate_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\EmailTemplate_List.aspx.designer.cs">
+      <DependentUpon>EmailTemplate_List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SMSTemplate_List.aspx.cs">
+      <DependentUpon>SMSTemplate_List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SMSTemplate_List.aspx.designer.cs">
+      <DependentUpon>SMSTemplate_List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeMaintenance.aspx.cs">
+      <DependentUpon>SwitchFeeMaintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeMaintenance.aspx.designer.cs">
+      <DependentUpon>SwitchFeeMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeReport.aspx.cs">
+      <DependentUpon>SwitchFeeReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeReport.aspx.designer.cs">
+      <DependentUpon>SwitchFeeReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeReportList.aspx.cs">
+      <DependentUpon>SwitchFeeReportList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SwitchFeeReportList.aspx.designer.cs">
+      <DependentUpon>SwitchFeeReportList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\clsClient.cs" />
+    <Compile Include="App_Code\clsCompany.cs" />
+    <Compile Include="App_Code\clsSystem_Session.cs" />
+    <Compile Include="App_Code\clsPortfolioDetails.cs" />
+    <Compile Include="App_Code\clsSwitch.cs" />
+    <Compile Include="App_Code\clsSwitchDetails.cs" />
+    <Compile Include="App_Code\clsFund.cs" />
+    <Compile Include="App_Code\clsCurrency.cs" />
+    <Compile Include="App_Code\clsSecurityCode.cs" />
+    <Compile Include="App_Code\clsSMS.cs" />
+    <Compile Include="App_Code\clsSwitchDetails_Client.cs" />
+    <Compile Include="App_Code\clsSwitch_Client.cs" />
+    <Compile Include="App_Code\clsIFA.cs" />
+    <Compile Include="App_Code\clsEmail.cs" />
+    <Compile Include="App_Code\clsHistory.cs" />
+    <Compile Include="App_Code\clsScheme.cs" />
+    <Compile Include="App_Code\clsSwitchScheme.cs" />
+    <Compile Include="App_Code\clsSwitchFee.cs" />
+    <Compile Include="App_Code\clsSwitchScheme_Client.cs" />
+    <Compile Include="App_Code\clsOutput.cs" />
+    <Compile Include="NAV.Master.cs">
+      <DependentUpon>NAV.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NAV.Master.designer.cs">
+      <DependentUpon>NAV.Master</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\clsPortfolio.cs" />
+    <Compile Include="Output\Templates\SWITCH_Portfolio.aspx.cs">
+      <DependentUpon>SWITCH_Portfolio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Output\Templates\SWITCH_Portfolio.aspx.designer.cs">
+      <DependentUpon>SWITCH_Portfolio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Output\Templates\SWITCH_Scheme.aspx.cs">
+      <DependentUpon>SWITCH_Scheme.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Output\Templates\SWITCH_Scheme.aspx.designer.cs">
+      <DependentUpon>SWITCH_Scheme.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\Switch.aspx.cs">
+      <DependentUpon>Switch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\Switch.aspx.designer.cs">
+      <DependentUpon>Switch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchClient.aspx.cs">
+      <DependentUpon>SwitchClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchClient.aspx.designer.cs">
+      <DependentUpon>SwitchClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchHistory.aspx.cs">
+      <DependentUpon>SwitchHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchHistory.aspx.designer.cs">
+      <DependentUpon>SwitchHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchList.aspx.cs">
+      <DependentUpon>SwitchList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchList.aspx.designer.cs">
+      <DependentUpon>SwitchList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchListDetails.aspx.cs">
+      <DependentUpon>SwitchListDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchListDetails.aspx.designer.cs">
+      <DependentUpon>SwitchListDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucCurrentPortfolio.ascx.cs">
+      <DependentUpon>ucCurrentPortfolio.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucCurrentPortfolio.ascx.designer.cs">
+      <DependentUpon>ucCurrentPortfolio.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucHeader.ascx.cs">
+      <DependentUpon>ucHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucHeader.ascx.designer.cs">
+      <DependentUpon>ucHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucSwitchDetails.ascx.cs">
+      <DependentUpon>ucSwitchDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\UserControl\ucSwitchDetails.ascx.designer.cs">
+      <DependentUpon>ucSwitchDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\clsSystem_DBConnection.cs" />
+    <Compile Include="App_Code\clsSystem_User.cs" />
+    <Compile Include="Scheme\Scheme.aspx.cs">
+      <DependentUpon>Scheme.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\Scheme.aspx.designer.cs">
+      <DependentUpon>Scheme.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\SchemeClient.aspx.cs">
+      <DependentUpon>SchemeClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\SchemeClient.aspx.designer.cs">
+      <DependentUpon>SchemeClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\SchemeHistory.aspx.cs">
+      <DependentUpon>SchemeHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\SchemeHistory.aspx.designer.cs">
+      <DependentUpon>SchemeHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucContributions.ascx.cs">
+      <DependentUpon>ucContributions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucContributions.ascx.designer.cs">
+      <DependentUpon>ucContributions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucCurrentHoldings.ascx.cs">
+      <DependentUpon>ucCurrentHoldings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucCurrentHoldings.ascx.designer.cs">
+      <DependentUpon>ucCurrentHoldings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucHeader.ascx.cs">
+      <DependentUpon>ucHeader.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucHeader.ascx.designer.cs">
+      <DependentUpon>ucHeader.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucProposalDisplay.ascx.cs">
+      <DependentUpon>ucProposalDisplay.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucProposalDisplay.ascx.designer.cs">
+      <DependentUpon>ucProposalDisplay.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucSwitchDetails.ascx.cs">
+      <DependentUpon>ucSwitchDetails.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucSwitchDetails.ascx.designer.cs">
+      <DependentUpon>ucSwitchDetails.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucSwitchDetailsClient.ascx.cs">
+      <DependentUpon>ucSwitchDetailsClient.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\UserControl\ucSwitchDetailsClient.ascx.designer.cs">
+      <DependentUpon>ucSwitchDetailsClient.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\SMSTemplate_List.aspx" />
+    <Content Include="css\360_stylesheet_1.css" />
+    <Content Include="css\360_stylesheet_2.css" />
+    <Content Include="css\360_stylesheet_3.css" />
+    <Content Include="css\AAM_stylesheet_1.css" />
+    <Content Include="css\AAM_stylesheet_2.css" />
+    <Content Include="css\AAM_stylesheet_3.css" />
+    <Content Include="css\AA_stylesheet_1.css" />
+    <Content Include="css\AA_stylesheet_2.css" />
+    <Content Include="css\AA_stylesheet_3.css" />
+    <Content Include="css\ABF_stylesheet_1.css" />
+    <Content Include="css\ABF_stylesheet_2.css" />
+    <Content Include="css\ABF_stylesheet_3.css" />
+    <Content Include="css\ABG_stylesheet_1.css" />
+    <Content Include="css\ABG_stylesheet_2.css" />
+    <Content Include="css\ABG_stylesheet_3.css" />
+    <Content Include="css\ABR_stylesheet_1.css" />
+    <Content Include="css\ABR_stylesheet_2.css" />
+    <Content Include="css\ABR_stylesheet_3.css" />
+    <Content Include="css\ACO_stylesheet_1.css" />
+    <Content Include="css\ACO_stylesheet_2.css" />
+    <Content Include="css\ACO_stylesheet_3.css" />
+    <Content Include="css\ACS_stylesheet_1.css" />
+    <Content Include="css\ACS_stylesheet_2.css" />
+    <Content Include="css\ACS_stylesheet_3.css" />
+    <Content Include="css\ADM_stylesheet_1.css" />
+    <Content Include="css\ADM_stylesheet_2.css" />
+    <Content Include="css\ADM_stylesheet_3.css" />
+    <Content Include="css\ADVW_stylesheet_1.css" />
+    <Content Include="css\ADVW_stylesheet_2.css" />
+    <Content Include="css\ADVW_stylesheet_3.css" />
+    <Content Include="css\ADV_stylesheet_1.css" />
+    <Content Include="css\ADV_stylesheet_2.css" />
+    <Content Include="css\ADV_stylesheet_3.css" />
+    <Content Include="css\AES_stylesheet_1.css" />
+    <Content Include="css\AES_stylesheet_2.css" />
+    <Content Include="css\AES_stylesheet_3.css" />
+    <Content Include="css\AIA_stylesheet_1.css" />
+    <Content Include="css\AIA_stylesheet_2.css" />
+    <Content Include="css\AIA_stylesheet_3.css" />
+    <Content Include="css\AIM_stylesheet_1.css" />
+    <Content Include="css\AIM_stylesheet_2.css" />
+    <Content Include="css\AIM_stylesheet_3.css" />
+    <Content Include="css\AIVA_stylesheet_1.css" />
+    <Content Include="css\AIVA_stylesheet_2.css" />
+    <Content Include="css\AIVA_stylesheet_3.css" />
+    <Content Include="css\ALFA_stylesheet_1.css" />
+    <Content Include="css\ALFA_stylesheet_2.css" />
+    <Content Include="css\ALFA_stylesheet_3.css" />
+    <Content Include="css\ALP_stylesheet_1.css" />
+    <Content Include="css\ALP_stylesheet_2.css" />
+    <Content Include="css\ALP_stylesheet_3.css" />
+    <Content Include="css\AMA_stylesheet_1.css" />
+    <Content Include="css\AMA_stylesheet_2.css" />
+    <Content Include="css\AMA_stylesheet_3.css" />
+    <Content Include="css\AMC_stylesheet_1.css" />
+    <Content Include="css\AMC_stylesheet_2.css" />
+    <Content Include="css\AMC_stylesheet_3.css" />
+    <Content Include="css\AMI_stylesheet_1.css" />
+    <Content Include="css\AMI_stylesheet_2.css" />
+    <Content Include="css\AMI_stylesheet_3.css" />
+    <Content Include="css\AMTD_stylesheet_1.css" />
+    <Content Include="css\AMTD_stylesheet_2.css" />
+    <Content Include="css\AMTD_stylesheet_3.css" />
+    <Content Include="css\ANZ_stylesheet_1.css" />
+    <Content Include="css\ANZ_stylesheet_2.css" />
+    <Content Include="css\ANZ_stylesheet_3.css" />
+    <Content Include="css\APG_stylesheet_1.css" />
+    <Content Include="css\APG_stylesheet_2.css" />
+    <Content Include="css\APG_stylesheet_3.css" />
+    <Content Include="css\API_stylesheet_1.css" />
+    <Content Include="css\API_stylesheet_2.css" />
+    <Content Include="css\API_stylesheet_3.css" />
+    <Content Include="css\AP_stylesheet_1.css" />
+    <Content Include="css\AP_stylesheet_2.css" />
+    <Content Include="css\AP_stylesheet_3.css" />
+    <Content Include="css\ATM_stylesheet_1.css" />
+    <Content Include="css\ATM_stylesheet_2.css" />
+    <Content Include="css\ATM_stylesheet_3.css" />
+    <Content Include="css\AVO_stylesheet_1.css" />
+    <Content Include="css\AVO_stylesheet_2.css" />
+    <Content Include="css\AVO_stylesheet_3.css" />
+    <Content Include="css\AWL_stylesheet_1.css" />
+    <Content Include="css\AWL_stylesheet_2.css" />
+    <Content Include="css\AWL_stylesheet_3.css" />
+    <Content Include="css\AWML_stylesheet_1.css" />
+    <Content Include="css\AWML_stylesheet_2.css" />
+    <Content Include="css\AWML_stylesheet_3.css" />
+    <Content Include="css\AWM_stylesheet_1.css" />
+    <Content Include="css\AWM_stylesheet_2.css" />
+    <Content Include="css\AWM_stylesheet_3.css" />
+    <Content Include="css\BCI_stylesheet_1.css" />
+    <Content Include="css\BCI_stylesheet_2.css" />
+    <Content Include="css\BCI_stylesheet_3.css" />
+    <Content Include="css\BEL_stylesheet_1.css" />
+    <Content Include="css\BEL_stylesheet_2.css" />
+    <Content Include="css\BEL_stylesheet_3.css" />
+    <Content Include="css\BHFS_stylesheet_1.css" />
+    <Content Include="css\BHFS_stylesheet_2.css" />
+    <Content Include="css\BHFS_stylesheet_3.css" />
+    <Content Include="css\BIG_stylesheet_1.css" />
+    <Content Include="css\BIG_stylesheet_2.css" />
+    <Content Include="css\BIG_stylesheet_3.css" />
+    <Content Include="css\BSI_stylesheet_1.css" />
+    <Content Include="css\BSI_stylesheet_2.css" />
+    <Content Include="css\BSI_stylesheet_3.css" />
+    <Content Include="css\BS_stylesheet_1.css" />
+    <Content Include="css\BS_stylesheet_2.css" />
+    <Content Include="css\BS_stylesheet_3.css" />
+    <Content Include="css\BV_stylesheet_1.css" />
+    <Content Include="css\BV_stylesheet_2.css" />
+    <Content Include="css\BV_stylesheet_3.css" />
+    <Content Include="css\BWL_stylesheet_1.css" />
+    <Content Include="css\BWL_stylesheet_2.css" />
+    <Content Include="css\BWL_stylesheet_3.css" />
+    <Content Include="css\CAL_stylesheet_1.css" />
+    <Content Include="css\CAL_stylesheet_2.css" />
+    <Content Include="css\CAL_stylesheet_3.css" />
+    <Content Include="css\CAM_stylesheet_1.css" />
+    <Content Include="css\CAM_stylesheet_2.css" />
+    <Content Include="css\CAM_stylesheet_3.css" />
+    <Content Include="css\CAP_stylesheet_1.css" />
+    <Content Include="css\CAP_stylesheet_2.css" />
+    <Content Include="css\CAP_stylesheet_3.css" />
+    <Content Include="css\CA_stylesheet_1.css" />
+    <Content Include="css\CA_stylesheet_2.css" />
+    <Content Include="css\CA_stylesheet_3.css" />
+    <Content Include="css\CBSC_stylesheet_1.css" />
+    <Content Include="css\CBSC_stylesheet_2.css" />
+    <Content Include="css\CBSC_stylesheet_3.css" />
+    <Content Include="css\CB_stylesheet_1.css" />
+    <Content Include="css\CB_stylesheet_2.css" />
+    <Content Include="css\CB_stylesheet_3.css" />
+    <Content Include="css\CG_stylesheet_1.css" />
+    <Content Include="css\CG_stylesheet_2.css" />
+    <Content Include="css\CG_stylesheet_3.css" />
+    <Content Include="css\CHAT_stylesheet_1.css" />
+    <Content Include="css\CHAT_stylesheet_2.css" />
+    <Content Include="css\CHAT_stylesheet_3.css" />
+    <Content Include="css\CHO_stylesheet_1.css" />
+    <Content Include="css\CHO_stylesheet_2.css" />
+    <Content Include="css\CHO_stylesheet_3.css" />
+    <Content Include="css\CHU_stylesheet_1.css" />
+    <Content Include="css\CHU_stylesheet_2.css" />
+    <Content Include="css\CHU_stylesheet_3.css" />
+    <Content Include="css\CK_stylesheet_1.css" />
+    <Content Include="css\CK_stylesheet_2.css" />
+    <Content Include="css\CK_stylesheet_3.css" />
+    <Content Include="css\COMM_stylesheet_1.css" />
+    <Content Include="css\COMM_stylesheet_2.css" />
+    <Content Include="css\COMM_stylesheet_3.css" />
+    <Content Include="css\CW2_stylesheet_1.css" />
+    <Content Include="css\CW2_stylesheet_2.css" />
+    <Content Include="css\CW2_stylesheet_3.css" />
+    <Content Include="css\CWI_stylesheet_1.css" />
+    <Content Include="css\CWI_stylesheet_2.css" />
+    <Content Include="css\CWI_stylesheet_3.css" />
+    <Content Include="css\DEM_Modelstylesheet_1.css" />
+    <Content Include="css\DEM_stylesheet_1.css" />
+    <Content Include="css\DEM_stylesheet_2.css" />
+    <Content Include="css\DEM_stylesheet_3.css" />
+    <Content Include="css\DVPX_stylesheet_1.css" />
+    <Content Include="css\DVPX_stylesheet_2.css" />
+    <Content Include="css\DVPX_stylesheet_3.css" />
+    <Content Include="css\DVP_stylesheet_1.css" />
+    <Content Include="css\DVP_stylesheet_2.css" />
+    <Content Include="css\DVP_stylesheet_3.css" />
+    <Content Include="css\EGPS_stylesheet_1.css" />
+    <Content Include="css\EGPS_stylesheet_2.css" />
+    <Content Include="css\EGPS_stylesheet_3.css" />
+    <Content Include="css\EIG_stylesheet_1.css" />
+    <Content Include="css\EIG_stylesheet_2.css" />
+    <Content Include="css\EIG_stylesheet_3.css" />
+    <Content Include="css\EMM_stylesheet_1.css" />
+    <Content Include="css\EMM_stylesheet_2.css" />
+    <Content Include="css\EMM_stylesheet_3.css" />
+    <Content Include="css\ERM_stylesheet_1.css" />
+    <Content Include="css\ERM_stylesheet_2.css" />
+    <Content Include="css\ERM_stylesheet_3.css" />
+    <Content Include="css\FAR_stylesheet_1.css" />
+    <Content Include="css\FAR_stylesheet_2.css" />
+    <Content Include="css\FAR_stylesheet_3.css" />
+    <Content Include="css\FCP_stylesheet_1.css" />
+    <Content Include="css\FCP_stylesheet_2.css" />
+    <Content Include="css\FCP_stylesheet_3.css" />
+    <Content Include="css\FF_stylesheet_1.css" />
+    <Content Include="css\FF_stylesheet_2.css" />
+    <Content Include="css\FF_stylesheet_3.css" />
+    <Content Include="css\FMA_stylesheet_1.css" />
+    <Content Include="css\FMA_stylesheet_2.css" />
+    <Content Include="css\FMA_stylesheet_3.css" />
+    <Content Include="css\FOC_stylesheet_1.css" />
+    <Content Include="css\FOC_stylesheet_2.css" />
+    <Content Include="css\FOC_stylesheet_3.css" />
+    <Content Include="css\FOR_stylesheet_1.css" />
+    <Content Include="css\FOR_stylesheet_2.css" />
+    <Content Include="css\FOR_stylesheet_3.css" />
+    <Content Include="css\FPB_stylesheet_1.css" />
+    <Content Include="css\FPB_stylesheet_2.css" />
+    <Content Include="css\FPB_stylesheet_3.css" />
+    <Content Include="css\FPIP_stylesheet_1.css" />
+    <Content Include="css\FPIP_stylesheet_2.css" />
+    <Content Include="css\FPIP_stylesheet_3.css" />
+    <Content Include="css\FPITest_stylesheet_1.css" />
+    <Content Include="css\FPI_stylesheet_1.css" />
+    <Content Include="css\FPI_stylesheet_2.css" />
+    <Content Include="css\FPI_stylesheet_3.css" />
+    <Content Include="css\FRY_stylesheet_1.css" />
+    <Content Include="css\FRY_stylesheet_2.css" />
+    <Content Include="css\FRY_stylesheet_3.css" />
+    <Content Include="css\FSH_stylesheet_1.css" />
+    <Content Include="css\FSH_stylesheet_2.css" />
+    <Content Include="css\FSH_stylesheet_3.css" />
+    <Content Include="css\FSP_stylesheet_1.css" />
+    <Content Include="css\FSP_stylesheet_2.css" />
+    <Content Include="css\FSP_stylesheet_3.css" />
+    <Content Include="css\GFC_stylesheet_1.css" />
+    <Content Include="css\GFC_stylesheet_2.css" />
+    <Content Include="css\GFC_stylesheet_3.css" />
+    <Content Include="css\GFSI_stylesheet_1.css" />
+    <Content Include="css\GFSI_stylesheet_2.css" />
+    <Content Include="css\GFSI_stylesheet_3.css" />
+    <Content Include="css\GIG_stylesheet_1.css" />
+    <Content Include="css\GIG_stylesheet_2.css" />
+    <Content Include="css\GIG_stylesheet_3.css" />
+    <Content Include="css\GLED_stylesheet_1.css" />
+    <Content Include="css\GLED_stylesheet_2.css" />
+    <Content Include="css\GLED_stylesheet_3.css" />
+    <Content Include="css\GLE_stylesheet_1.css" />
+    <Content Include="css\GLE_stylesheet_2.css" />
+    <Content Include="css\GLE_stylesheet_3.css" />
+    <Content Include="css\GLFC_stylesheet_1.css" />
+    <Content Include="css\GLFC_stylesheet_2.css" />
+    <Content Include="css\GLFC_stylesheet_3.css" />
+    <Content Include="css\GM_stylesheet_1.css" />
+    <Content Include="css\GM_stylesheet_2.css" />
+    <Content Include="css\GM_stylesheet_3.css" />
+    <Content Include="css\GSWM_stylesheet_1.css" />
+    <Content Include="css\GSWM_stylesheet_2.css" />
+    <Content Include="css\GSWM_stylesheet_3.css" />
+    <Content Include="css\GSW_stylesheet_1.css" />
+    <Content Include="css\GSW_stylesheet_2.css" />
+    <Content Include="css\GSW_stylesheet_3.css" />
+    <Content Include="css\GWD_stylesheet_1.css" />
+    <Content Include="css\GWD_stylesheet_2.css" />
+    <Content Include="css\GWD_stylesheet_3.css" />
+    <Content Include="css\GWM_stylesheet_1.css" />
+    <Content Include="css\GWM_stylesheet_2.css" />
+    <Content Include="css\GWM_stylesheet_3.css" />
+    <Content Include="css\HAN_stylesheet_1.css" />
+    <Content Include="css\HAN_stylesheet_2.css" />
+    <Content Include="css\HAN_stylesheet_3.css" />
+    <Content Include="css\HENL_stylesheet_1.css" />
+    <Content Include="css\HENL_stylesheet_2.css" />
+    <Content Include="css\HENL_stylesheet_3.css" />
+    <Content Include="css\HENMP_stylesheet_1.css" />
+    <Content Include="css\HENMP_stylesheet_2.css" />
+    <Content Include="css\HENMP_stylesheet_3.css" />
+    <Content Include="css\IAW_stylesheet_1.css" />
+    <Content Include="css\IAW_stylesheet_2.css" />
+    <Content Include="css\IAW_stylesheet_3.css" />
+    <Content Include="css\IFAA_stylesheet_1.css" />
+    <Content Include="css\IFAA_stylesheet_2.css" />
+    <Content Include="css\IFAA_stylesheet_3.css" />
+    <Content Include="css\IFG_stylesheet_1.css" />
+    <Content Include="css\IFG_stylesheet_2.css" />
+    <Content Include="css\IFG_stylesheet_3.css" />
+    <Content Include="css\IFS_stylesheet_1.css" />
+    <Content Include="css\IFS_stylesheet_2.css" />
+    <Content Include="css\IFS_stylesheet_3.css" />
+    <Content Include="css\INF_stylesheet_1.css" />
+    <Content Include="css\INF_stylesheet_2.css" />
+    <Content Include="css\INF_stylesheet_3.css" />
+    <Content Include="css\ING_stylesheet_1.css" />
+    <Content Include="css\ING_stylesheet_2.css" />
+    <Content Include="css\ING_stylesheet_3.css" />
+    <Content Include="css\IPP_stylesheet_1.css" />
+    <Content Include="css\IPP_stylesheet_2.css" />
+    <Content Include="css\IPP_stylesheet_3.css" />
+    <Content Include="css\iTTa_stylesheet_1.css" />
+    <Content Include="css\iTTa_stylesheet_2.css" />
+    <Content Include="css\iTTa_stylesheet_3.css" />
+    <Content Include="css\JIG_stylesheet_1.css" />
+    <Content Include="css\JIG_stylesheet_2.css" />
+    <Content Include="css\JIG_stylesheet_3.css" />
+    <Content Include="css\JIN_stylesheet_1.css" />
+    <Content Include="css\JIN_stylesheet_2.css" />
+    <Content Include="css\JIN_stylesheet_3.css" />
+    <Content Include="css\KEN_stylesheet_1.css" />
+    <Content Include="css\KEN_stylesheet_2.css" />
+    <Content Include="css\KEN_stylesheet_3.css" />
+    <Content Include="css\LA_stylesheet_1.css" />
+    <Content Include="css\LA_stylesheet_2.css" />
+    <Content Include="css\LA_stylesheet_3.css" />
+    <Content Include="css\LFS_stylesheet_1.css" />
+    <Content Include="css\LFS_stylesheet_2.css" />
+    <Content Include="css\LFS_stylesheet_3.css" />
+    <Content Include="css\LSM_stylesheet_1.css" />
+    <Content Include="css\LSM_stylesheet_2.css" />
+    <Content Include="css\LSM_stylesheet_3.css" />
+    <Content Include="css\MAM_stylesheet_1.css" />
+    <Content Include="css\MAM_stylesheet_2.css" />
+    <Content Include="css\MAM_stylesheet_3.css" />
+    <Content Include="css\MBM_stylesheet_1.css" />
+    <Content Include="css\MBM_stylesheet_2.css" />
+    <Content Include="css\MBM_stylesheet_3.css" />
+    <Content Include="css\MCL_MCLstylesheet_1.css" />
+    <Content Include="css\MCL_MCLstylesheet_1_old.css" />
+    <Content Include="css\MCL_stylesheet_1.css" />
+    <Content Include="css\MCL_stylesheet_2.css" />
+    <Content Include="css\MCL_stylesheet_3.css" />
+    <Content Include="css\MEGA_stylesheet_1.css" />
+    <Content Include="css\MEGA_stylesheet_2.css" />
+    <Content Include="css\MEGA_stylesheet_3.css" />
+    <Content Include="css\MEY_stylesheet_1.css" />
+    <Content Include="css\MEY_stylesheet_2.css" />
+    <Content Include="css\MEY_stylesheet_3.css" />
+    <Content Include="css\MON_stylesheet_1.css" />
+    <Content Include="css\MON_stylesheet_2.css" />
+    <Content Include="css\MON_stylesheet_3.css" />
+    <Content Include="css\NAV_stylesheet_1.css" />
+    <Content Include="css\NAV_stylesheet_2.css" />
+    <Content Include="css\NAV_stylesheet_3.css" />
+    <Content Include="css\O2O_stylesheet_1.css" />
+    <Content Include="css\O2O_stylesheet_2.css" />
+    <Content Include="css\O2O_stylesheet_3.css" />
+    <Content Include="css\OFSA_stylesheet_1.css" />
+    <Content Include="css\OFSA_stylesheet_2.css" />
+    <Content Include="css\OFSA_stylesheet_3.css" />
+    <Content Include="css\ONE_stylesheet_1.css" />
+    <Content Include="css\ONE_stylesheet_2.css" />
+    <Content Include="css\ONE_stylesheet_3.css" />
+    <Content Include="css\PFG_stylesheet_1.css" />
+    <Content Include="css\PFG_stylesheet_2.css" />
+    <Content Include="css\PFG_stylesheet_3.css" />
+    <Content Include="css\PG_stylesheet_1.css" />
+    <Content Include="css\PG_stylesheet_2.css" />
+    <Content Include="css\PG_stylesheet_3.css" />
+    <Content Include="css\PIAS_stylesheet_1.css" />
+    <Content Include="css\PIAS_stylesheet_2.css" />
+    <Content Include="css\PIAS_stylesheet_3.css" />
+    <Content Include="css\PIC_stylesheet_1.css" />
+    <Content Include="css\PIC_stylesheet_2.css" />
+    <Content Include="css\PIC_stylesheet_3.css" />
+    <Content Include="css\PINN_stylesheet_1.css" />
+    <Content Include="css\PINN_stylesheet_2.css" />
+    <Content Include="css\PINN_stylesheet_3.css" />
+    <Content Include="css\PI_stylesheet_1.css" />
+    <Content Include="css\PI_stylesheet_2.css" />
+    <Content Include="css\PI_stylesheet_3.css" />
+    <Content Include="css\POL_stylesheet_1.css" />
+    <Content Include="css\POL_stylesheet_2.css" />
+    <Content Include="css\POL_stylesheet_3.css" />
+    <Content Include="css\PPI_stylesheet_1.css" />
+    <Content Include="css\PPI_stylesheet_2.css" />
+    <Content Include="css\PPI_stylesheet_3.css" />
+    <Content Include="css\PRS_stylesheet_1.css" />
+    <Content Include="css\PRS_stylesheet_2.css" />
+    <Content Include="css\PRS_stylesheet_3.css" />
+    <Content Include="css\PS_stylesheet_1.css" />
+    <Content Include="css\PS_stylesheet_2.css" />
+    <Content Include="css\PS_stylesheet_3.css" />
+    <Content Include="css\QUE_stylesheet_1.css" />
+    <Content Include="css\QUE_stylesheet_2.css" />
+    <Content Include="css\QUE_stylesheet_3.css" />
+    <Content Include="css\RAM_stylesheet_1.css" />
+    <Content Include="css\RAM_stylesheet_2.css" />
+    <Content Include="css\RAM_stylesheet_3.css" />
+    <Content Include="css\SAM_stylesheet_1.css" />
+    <Content Include="css\SAM_stylesheet_2.css" />
+    <Content Include="css\SAM_stylesheet_3.css" />
+    <Content Include="css\SC_skin-login.css" />
+    <Content Include="css\SC_stylesheet_1.css" />
+    <Content Include="css\SC_stylesheet_2.css" />
+    <Content Include="css\SC_stylesheet_3.css" />
+    <Content Include="css\SEL_stylesheet_1.css" />
+    <Content Include="css\SEL_stylesheet_2.css" />
+    <Content Include="css\SEL_stylesheet_3.css" />
+    <Content Include="css\SFG_stylesheet_1.css" />
+    <Content Include="css\SFG_stylesheet_2.css" />
+    <Content Include="css\SFG_stylesheet_3.css" />
+    <Content Include="css\SFMG_stylesheet_1.css" />
+    <Content Include="css\SFMG_stylesheet_2.css" />
+    <Content Include="css\SFMG_stylesheet_3.css" />
+    <Content Include="css\SFM_stylesheet_1.css" />
+    <Content Include="css\SFM_stylesheet_2.css" />
+    <Content Include="css\SFM_stylesheet_3.css" />
+    <Content Include="css\SI_stylesheet_1.css" />
+    <Content Include="css\SI_stylesheet_2.css" />
+    <Content Include="css\SI_stylesheet_3.css" />
+    <Content Include="css\SJI_stylesheet_1.css" />
+    <Content Include="css\SJI_stylesheet_2.css" />
+    <Content Include="css\SJI_stylesheet_3.css" />
+    <Content Include="css\SNS_stylesheet_1.css" />
+    <Content Include="css\SNS_stylesheet_2.css" />
+    <Content Include="css\SNS_stylesheet_3.css" />
+    <Content Include="css\SOL_stylesheet_1.css" />
+    <Content Include="css\SOL_stylesheet_2.css" />
+    <Content Include="css\SOL_stylesheet_3.css" />
+    <Content Include="css\SPL_stylesheet_1.css" />
+    <Content Include="css\SPL_stylesheet_2.css" />
+    <Content Include="css\SPL_stylesheet_3.css" />
+    <Content Include="css\SYM_stylesheet_1.css" />
+    <Content Include="css\SYM_stylesheet_2.css" />
+    <Content Include="css\SYM_stylesheet_3.css" />
+    <Content Include="css\TAN_stylesheet_1.css" />
+    <Content Include="css\TAN_stylesheet_2.css" />
+    <Content Include="css\TAN_stylesheet_3.css" />
+    <Content Include="css\TAO_stylesheet_1.css" />
+    <Content Include="css\TAO_stylesheet_2.css" />
+    <Content Include="css\TAO_stylesheet_3.css" />
+    <Content Include="css\TA_stylesheet_1.css" />
+    <Content Include="css\TA_stylesheet_2.css" />
+    <Content Include="css\TA_stylesheet_3.css" />
+    <Content Include="css\TC_stylesheet_1.css" />
+    <Content Include="css\TC_stylesheet_2.css" />
+    <Content Include="css\TC_stylesheet_3.css" />
+    <Content Include="css\TFL_stylesheet_1.css" />
+    <Content Include="css\TFL_stylesheet_2.css" />
+    <Content Include="css\TFL_stylesheet_3.css" />
+    <Content Include="css\THOR_stylesheet_1.css" />
+    <Content Include="css\THOR_stylesheet_2.css" />
+    <Content Include="css\THOR_stylesheet_3.css" />
+    <Content Include="css\TTG_stylesheet_1.css" />
+    <Content Include="css\TTG_stylesheet_2.css" />
+    <Content Include="css\TTG_stylesheet_3.css" />
+    <Content Include="css\TYC_stylesheet_1.css" />
+    <Content Include="css\TYC_stylesheet_2.css" />
+    <Content Include="css\TYC_stylesheet_3.css" />
+    <Content Include="css\UGJ_stylesheet_1.css" />
+    <Content Include="css\UGJ_stylesheet_2.css" />
+    <Content Include="css\UGJ_stylesheet_3.css" />
+    <Content Include="css\WMG_stylesheet_1.css" />
+    <Content Include="css\WMG_stylesheet_2.css" />
+    <Content Include="css\WMG_stylesheet_3.css" />
+    <Content Include="css\YUE_stylesheet_1.css" />
+    <Content Include="css\YUE_stylesheet_2.css" />
+    <Content Include="css\YUE_stylesheet_3.css" />
+    <Content Include="NAV.Master" />
+    <Content Include="newstylesheet.css" />
+    <Content Include="Portfolio\Switch.aspx" />
+    <Content Include="Portfolio\SwitchClient.aspx" />
+    <Content Include="stylesheet.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="css\DEM_stylesheet_1.css.bak" />
+    <None Include="css\DEM_stylesheet_2.css.bak" />
+    <None Include="css\NAV_stylesheet_1.css.bak" />
+    <None Include="css\NAV_stylesheet_2.css.bak" />
+    <None Include="css\YUE_stylesheet_1.css.bak" />
+    <Content Include="Admin\EmailSignedConfirmation_List.aspx" />
+    <Content Include="Admin\EmailTemplate_List.aspx" />
+    <Content Include="Admin\SwitchFeeMaintenance.aspx" />
+    <Content Include="Admin\SwitchFeeReport.aspx" />
+    <Content Include="Admin\SwitchFeeReportList.aspx" />
+    <Content Include="App_Browsers\SafariFix.browser" />
+    <Content Include="Images\add_btn.png" />
+    <Content Include="Images\Logos\NAV.png" />
+    <Content Include="Images\remove_btn.png" />
+    <Content Include="js\switchJS.js" />
+    <Content Include="NAV_stylesheet.css" />
+    <Content Include="Output\Templates\SWITCH_Portfolio.aspx" />
+    <Content Include="Output\Templates\SWITCH_Portfolio.txt" />
+    <Content Include="Output\Templates\SWITCH_Scheme.aspx" />
+    <Content Include="Output\Templates\SWITCH_Scheme.txt" />
+    <Content Include="Portfolio\SwitchHistory.aspx" />
+    <Content Include="Portfolio\SwitchList.aspx" />
+    <Content Include="Portfolio\SwitchListDetails.aspx" />
+    <Content Include="Portfolio\UserControl\ucCurrentPortfolio.ascx" />
+    <Content Include="Portfolio\UserControl\ucHeader.ascx" />
+    <Content Include="Portfolio\UserControl\ucSwitchDetails.ascx" />
+    <Content Include="Scheme\Scheme.aspx" />
+    <Content Include="Scheme\SchemeClient.aspx" />
+    <Content Include="Scheme\SchemeHistory.aspx" />
+    <Content Include="Scheme\UserControl\ucContributions.ascx" />
+    <Content Include="Scheme\UserControl\ucCurrentHoldings.ascx" />
+    <Content Include="Scheme\UserControl\ucHeader.ascx" />
+    <Content Include="Scheme\UserControl\ucProposalDisplay.ascx" />
+    <Content Include="Scheme\UserControl\ucSwitchDetails.ascx" />
+    <Content Include="Scheme\UserControl\ucSwitchDetailsClient.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Output\PDF\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50721</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

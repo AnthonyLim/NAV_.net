@@ -1,0 +1,35 @@
+C:\Users\Ruel Soriano\Documents\Visual Studio 2008\Projects\NAV\NAV\bin\NAV.dll
+C:\Users\Ruel Soriano\Documents\Visual Studio 2008\Projects\NAV\NAV\bin\NAV.pdb
+C:\Users\Ruel Soriano\Documents\Visual Studio 2008\Projects\NAV\NAV\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Ruel Soriano\Documents\Visual Studio 2008\Projects\NAV\NAV\obj\Debug\NAV.dll
+C:\Users\Ruel Soriano\Documents\Visual Studio 2008\Projects\NAV\NAV\obj\Debug\NAV.pdb
+C:\NAV\bin\NAV.dll
+C:\NAV\bin\NAV.pdb
+C:\NAV\bin\SmsNav.dll
+C:\NAV\bin\SmsNav.pdb
+C:\NAV\obj\Debug\ResolveAssemblyReference.cache
+C:\NAV\obj\Debug\NAV.dll
+C:\NAV\obj\Debug\NAV.pdb
+\\172.29.20.10\c$\NAV\bin\NAV.dll
+\\172.29.20.10\c$\NAV\bin\NAV.pdb
+\\172.29.20.10\c$\NAV\bin\AjaxControlToolkit.dll
+\\172.29.20.10\c$\NAV\bin\AjaxControlToolkit.pdb
+\\172.29.20.10\c$\NAV\bin\ar\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\cs\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\de\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\es\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\fr\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\he\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\hi\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\it\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\ja\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\ko\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\nl\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\pt\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\ru\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\tr-TR\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\zh-CHS\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\bin\zh-CHT\AjaxControlToolkit.resources.dll
+\\172.29.20.10\c$\NAV\obj\Debug\ResolveAssemblyReference.cache
+\\172.29.20.10\c$\NAV\obj\Debug\NAV.dll
+\\172.29.20.10\c$\NAV\obj\Debug\NAV.pdb

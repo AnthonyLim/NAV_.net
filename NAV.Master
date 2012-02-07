@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="NAV.master.cs" Inherits="NAV.NAV" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="Head1" runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        
+    </asp:ContentPlaceHolder>    
+    <%--<link rel="stylesheet" href="~/css/<%=Session["ifa"]%>_stylesheet_<%=Session["lang"]%>.css" type="text/css" />--%>
+    <link rel="stylesheet" href="NAV_stylesheet.css" type="text/css" />
+</head>
+<body>
+    <div id="header">
+        <div id="logo"><a href="/"><img id="Img1" runat="server" src="Images/Logos/NAV.png" alt="logo" style="border:none"/> </a></div>
+	    <div id="nav_main"></div>
+	    <div id="nav_sub"></div>
+	    <hr />
+    </div>
+    <form id="form1" runat="server">   
+    <table width="100%">
+        <tr>
+            <td width="15%">
+                &nbsp;
+            </td>
+            <td align="center" width="70%">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+            </td>
+            <td width="15%">
+                &nbsp;
+            </td>            
+        </tr>
+    </table>
+    <br />
+    <table width="100%">
+        <tr>
+            <td>
+                <asp:Button ID="btnBack_Classic" runat="server" Text="Back" onclick="btnBack_Classic_Click" UseSubmitBehavior="false" CausesValidation="false" />                
+            </td>
+        </tr>
+        <tr>        
+            <td style="height:1%">
+                <iframe src="https://<%= Request.ServerVariables["SERVER_NAME"] + ":" + Request.ServerVariables["SERVER_PORT"]%>/integration/RefreshPage.asp" frameborder="0" ></iframe>
+            </td>
+        </tr>
+    </table>               
+    </form>
+</body>
+</html>

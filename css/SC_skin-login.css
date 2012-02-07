@@ -1,0 +1,123 @@
+/* CSS Document */
+
+body
+{
+	background: #fff;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+/*-------- Default Style --------*/
+body,th,td,div,p,table,h1
+{
+	font-family: Arial, Helvetica, Sans-serif;
+}
+
+body,th,td,div,p,table
+{
+	font-size: 13px;
+}
+
+img
+{
+	/*behavior: url(/iepngfix.htc);*/
+	border: 0;
+}
+
+h1
+{
+	background: transparent url(/images/logo-simmons.png) top left no-repeat;
+	height: 223px;
+	margin: 0;
+	text-indent: -9999px;
+	width: 288px;
+}
+
+h2
+{
+	font-size: 18px;
+}
+
+ul,ol
+{
+	margin: 0 0 0 15px;
+}
+
+label
+{
+	display: block;
+	float: left;
+	height: 16px;
+	padding: 3px 8px 3px 0;
+	text-align: right;
+	width: 92px;
+}
+
+p
+{
+	line-height: 20px;
+	margin: 0 0 15px 0;
+}
+
+a,a:link,a:visited,a:active
+{
+	color: #152e79;
+	text-decoration:none;
+	font-weight:normal;
+}
+
+a:hover
+{
+	text-decoration:none!important;
+}
+
+/*-------Multipurpose stuff ----------------*/
+
+/* Clearfix hack */
+.clearfix:after {content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+
+/*-------- content styles --------*/
+html, body, form
+{
+    height: 100%;
+    width: 100%;
+}
+
+div.contentwrapper
+{
+	margin: 40px auto;
+	width: 340px;
+}
+
+div.contentwrapper div.blue-top
+{
+	background: #7dc2ec url(/images/bg-blue.png) repeat-x;
+	padding: 26px;
+	width: 288px;
+}
+
+div.contentwrapper div.blue-top form
+{
+	margin: 50px 0 0 0;
+}
+
+div.login-block-item
+{
+	margin: 8px 0;
+}
+
+div.login-block-buttons
+{
+	margin: 20px 0 0 0;
+}
