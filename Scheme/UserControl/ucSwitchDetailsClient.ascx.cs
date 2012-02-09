@@ -202,8 +202,12 @@ namespace NAV.Scheme.UserControl
                     clsHistory.clsHistoryScheme.insertMessage(intHistoryID, new clsSwitch_Client(intSwitchID).propDescription);
 
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "alertCancelledSwitch", "alert('This Switch has been approved!'); window.location='" + this.propBackPageURL + "';", true);
-
                 }
+                else if (strSecurityCodeMessage.Contains("Sorry, you have entered the security code incorrectly three times"))
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "alertMessage", string.Format("alert('{0}'); window.location='" + this.propBackPageURL + "'; ", strSecurityCodeMessage), true);
+                }
+
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "alertMessage", string.Format("alert('{0}');", strSecurityCodeMessage), true);
             }
 

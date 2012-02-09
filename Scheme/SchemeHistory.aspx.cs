@@ -79,6 +79,12 @@ namespace NAV.Scheme
                             this.divHistoryHolder.Controls.Add(ucRequest);
                             break;
                         case 9: //Cancelled
+                            ucProposalDisplay ucCancelled = (ucProposalDisplay)LoadControl("UserControl/ucProposalDisplay.ascx");
+                            ucCancelled.propUserLevel = ucProposalDisplay.enumUserLevel.Client;
+                            ucCancelled.propIsDetailsAsGivenParameter = true;
+                            ucCancelled.propStatus = clsSwitch.getSwitchStringStatus(History.propStatus) + " (" + History.propAction_Date + ")";
+                            ucCancelled.propDescription = clsHistory.clsHistoryScheme.getMessage(History.propHistoryID);
+                            this.divHistoryHolder.Controls.Add(ucCancelled);
                             break;
                         case 10: //Completed
                             ucProposalDisplay ucCompleted = (ucProposalDisplay)LoadControl("UserControl/ucProposalDisplay.ascx");

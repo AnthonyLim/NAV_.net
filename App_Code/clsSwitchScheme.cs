@@ -217,6 +217,49 @@ namespace NAV
 
         }
 
+        public static List<clsSwitchScheme> getSwitchList(int intIFA_ID, string strClientName, string strCompany, int intStatus, string strStartDate, string strEndDate)
+        {
+            List<clsSwitchScheme> SwitchList = new List<clsSwitchScheme>();
+
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCHScheme_HeaderGetAllByIFA]";
+
+            cmd.Parameters.Add("@param_IFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_ClientName", System.Data.SqlDbType.NVarChar).Value = strClientName;
+            cmd.Parameters.Add("@param_Company", System.Data.SqlDbType.NVarChar).Value = strCompany;
+            cmd.Parameters.Add("@param_Status", System.Data.SqlDbType.Int).Value = intStatus;
+            cmd.Parameters.Add("@param_StartDate", System.Data.SqlDbType.NVarChar).Value = strStartDate;
+            cmd.Parameters.Add("@param_EndDate", System.Data.SqlDbType.NVarChar).Value = strEndDate;
+            dr = cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                clsSwitchScheme Switch = new clsSwitchScheme();
+                Switch.propSwitchID = int.Parse(dr["SwitchID"].ToString());
+                Switch.propClient = new clsClient(dr["ClientID"].ToString());
+                Switch.propScheme = new clsScheme(Switch.propClient.propClientID, dr["SchemeID"].ToString());                
+                Switch.propStatus = short.Parse(dr["Status"].ToString());
+                Switch.propStatusString = clsSwitch.getSwitchStringStatus(Switch.propStatus);
+                Switch.propDate_Created = dr["Date_Created"] != System.DBNull.Value ? DateTime.Parse(dr["Date_Created"].ToString()) : DateTime.ParseExact("01/01/1800", "dd/MM/yyyy", null);
+                Switch.propCreated_By = dr["Created_By"].ToString();
+                Switch.propDescription = dr["Description"].ToString();                
+
+                SwitchList.Add(Switch);
+            }
+
+            con.Close();
+            cmd.Dispose();
+            con.Dispose();
+
+            return SwitchList;
+        }
+
         #endregion
 
 

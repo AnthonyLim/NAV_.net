@@ -36,8 +36,8 @@ namespace NAV.Portfolio
 
             if (!Page.IsPostBack)
             {
-                Session["SourcePage"] = "portfoliodetails.asp"; //local
-                //Session["SourcePage"] = "/report/portfoliodetails.asp"; //deploy
+                //Session["SourcePage"] = "portfoliodetails.asp"; //local
+                Session["SourcePage"] = "/report/portfoliodetails.asp"; //deploy
 
                 strClientID = Session[clsSystem_Session.strSession.clientID.ToString()].ToString();
                 strPortfolioID = Session[clsSystem_Session.strSession.tempportfolioid.ToString()].ToString();

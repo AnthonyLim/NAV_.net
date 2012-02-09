@@ -93,7 +93,7 @@
         function halt() {
             return false;
         }       
-    </script>
+    </script>  
 
 <table width="100%">
     <tr>
@@ -361,37 +361,6 @@
         </td>
     </tr>
 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div runat="server" id="divAmendButtonSet" visible="false">
     <center>
         <button id="btnSave" onclick="javascript:SwitchSave();" type="button" causesvalidation="true" runat="server">Save</button>&nbsp;        
@@ -510,16 +479,17 @@
 
 <AjaxControlToolkit:ModalPopupExtender ID="mpeFundSearch" runat="server" TargetControlID="Button2" PopupControlID="PopupFundSearch" BackgroundCssClass="modalBackground" DropShadow="true" BehaviorID="bhvrPopupFundSearch" />
 <asp:Panel runat="server" ID="PopupFundSearch" CssClass="modalBox" ScrollBars="Both" style="display:none;overflow:auto;" Height="700px" Width="800px" DefaultButton="btnPopupFund" >    
-    <div style="text-align:left;width:100%;margin-top:1px;">               
-           <asp:HiddenField runat="server" ID="hfIsContribution"/>
-        <table width="100%">
+    <div style="text-align:left;width:100%;margin-top:1px;">
+        <center>
+        <table width="90%">
             <tr>
                 <td>
-                    &nbsp;
+                    &nbsp;<asp:HiddenField runat="server" ID="hfIsContribution"/>
                 </td>
             </tr>                                    
             <tr>
                 <td>
+                    <asp:Label runat="server" ID="lblFundName" Text="Fund Name" Font-Bold="true"/>
                     <asp:ValidationSummary runat="server" ID="vsFundSearch" ShowSummary="false"  ShowMessageBox="true" ValidationGroup="vgFundSearch" EnableClientScript="true"/>
                     <asp:RequiredFieldValidator runat="server" ID="RfvFundSearch" ControlToValidate="txtPopupFund" SetFocusOnError="true" Display="None" ValidationGroup="vgFundSearch" ErrorMessage="Please input a search criteria" ></asp:RequiredFieldValidator>
                     <asp:TextBox runat="server" ID="txtPopupFund" AutoPostBack="true" OnTextChanged="txtPopupFund_TextChanged" CausesValidation="true" ValidationGroup="vgFundSearch"/>&nbsp;<asp:Button runat="server" ID="btnPopupFund" Text="Search" UseSubmitBehavior="false" OnClick="btnPopupFund_Click" CausesValidation="true" ValidationGroup="vgFundSearch"/>                    
@@ -533,7 +503,7 @@
             <tr>
                 <td>
                     <div id="Div1">
-                    <asp:GridView runat="server" ID="gvFunds" AutoGenerateColumns="false" Width="100%" BorderStyle="Solid" BorderWidth="1">
+                    <asp:GridView runat="server" ID="gvFunds" AutoGenerateColumns="false" Width="100%" BorderStyle="Solid" BorderWidth="1" CssClass="table1">
                         <Columns>
                             <asp:BoundField DataField="propFundID" Visible="false" />
                             <asp:TemplateField ItemStyle-HorizontalAlign="Right" >
@@ -574,7 +544,8 @@
                     <asp:Button runat="server" ID="btnCloseFundSearch" Text="  Close  " OnClick="btnCloseFundSearch_Click" />
                 </td>
             </tr>
-        </table>                        
+        </table>
+        </center>                        
     </div>
 </asp:Panel>
 

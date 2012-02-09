@@ -50,6 +50,15 @@ namespace NAV.Portfolio {
         protected global::System.Web.UI.WebControls.LinkButton lbtnHistory;
         
         /// <summary>
+        /// lbtnSignedConfirmation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnSignedConfirmation;
+        
+        /// <summary>
         /// lblValue_PortfolioName control.
         /// </summary>
         /// <remarks>
@@ -678,6 +687,15 @@ namespace NAV.Portfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PopupFundSearch;
+        
+        /// <summary>
+        /// lblFundName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFundName;
         
         /// <summary>
         /// vsFundSearch control.

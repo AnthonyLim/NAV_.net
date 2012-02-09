@@ -234,6 +234,20 @@
     <Compile Include="Scheme\SchemeHistory.aspx.designer.cs">
       <DependentUpon>SchemeHistory.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Scheme\SchemeList.aspx.cs">
+      <DependentUpon>SchemeList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\SchemeList.aspx.designer.cs">
+      <DependentUpon>SchemeList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Scheme\SchemeListDetails.aspx.cs">
+      <DependentUpon>SchemeListDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Scheme\SchemeListDetails.aspx.designer.cs">
+      <DependentUpon>SchemeListDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Scheme\UserControl\ucContributions.ascx.cs">
       <DependentUpon>ucContributions.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -752,6 +766,8 @@
     <Content Include="Scheme\Scheme.aspx" />
     <Content Include="Scheme\SchemeClient.aspx" />
     <Content Include="Scheme\SchemeHistory.aspx" />
+    <Content Include="Scheme\SchemeList.aspx" />
+    <Content Include="Scheme\SchemeListDetails.aspx" />
     <Content Include="Scheme\UserControl\ucContributions.ascx" />
     <Content Include="Scheme\UserControl\ucCurrentHoldings.ascx" />
     <Content Include="Scheme\UserControl\ucHeader.ascx" />

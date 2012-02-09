@@ -639,7 +639,7 @@
 <asp:Button ID="Button2" runat="server"  Text="" style="display:none;"/>
 <asp:ModalPopupExtender ID="mpeFundSearch" runat="server" TargetControlID="Button2" PopupControlID="PopupFundSearch" BackgroundCssClass="modalBackground" DropShadow="true" BehaviorID="bhvrPopupFundSearch" />
 <asp:Panel runat="server" ID="PopupFundSearch" CssClass="modalBox" ScrollBars="Both" style="display:none;overflow:auto;" Height="700px" Width="800px" DefaultButton="btnPopupFund" >    
-    <div style="text-align:left;width:100%;margin-top:1px;">               
+    <div style="text-align:left;width:90%;margin-top:1px;">               
         <table width="100%">
             <tr>
                 <td>
@@ -648,6 +648,7 @@
             </tr>                                    
             <tr>
                 <td>
+                    <asp:Label runat="server" ID="lblFundName" Text="Fund Name" Font-Bold="true"/>
                     <asp:ValidationSummary runat="server" ID="vsFundSearch" ShowSummary="false"  ShowMessageBox="true" ValidationGroup="vgFundSearch" EnableClientScript="true"/>
                     <asp:RequiredFieldValidator runat="server" ID="RfvFundSearch" ControlToValidate="txtPopupFund" SetFocusOnError="true" Display="None" ValidationGroup="vgFundSearch" ErrorMessage="Please input a search criteria" ></asp:RequiredFieldValidator>
                     <asp:TextBox runat="server" ID="txtPopupFund" AutoPostBack="true" OnTextChanged="txtPopupFund_TextChanged" CausesValidation="true" ValidationGroup="vgFundSearch"/>&nbsp;<asp:Button runat="server" ID="btnPopupFund" Text="Search" UseSubmitBehavior="false" OnClick="btnPopupFund_Click" CausesValidation="true" ValidationGroup="vgFundSearch"/>
@@ -661,7 +662,7 @@
             <tr>
                 <td>
                     <div id="Div1">
-                    <asp:GridView runat="server" ID="gvFunds" AutoGenerateColumns="false" Width="100%" BorderStyle="Solid" BorderWidth="1">
+                    <asp:GridView runat="server" ID="gvFunds" AutoGenerateColumns="false" Width="100%" BorderStyle="Solid" BorderWidth="1" CssClass="table1">
                         <Columns>
                             <asp:BoundField DataField="propFundID" Visible="false" />
                             <asp:TemplateField ItemStyle-HorizontalAlign="Right" >
