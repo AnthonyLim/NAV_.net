@@ -577,8 +577,9 @@ namespace NAV
                 return listSwitchDetails;
             }
 
-            public static void transferClientSwitchToIFA(List<clsSwitchScheme_Client.clsSwitchSchemeDetails_Client> listClientSwitchDetails, string strUserID, Boolean isContribution)
-            {
+            public static void transferClientSwitchToIFA(List<clsSwitchScheme_Client.clsSwitchSchemeDetails_Client> listClientSwitchDetails, string strUserID, Boolean isContribution, Boolean isDeletePreviousDetails)
+            {                
+
                 clsSwitchScheme SwitchIFA = new clsSwitchScheme(listClientSwitchDetails[0].propSwitchScheme.propSwitchID);
 
                 string strClientID = SwitchIFA.propClient.propClientID;
@@ -586,6 +587,8 @@ namespace NAV
                 
                 List<clsSwitchScheme.clsSwitchSchemeDetails> listSwitchDetailsIFA = new clsSwitchScheme(new clsScheme(strClientID, strSchemeID)).propSwitchDetails;
                 List<clsSwitchScheme.clsSwitchSchemeDetails> newListSwitchDetails = new List<clsSwitchScheme.clsSwitchSchemeDetails>();
+
+                if (isDeletePreviousDetails) deleteAllDetails(SwitchIFA.propSwitchID);
 
                 foreach (clsSwitchScheme_Client.clsSwitchSchemeDetails_Client SwitchDetails_Client in listClientSwitchDetails)
                 {

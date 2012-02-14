@@ -85,6 +85,9 @@ namespace NAV
         private bool boolSwitchIFAPermit;
         public bool propSwitchIFAPermit { get { return boolSwitchIFAPermit; } set { boolSwitchIFAPermit = value; } }
 
+        private Boolean isConfirmationRequired;
+        public Boolean propConfirmationRequired { get { return isConfirmationRequired; } set { isConfirmationRequired = value; } }
+
         #endregion
 
         #region "constructors"
@@ -134,7 +137,8 @@ namespace NAV
                 this.propCC_TotalValue = dr["CC_TotalValue"] != System.DBNull.Value ? float.Parse(dr["CC_TotalValue"].ToString()) : 0;
                 this.propWithdrawalTotal = dr["WithdrawalTotal"] != System.DBNull.Value ? float.Parse(dr["WithdrawalTotal"].ToString()) : 0;
                 this.propDetails = clsDetails.getListOriginalDetails(this);
-                this.propSwitchIFAPermit = dr["SwitchIFAPermit"] != System.DBNull.Value ? bool.Parse(dr["SwitchIFAPermit"].ToString()) : false; 
+                this.propSwitchIFAPermit = dr["SwitchIFAPermit"] != System.DBNull.Value ? bool.Parse(dr["SwitchIFAPermit"].ToString()) : false;
+                this.propConfirmationRequired = Boolean.Parse(dr["SwitchConfirmationRequired"].ToString());
             }
             con.Close();
             cmd.Dispose();

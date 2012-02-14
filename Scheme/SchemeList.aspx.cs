@@ -18,10 +18,7 @@ namespace NAV.Scheme
             if (!Page.IsPostBack)
             {
                 Session["SourcePage"] = "/report/ifa/searchindex.asp";
-                //int intIFA_ID = int.Parse(Session[clsSystem_Session.strSession.ifaid.ToString()].ToString());
 
-                //List<clsSwitch> oSwitchList = clsSwitch.getSwitchList(IFA_ID(), string.Empty, string.Empty, 0, string.Empty, string.Empty);
-                //populateSwitchList(oSwitchList);
                 populateStatusDropdown(ddlSearchStatus);
                 populateYearDropdown(ddlStartDateYear);
                 populateYearDropdown(ddlEndDateYear);
@@ -29,6 +26,8 @@ namespace NAV.Scheme
                 populateMonthDropdown(ddlEndDateMonth);
                 populateDayDropdown(ddlStartDateDay);
                 populateDayDropdown(ddlEndDateDay);
+
+                searchSwitchList();
             }
         }
 

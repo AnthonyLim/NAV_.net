@@ -176,7 +176,6 @@ namespace NAV.Scheme.UserControl
 
                     listSwitchDetailsPortfolio = SwitchScheme_Client.propSwitchDetailsPortfolio;
                     listSwitchDetailsContribution = SwitchScheme_Client.propSwitchDetailsContribution;
-
                 }
 
                 clsSecurityCode oSecurityCode = new clsSecurityCode(this.txtSecurityCode.Text.Trim());
@@ -190,8 +189,8 @@ namespace NAV.Scheme.UserControl
                 {
                     if (listSwitchDetailsPortfolio != null)
                     {
-                        clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(listSwitchDetailsPortfolio, strUserID, false);
-                        clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(listSwitchDetailsContribution, strUserID, true);
+                        clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(listSwitchDetailsPortfolio, strUserID, false, true);
+                        clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(listSwitchDetailsContribution, strUserID, true, false);
                     }
 
                     NotifyApprovedSwtich();
@@ -202,14 +201,15 @@ namespace NAV.Scheme.UserControl
                     clsHistory.clsHistoryScheme.insertMessage(intHistoryID, new clsSwitch_Client(intSwitchID).propDescription);
 
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "alertCancelledSwitch", "alert('This Switch has been approved!'); window.location='" + this.propBackPageURL + "';", true);
+
                 }
                 else if (strSecurityCodeMessage.Contains("Sorry, you have entered the security code incorrectly three times"))
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "alertMessage", string.Format("alert('{0}'); window.location='" + this.propBackPageURL + "'; ", strSecurityCodeMessage), true);
                 }
 
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "alertMessage", string.Format("alert('{0}');", strSecurityCodeMessage), true);
-            }
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "alertMessage", string.Format("alert('{0}'); ", strSecurityCodeMessage), true);
+            }            
 
             populate(listSwitchDetailsPortfolio, false);
             populate(listSwitchDetailsContribution, true);
@@ -821,8 +821,6 @@ namespace NAV.Scheme.UserControl
             return strSecurityCode;
         }
 
-
-
         #endregion
 
         #region "Client-side Handlers"
@@ -888,7 +886,7 @@ namespace NAV.Scheme.UserControl
                 string strRecepient = (new clsIFA(intIFAID)).propIFAEmail;
                 string strSender = "NAVSwitch@NoReply.com";
                 string strSubject = "Switch Instruction";
-                string strBody = clsEmail.generateEmailBody((Scheme.propCompany.propSignedConfirmation ? "NotifyApprovedEmailReqSign" : "NotifyApprovedEmail"), null, null, null, null, null, Scheme.propCompany.propCompany, switchScheme.propSwitchID.ToString());
+                string strBody = clsEmail.generateEmailBody((Scheme.propConfirmationRequired ? "NotifyApprovedEmailReqSign" : "NotifyApprovedEmail"), null, null, null, null, null, Scheme.propCompany.propCompany, switchScheme.propSwitchID.ToString());
                 clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, switchScheme.propSwitchID, switchScheme.propClient.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
 
                 clsClient client = new clsClient(Scheme.propClient.propClientID);
@@ -896,13 +894,13 @@ namespace NAV.Scheme.UserControl
                 if (!String.IsNullOrEmpty(client.propEmailWork))
                 {
                     strRecepient = client.propEmailWork;
-                    strBody = clsEmail.generateEmailBody((Scheme.propCompany.propSignedConfirmation ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Scheme.propCompany.propCompany, null);
+                    strBody = clsEmail.generateEmailBody((Scheme.propConfirmationRequired ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Scheme.propCompany.propCompany, null);
                     clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, switchScheme.propSwitchID, Scheme.propClient.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
                 }
                 if (!String.IsNullOrEmpty(client.propEmailPersonal))
                 {
                     strRecepient = client.propEmailPersonal;
-                    strBody = clsEmail.generateEmailBody((Scheme.propCompany.propSignedConfirmation ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Scheme.propCompany.propCompany, null);
+                    strBody = clsEmail.generateEmailBody((Scheme.propConfirmationRequired ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Scheme.propCompany.propCompany, null);
                     clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, switchScheme.propSwitchID, Scheme.propClient.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
                 }
             //}

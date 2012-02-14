@@ -14,7 +14,13 @@ namespace NAV
 
         private int intSwitchID;
         public int propSwitchID { get { return intSwitchID; } set { intSwitchID = value; }}
-        
+
+        private string strModelGroupID;
+        public string propModelGroupID { get { return strModelGroupID; } set { strModelGroupID = value; } }
+
+        private string strModelPortfolioID;
+        public string propModelPortfolioID { get { return strModelPortfolioID; } set { strModelPortfolioID = value; } }
+
         private string strPortfolioID;
         public string propPortfolioID { get { return strPortfolioID; } set { strPortfolioID = value; } }
 
@@ -86,6 +92,7 @@ namespace NAV
                     this.propSwitchID = int.Parse(dr["SwitchID"].ToString());
                     this.propCreated_By = dr["Created_By"].ToString();
                     this.propDescription = dr["Description"].ToString();
+                    this.propPortfolio = new clsPortfolio(propClientID, propPortfolioID);
                 }
             }
 
@@ -122,7 +129,7 @@ namespace NAV
                     this.propStatusString = getSwitchStringStatus(this.propStatus);
                     this.propSwitchID = int.Parse(dr["SwitchID"].ToString());
                     this.propSwitchDetails = getSwitchDetails(strUserID, Portfolio, this.propSwitchID);
-
+                    this.propPortfolio = new clsPortfolio(propClientID, propPortfolioID);
                     if (propStatus == (int)enumSwitchStatus.Declined_Client)
                     {
                         foreach (clsSwitchDetails Details in this.propSwitchDetails)
@@ -143,7 +150,8 @@ namespace NAV
                 this.propStatus = (short)enumSwitchStatus.Saved;
                 this.propStatusString = getSwitchStringStatus(this.propStatus);
                 this.propCreated_By = strUserID;
-                this.propSwitchDetails = clsSwitchDetails.replicatePortfolioDetails(Portfolio.propPortfolioDetails);                    
+                this.propSwitchDetails = clsSwitchDetails.replicatePortfolioDetails(Portfolio);
+                this.propPortfolio = new clsPortfolio(propClientID, propPortfolioID);
             }
 
             dr.Close();
@@ -188,7 +196,7 @@ namespace NAV
                 newClsSwitchDetails.propUpdated_By = dr1["Updated_By"].ToString();
                 newClsSwitchDetails.propIsDeletable = dr1["isDeletable"].ToString().Equals("1") ? true : false;
 
-                if (Portfolio.propPortfolioDetails[0].propClientCurrency != newClsSwitchDetails.propFund.propCurrency)
+                if (Portfolio.propClient.propCurrency != newClsSwitchDetails.propFund.propCurrency)
                 {
                     newClsSwitchDetails.propUnits = clsSwitchDetails.computeUnits(newClsSwitchDetails.propAllocation,
                                                                                   float.Parse(Math.Round(double.Parse(Portfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString()),
@@ -285,9 +293,54 @@ namespace NAV
             }
 
             return SwitchStringStatus;
+        }
+        public static int insertCustomizedSwitchHeaderWithModel(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        {
+
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            SqlCommand cmd = new SqlCommand();
+
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_Customized_HeaderInsert]";
+
+            cmd.Parameters.Add("@param_intIFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = strClientID;
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = strPortfolioID;
+            cmd.Parameters.Add("@param_intStatus", System.Data.SqlDbType.SmallInt).Value = SwitchStatus;
+            cmd.Parameters.Add("@param_strCreated_By", System.Data.SqlDbType.NVarChar).Value = strUserID;
+            cmd.Parameters.Add("@param_intSwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
+            cmd.Parameters.Add("@param_strDescription", System.Data.SqlDbType.NVarChar).Value = strDescription;
+            cmd.Parameters.Add("@param_strModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
+            cmd.Parameters.Add("@param_strModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
+
+            return int.Parse(cmd.ExecuteScalar().ToString());
 
         }
+        public static int insertSwitchHeaderWithModel(string strPortfolioID, string strClientID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        {
 
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            SqlCommand cmd = new SqlCommand();
+
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_HeaderInsert]";
+
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = strPortfolioID;
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = strClientID;
+            cmd.Parameters.Add("@param_intStatus", System.Data.SqlDbType.SmallInt).Value = SwitchStatus;
+            cmd.Parameters.Add("@param_strCreated_By", System.Data.SqlDbType.NVarChar).Value = strUserID;
+            cmd.Parameters.Add("@param_intSwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
+            cmd.Parameters.Add("@param_strDescription", System.Data.SqlDbType.NVarChar).Value = strDescription;
+            cmd.Parameters.Add("@param_strModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
+            cmd.Parameters.Add("@param_strModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
+
+            return int.Parse(cmd.ExecuteScalar().ToString());
+
+        }
         public static int insertSwitchHeader(string strPortfolioID, string strClientID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription)
         {
 
@@ -326,7 +379,21 @@ namespace NAV
             cmd.ExecuteNonQuery();
 
         }
+        public static void deleteSwitchDetails(int intSwitchID)
+        {
 
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            SqlCommand cmd = new SqlCommand();
+
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_DetailsDeleteAll]";
+
+            cmd.Parameters.Add("@param_SwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
+
+            cmd.ExecuteNonQuery();
+        }
         public static void updateSwitchHeader(int intSwitchID, enumSwitchStatus SwitchStatus)
         {
 
@@ -451,6 +518,200 @@ namespace NAV
             con.Dispose();
 
             return oSwitchList;
+        }
+        public void getSwitchInfoFromTemp(clsPortfolio Portfolio, string strUserID, int intIFA_ID)
+        {
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_HeaderTempGet]";
+
+            cmd.Parameters.Add("@param_intIFA_ID", System.Data.SqlDbType.NVarChar).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = this.strModelGroupID;
+            cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = this.strModelPortfolioID;
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = Portfolio.propPortfolioID;
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = Portfolio.propClientID;
+
+            dr = cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    this.propClientID = dr["ClientID"].ToString();
+                    this.propDate_Created = DateTime.Parse(dr["Date_Created"].ToString());
+                    this.propPortfolioID = dr["PortfolioID"].ToString();
+                    this.propStatus = short.Parse(dr["Status"].ToString());
+                    this.propStatusString = getSwitchStringStatus(this.propStatus);
+                    this.propSwitchID = int.Parse(dr["SwitchID"].ToString());
+                    if (propStatus == (int)enumSwitchStatus.Declined_Client)
+                    {
+                        this.propSwitchDetails = clsSwitchDetails.replicatePortfolioDetails(Portfolio);
+                    }
+                    else
+                    {
+                        this.propSwitchDetails = getSwitchDetailsFromTemp(Portfolio, strUserID, strPortfolioID);
+                    }
+                    this.propCreated_By = dr["Created_By"].ToString();
+                    this.propDescription = dr["Description"].ToString();
+                }
+            }
+            else
+            {
+                this.propSwitchID = 0;
+                this.propPortfolioID = Portfolio.propPortfolioID;
+                this.propClientID = Portfolio.propClientID;
+                this.propStatus = (short)enumSwitchStatus.Saved;
+                this.propStatusString = getSwitchStringStatus(this.propStatus);
+                this.propCreated_By = strUserID;
+                this.propSwitchDetails = clsSwitchDetails.replicatePortfolioDetails(Portfolio);
+            }
+
+            dr.Close();
+            con.Close();
+            cmd.Dispose();
+            //con.Dispose();
+        }
+        //SwitchHeaderTemp
+        public List<clsSwitchDetails> getSwitchDetailsFromTemp(clsPortfolio _clsPortfolio, string strClientID, string strPortfolioID)
+        {
+            SqlConnection con1 = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            List<clsSwitchDetails> listSwitchDetails = new List<clsSwitchDetails>();
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr1;
+
+            con1.Open();
+            cmd.Connection = con1;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_DetailsTempGet]";
+
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = strClientID;
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = strPortfolioID;
+
+            dr1 = cmd.ExecuteReader();
+
+            float fTotalAllocation = 0;
+
+            while (dr1.Read())
+            {
+
+                clsSwitchDetails newClsSwitchDetails = new clsSwitchDetails();
+
+                newClsSwitchDetails.propAllocation = float.Parse(Math.Round(double.Parse(dr1["Allocation"].ToString()), 2).ToString());
+                newClsSwitchDetails.propCreated_By = dr1["Created_By"].ToString();
+                newClsSwitchDetails.propDate_Created = DateTime.Parse(dr1["Date_Created"].ToString());
+                newClsSwitchDetails.propDate_LastUpdate = DateTime.Parse(dr1["Date_LastUpdate"].ToString());
+                newClsSwitchDetails.propFund = new clsFund(int.Parse(dr1["FundID"].ToString()));
+                newClsSwitchDetails.propFundID = int.Parse(dr1["FundID"].ToString());
+                newClsSwitchDetails.propSwitchDetailsID = int.Parse(dr1["SwitchDetailsID"].ToString());
+                newClsSwitchDetails.propSwitchID = int.Parse(dr1["SwitchID"].ToString());
+                newClsSwitchDetails.propUpdated_By = dr1["Updated_By"].ToString();
+                newClsSwitchDetails.propIsDeletable = dr1["isDeletable"].ToString().Equals("1") ? true : false;
+
+                //if (Portfolio.propPortfolioDetails[0].propClientCurrency != newClsSwitchDetails.propFund.propCurrency)
+                if (_clsPortfolio.propClient.propCurrency != newClsSwitchDetails.propFund.propCurrency)
+                {
+                    newClsSwitchDetails.propUnits = clsSwitchDetails.computeUnits(newClsSwitchDetails.propAllocation,
+                                                                                  float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString()),
+                                                                                  clsCurrency.convertToClientCurrency(_clsPortfolio.propClientID, newClsSwitchDetails.propFund.propPrice, newClsSwitchDetails.propFund.propCurrency));
+                }
+                else
+                {
+                    newClsSwitchDetails.propUnits = clsSwitchDetails.computeUnits(newClsSwitchDetails.propAllocation,
+                                                                                  float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString()),
+                                                                                  newClsSwitchDetails.propFund.propPrice);
+                }
+
+
+                newClsSwitchDetails.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(_clsPortfolio.propClientID, newClsSwitchDetails.propFund.propCurrency);
+                //newClsSwitchDetails.propValue = clsSwitchDetails.computeValue(newClsSwitchDetails.propAllocation, Portfolio.propPortfolioDetails[0].propTotalCurrentValueClient);
+                newClsSwitchDetails.propTotalValue = float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString());
+                newClsSwitchDetails.propValue = clsSwitchDetails.computeValue(newClsSwitchDetails.propAllocation, newClsSwitchDetails.propTotalValue);
+
+
+                fTotalAllocation = fTotalAllocation + newClsSwitchDetails.propAllocation;
+                newClsSwitchDetails.propTotalAllocation = fTotalAllocation;
+
+                listSwitchDetails.Add(newClsSwitchDetails);
+
+            }
+            con1.Close();
+            cmd.Dispose();
+            con1.Dispose();
+
+            return listSwitchDetails;
+        }
+        public List<clsSwitchDetails> replicateModelPortfolioDetails(clsPortfolio _clsPortfolio, string strClientID, string strPortfolioID)
+        {
+            SqlConnection con1 = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            List<clsSwitchDetails> listSwitchDetails = new List<clsSwitchDetails>();
+
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr1;
+
+            con1.Open();
+            cmd.Connection = con1;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_PortfolioDetailsGet]";
+
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = strClientID;
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = strPortfolioID;
+
+            dr1 = cmd.ExecuteReader();
+
+            float fTotalAllocation = 0;
+
+            while (dr1.Read())
+            {
+
+                clsSwitchDetails newClsSwitchDetails = new clsSwitchDetails();
+
+                newClsSwitchDetails.propAllocation = float.Parse(Math.Round(double.Parse(dr1["Allocation"].ToString()), 2).ToString());
+                newClsSwitchDetails.propCreated_By = dr1["Created_By"].ToString();
+                newClsSwitchDetails.propDate_Created = DateTime.Parse(dr1["Date_Created"].ToString());
+                newClsSwitchDetails.propDate_LastUpdate = DateTime.Parse(dr1["Date_LastUpdate"].ToString());
+                newClsSwitchDetails.propFund = new clsFund(int.Parse(dr1["FundID"].ToString()));
+                newClsSwitchDetails.propFundID = int.Parse(dr1["FundID"].ToString());
+                newClsSwitchDetails.propSwitchDetailsID = int.Parse(dr1["SwitchDetailsID"].ToString());
+                newClsSwitchDetails.propSwitchID = int.Parse(dr1["SwitchID"].ToString());
+                newClsSwitchDetails.propUpdated_By = dr1["Updated_By"].ToString();
+                newClsSwitchDetails.propIsDeletable = dr1["isDeletable"].ToString().Equals("1") ? true : false;
+
+                //if (Portfolio.propPortfolioDetails[0].propClientCurrency != newClsSwitchDetails.propFund.propCurrency)
+                if (_clsPortfolio.propClient.propCurrency != newClsSwitchDetails.propFund.propCurrency)
+                {
+                    newClsSwitchDetails.propUnits = clsSwitchDetails.computeUnits(newClsSwitchDetails.propAllocation,
+                                                                                  float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString()),
+                                                                                  clsCurrency.convertToClientCurrency(_clsPortfolio.propClientID, newClsSwitchDetails.propFund.propPrice, newClsSwitchDetails.propFund.propCurrency));
+                }
+                else
+                {
+                    newClsSwitchDetails.propUnits = clsSwitchDetails.computeUnits(newClsSwitchDetails.propAllocation,
+                                                                                  float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString()),
+                                                                                  newClsSwitchDetails.propFund.propPrice);
+                }
+
+
+                newClsSwitchDetails.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(_clsPortfolio.propClientID, newClsSwitchDetails.propFund.propCurrency);
+                //newClsSwitchDetails.propValue = clsSwitchDetails.computeValue(newClsSwitchDetails.propAllocation, Portfolio.propPortfolioDetails[0].propTotalCurrentValueClient);
+                newClsSwitchDetails.propTotalValue = float.Parse(Math.Round(double.Parse(_clsPortfolio.propPortfolioDetails[0].propTotalCurrentValueClient.ToString()), 0).ToString());
+                newClsSwitchDetails.propValue = clsSwitchDetails.computeValue(newClsSwitchDetails.propAllocation, newClsSwitchDetails.propTotalValue);
+
+
+                fTotalAllocation = fTotalAllocation + newClsSwitchDetails.propAllocation;
+                newClsSwitchDetails.propTotalAllocation = fTotalAllocation;
+
+                listSwitchDetails.Add(newClsSwitchDetails);
+
+            }
+            con1.Close();
+            cmd.Dispose();
+            con1.Dispose();
+
+            return listSwitchDetails;
         }
     }
 }

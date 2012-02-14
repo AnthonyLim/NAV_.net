@@ -57,24 +57,13 @@ namespace NAV
             this._Portfolio = Portfolio;
         }
 
-        //protected static string PortfolioOutput_GetHTML()
-        //{
-        //    return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Portfolio.aspx");
-        //}
-        //protected static string SchemeOutput_GetHTML()
-        //{
-        //    return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Scheme.aspx");
-        //}
-
         protected static string PortfolioOutput_GetHTML()
         {
-            return File.ReadAllText(HttpContext.Current.Server.MapPath("~/Output/Templates/SWITCH_Portfolio.txt"));
-            //return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Portfolio.aspx");
+            return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Portfolio.aspx");
         }
         protected static string SchemeOutput_GetHTML()
         {
-            return File.ReadAllText(HttpContext.Current.Server.MapPath("~/Output/Templates/SWITCH_Scheme.txt"));
-            //return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Scheme.aspx");
+            return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Scheme.aspx");
         }
 
         public static string generateOutputFile(enumOutputType outputType,string strTemplate, StyleSheet Style,int SwitchID,enumSwitchType SwitchType)
@@ -150,33 +139,34 @@ namespace NAV
             return Style;
         }
 
-        public static string generateApprovedSwitch(clsPortfolio Portfolio, int IFAID)
+        public static string generateApprovedSwitch(clsSwitch Switch, int IFAID)
         {
             string resultingRow = string.Empty;
-            foreach (clsPortfolioDetails SwitchDetails in Portfolio.propPortfolioDetails)
+            foreach (clsSwitchDetails SwitchDetails in Switch.propSwitchDetails)
             {
+                clsFund Fund = new clsFund(SwitchDetails.propFundID);
                 string myRow = ROWDETAILS.Replace("{^row$}", clsOutput.CELLDETAILS);
-                myRow = myRow.Replace("{^FundCompany$}", (new clsFund(SwitchDetails.propFundNameID)).propCompanyID.ToString());
-                myRow = myRow.Replace("{^FundName$}", SwitchDetails.propNameOfFund);
-                myRow = myRow.Replace("{^InsurComp$}", "None"); 
-                myRow = myRow.Replace("{^SEDOL$}", (new clsFund(SwitchDetails.propFundNameID)).propSEDOL);
-                myRow = myRow.Replace("{^%Portfolio$}", SwitchDetails.propAllocationPercent.ToString("N2") + "%");
+                myRow = myRow.Replace("{^FundCompany$}", new clsCompany(Fund.propFundManager).propCompany);
+                myRow = myRow.Replace("{^FundName$}", Fund.propFundName);
+                myRow = myRow.Replace("{^InsurComp$}", Fund.propCompanyID.ToString());
+                myRow = myRow.Replace("{^SEDOL$}", Fund.propSEDOL);
+                myRow = myRow.Replace("{^%Portfolio$}", SwitchDetails.propAllocation + "%");
                 resultingRow += myRow;
             }
-            clsClient client = new clsClient(Portfolio.propClientID);
+            clsClient client = new clsClient(Switch.propClientID);
             string html = clsOutput.PortfolioOutput_GetHTML();
-            clsIFA IFA = new clsIFA(IFAID);
+            clsIFA IFA = new clsIFA(IFAID);            
+
             html = html.Replace("{^IFAName$}", IFA.propIFA_Name ?? string.Empty);
             html = html.Replace("{^ClientName$}",(client.propForename ?? String.Empty) + " " + (client.propSurname ?? string.Empty)  );
-            html = html.Replace("{^Company$}", Portfolio.propCompany);
-            html = html.Replace("{^PType$}", Portfolio.propPortfolioType);
-            html = html.Replace("{^DateTransmit$}", "?"); // DateTime.Now.ToString("MM-dd-yyyy")); //-->Temporary
-            html = html.Replace("{^Curr$}", Portfolio.propPortfolioCurrency);
-            html = html.Replace("{^AccNum$}", Portfolio.propAccountNumber);
+            html = html.Replace("{^Company$}", Switch.propPortfolio.propCompany);
+            html = html.Replace("{^PType$}", Switch.propPortfolio.propPortfolioType);
+            html = html.Replace("{^DateTransmit$}", "???"); // DateTime.Now.ToString("MM-dd-yyyy")); //-->Temporary
+            html = html.Replace("{^Curr$}", Switch.propPortfolio.propPortfolioCurrency);
+            html = html.Replace("{^AccNum$}", Switch.propPortfolio.propAccountNumber);
             html = html.Replace("{^DateApprv$}", DateTime.Now.ToString("MM-dd-yyyy") ?? String.Empty);// Portfolio.propSwitch.propDate_Created.ToString("MM-dd-yyyy") ?? string.Empty);
-            clsCompany company = new clsCompany(Portfolio.propCompanyID);
-            //throw new Exception(company.propSignedConfirmation.ToString());
-            if (company.propSignedConfirmation)
+
+            if (Switch.propPortfolio.propConfirmationRequired)
             {
                 html = html.Replace("{^Sign$}", clsOutput.SIGNATURE)
                     .Replace("{^SignatureClientName$}", client.propForename + " " + client.propSurname );
@@ -228,7 +218,7 @@ namespace NAV
             html = html.Replace("{^Curr$}", Scheme.propSchemeCurrency);
             html = html.Replace("{^AccNum$}", Scheme.propAccountNumber);
             html = html.Replace("{^DateApprv$}", DateTime.Now.ToString("MM-dd-yyyy") ?? String.Empty);
-            if (Scheme.propCompany.propSignedConfirmation)
+            if (Scheme.propConfirmationRequired)
             {
                 html = html.Replace("{^Sign$}", clsOutput.SIGNATURE);
                 html = html.Replace("{^SignatureClientName$}", client.propForename + " " + client.propSurname);

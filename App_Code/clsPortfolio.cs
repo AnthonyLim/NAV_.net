@@ -12,6 +12,12 @@ namespace NAV
 
         #region properties
 
+        private String strModelID;
+        public String propModelID { get { return strModelID; } set { strModelID = value; } }
+
+        private String strModelPortfolioID;
+        public String propModelPortfolioID { get { return strModelPortfolioID; } set { strModelPortfolioID = value; } }
+
         private String strAccountNumber;
         public String propAccountNumber { get { return strAccountNumber; } set { strAccountNumber = value; } }
 
@@ -60,20 +66,33 @@ namespace NAV
         private Boolean boolClientGenerated;
         public Boolean propClientGenerated { get { return boolClientGenerated; } set { boolClientGenerated = value; } }
 
+        private float fTotalValue;
+        public float propTotalValue { get { return fTotalValue; } set { fTotalValue = value; } }
+
         private List<clsPortfolioDetails> listPortfolioDetails;
         public List<clsPortfolioDetails> propPortfolioDetails { get { return listPortfolioDetails; } }
 
         private clsSwitch Switch;
         public clsSwitch propSwitch { get { return Switch; } set { Switch = value; } }
 
+        private clsSwitchTemp SwitchTemp;
+        public clsSwitchTemp propSwitchTemp { get { return SwitchTemp; } set { SwitchTemp = value; } }
+
+        private clsClient Client;
+        public clsClient propClient { get { return Client; } set { Client = value; } }
+
         private clsSwitch_Client SwitchClient;
         public clsSwitch_Client propSwitchClient { get { return SwitchClient; } set { SwitchClient = value; } }
+
+        private Boolean isConfirmationRequired;
+        public Boolean propConfirmationRequired { get { return isConfirmationRequired; } set { isConfirmationRequired = value; } }
 
         #endregion
 
         public clsPortfolio(string strClientID , string strPortfolioID, string strUserId) {
             getPortfolioHeader(strClientID, strPortfolioID);
             this.listPortfolioDetails = getPortfolioDetails(strClientID, strPortfolioID);
+            this.Client = new clsClient(strClientID);
             this.Switch = new clsSwitch(this, strUserId);
             this.SwitchClient = new clsSwitch_Client(propSwitch.propSwitchID);
         }
@@ -82,7 +101,10 @@ namespace NAV
             getPortfolioHeader(strClientID, strPortfolioID);
             this.listPortfolioDetails = getPortfolioDetails(strClientID, strPortfolioID);
         }
-        private void getPortfolioHeader(string strClientID, string strPortfolioID) {
+        public clsPortfolio()
+        {
+        }
+        public void getPortfolioHeader(string strClientID, string strPortfolioID) {
 
             SqlCommand cmd = new SqlCommand();
             SqlDataReader dr;
@@ -114,6 +136,7 @@ namespace NAV
                 this.dblMFPercent = dr["MFPercent"] == null ? Double.Parse(dr["MFPercent"].ToString()) : 0.0;
                 this.boolExcludeFromReports = Boolean.Parse(dr["ExcludeFromReports"].ToString());
                 this.boolClientGenerated = Boolean.Parse(dr["ClientGenerated"].ToString());
+                this.propConfirmationRequired = Boolean.Parse(dr["SwitchConfirmationRequired"].ToString());
 
             }
 
@@ -124,7 +147,7 @@ namespace NAV
 
         }
 
-        private List<clsPortfolioDetails> getPortfolioDetails(string strClientID, string strPortfolioID)
+        public List<clsPortfolioDetails> getPortfolioDetails(string strClientID, string strPortfolioID)
         {
             List<clsPortfolioDetails> listPortfolioDetails = new List<clsPortfolioDetails>();
 
@@ -201,6 +224,41 @@ namespace NAV
 
             return listPortfolioDetails;
         }
+        public static List<clsPortfolio> getPortfolioList(int intIFA_ID, string strModelID, string strModelPortfolioID, bool hasDiscretionary)
+        {
+            List<clsPortfolio> clsPortfolioList = new List<clsPortfolio>();
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            SqlCommand cmd = new SqlCommand();
+            SqlDataReader dr;
+            con.Open();
+            cmd.Connection = con;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_ModelPortfolioClientGet]";
 
+            cmd.Parameters.Add("@param_IFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.NVarChar).Value = strModelID;
+            cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
+            cmd.Parameters.Add("@param_HasDiscretionary", System.Data.SqlDbType.Bit).Value = hasDiscretionary;
+
+            dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                clsPortfolio _clsPortfolio = new clsPortfolio();
+                _clsPortfolio.propModelID = dr["ModelGroupID"].ToString();
+                _clsPortfolio.propModelPortfolioID = dr["ModelPortfolioID"].ToString();
+                _clsPortfolio.propClientID = dr["ClientID"].ToString();
+                _clsPortfolio.propClient = new clsClient(_clsPortfolio.propClientID);
+                _clsPortfolio.propPortfolioID = dr["ClientPortfolioID"].ToString();
+                _clsPortfolio.propCompany = dr["ClientPortfolioCompany"].ToString();
+                _clsPortfolio.propAccountNumber = dr["ClientPortfolioAccountNumber"].ToString();
+                _clsPortfolio.propMFPercent = int.Parse(dr["Discretionary"].ToString());
+                _clsPortfolio.propSwitch = new clsSwitch();
+                _clsPortfolio.propSwitch.propSwitchID = int.Parse(dr["SwitchID"].ToString());
+                _clsPortfolio.propSwitchTemp = new clsSwitchTemp();
+                _clsPortfolio.propSwitchTemp.propSwitchID = int.Parse(dr["SwitchTemp"].ToString());
+                clsPortfolioList.Add(_clsPortfolio);
+            }
+            return clsPortfolioList;
+        }
     }
 }    

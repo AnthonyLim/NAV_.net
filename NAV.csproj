@@ -66,13 +66,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\EmailSignedConfirmation_List.aspx.cs">
-      <DependentUpon>EmailSignedConfirmation_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EmailSignedConfirmation_List.aspx.designer.cs">
-      <DependentUpon>EmailSignedConfirmation_List.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\EmailTemplate_List.aspx.cs">
       <DependentUpon>EmailTemplate_List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -128,6 +121,10 @@
     <Compile Include="App_Code\clsSwitchFee.cs" />
     <Compile Include="App_Code\clsSwitchScheme_Client.cs" />
     <Compile Include="App_Code\clsOutput.cs" />
+    <Compile Include="App_Code\clsModelGroup.cs" />
+    <Compile Include="App_Code\clsModelPortfolio.cs" />
+    <Compile Include="App_Code\clsModelPortfolioDetails.cs" />
+    <Compile Include="App_Code\clsSwitchTemp.cs" />
     <Compile Include="NAV.Master.cs">
       <DependentUpon>NAV.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -289,6 +286,27 @@
     </Compile>
     <Compile Include="Scheme\UserControl\ucSwitchDetailsClient.ascx.designer.cs">
       <DependentUpon>ucSwitchDetailsClient.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulk.aspx.cs">
+      <DependentUpon>SwitchBulk.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulk.aspx.designer.cs">
+      <DependentUpon>SwitchBulk.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulkClientList.aspx.cs">
+      <DependentUpon>SwitchBulkClientList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulkClientList.aspx.designer.cs">
+      <DependentUpon>SwitchBulkClientList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulkCustomized.aspx.cs">
+      <DependentUpon>SwitchBulkCustomized.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Portfolio\SwitchBulkCustomized.aspx.designer.cs">
+      <DependentUpon>SwitchBulkCustomized.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -742,7 +760,6 @@
     <None Include="css\NAV_stylesheet_1.css.bak" />
     <None Include="css\NAV_stylesheet_2.css.bak" />
     <None Include="css\YUE_stylesheet_1.css.bak" />
-    <Content Include="Admin\EmailSignedConfirmation_List.aspx" />
     <Content Include="Admin\EmailTemplate_List.aspx" />
     <Content Include="Admin\SwitchFeeMaintenance.aspx" />
     <Content Include="Admin\SwitchFeeReport.aspx" />
@@ -774,6 +791,9 @@
     <Content Include="Scheme\UserControl\ucProposalDisplay.ascx" />
     <Content Include="Scheme\UserControl\ucSwitchDetails.ascx" />
     <Content Include="Scheme\UserControl\ucSwitchDetailsClient.ascx" />
+    <Content Include="Portfolio\SwitchBulk.aspx" />
+    <Content Include="Portfolio\SwitchBulkClientList.aspx" />
+    <Content Include="Portfolio\SwitchBulkCustomized.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

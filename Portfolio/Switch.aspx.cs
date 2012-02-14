@@ -603,7 +603,7 @@ namespace NAV.Portfolio
                         saveSwitch(clsSwitch.enumSwitchStatus.Approved, null, txtDescription.Text.Trim());
                         clsSwitch oSwitch = new clsSwitch(Portfolio(), UserID());
                         int intHistoryID = clsHistory.insertHeader(PortfolioID(), intSwitchID, (Int16)clsSwitch.enumSwitchStatus.Approved);
-                        NotifyApprovedSwtich(Portfolio());
+                        NotifyApprovedSwtich(oSwitch);
                         clsHistory.insertDetailsIFA(intHistoryID, oSwitch.propSwitchDetails);
                         clsHistory.insertMessage(intHistoryID, txtDescription.Text.Trim());
                     }
@@ -623,7 +623,7 @@ namespace NAV.Portfolio
                         saveSwitch(clsSwitch.enumSwitchStatus.Approved, intSwitchID, txtDescription.Text.Trim());
                         clsSwitch oSwitch = new clsSwitch(Portfolio(), UserID());
                         int intHistoryID = clsHistory.insertHeader(PortfolioID(), intSwitchID, (Int16)clsSwitch.enumSwitchStatus.Approved);
-                        NotifyApprovedSwtich(Portfolio());
+                        NotifyApprovedSwtich(oSwitch);
                         clsHistory.insertDetailsIFA(intHistoryID, oSwitch.propSwitchDetails);
                         clsHistory.insertMessage(intHistoryID, txtDescription.Text);
                     }
@@ -819,36 +819,36 @@ namespace NAV.Portfolio
 
         #endregion
 
-        protected void NotifyApprovedSwtich(clsPortfolio Portfolio)
+        protected void NotifyApprovedSwtich(clsSwitch Switch)
         {
             try
             {
                 int intIFAID = int.Parse(Session["ifaid"].ToString());
                 clsIFA IFA = new clsIFA(intIFAID);
 
-                string htmlTemplate = clsOutput.generateApprovedSwitch(Portfolio, IFA.propIFA_ID);
+                string htmlTemplate = clsOutput.generateApprovedSwitch(Switch, IFA.propIFA_ID);
                 StyleSheet style = clsOutput.getStyleSheet_ApprovedSwitch();
-                string strFilename = clsOutput.generateOutputFile(clsOutput.enumOutputType.PDF, htmlTemplate, style, Portfolio.propSwitch.propSwitchID, clsOutput.enumSwitchType.Portfolio);
+                string strFilename = clsOutput.generateOutputFile(clsOutput.enumOutputType.PDF, htmlTemplate, style, Switch.propSwitchID, clsOutput.enumSwitchType.Portfolio);
 
                 string strRecepient = IFA.propIFAEmail;
                 string strSender = "NAVSwitch@NoReply.com";
                 string strSubject = "Switch Instruction";
-                string strBody = clsEmail.generateEmailBody(((new clsCompany(Portfolio.propCompanyID)).propSignedConfirmation ? "NotifyApprovedEmailReqSign" : "NotifyApprovedEmail"), null, null, null, null, null, Portfolio.propCompany, Portfolio.propSwitch.propSwitchID.ToString());
-                clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Portfolio.propSwitch.propSwitchID, Portfolio.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
+                string strBody = clsEmail.generateEmailBody((Switch.propPortfolio.propConfirmationRequired ? "NotifyApprovedEmailReqSign" : "NotifyApprovedEmail"), null, null, null, null, null, Switch.propPortfolio.propCompany, Switch.propSwitchID.ToString());
+                clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Switch.propSwitchID, Switch.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
 
-                clsClient client = new clsClient(Portfolio.propClientID);
+                clsClient client = new clsClient(Switch.propClientID);
                 string ClientName = client.propForename + " " + client.propSurname;
                 if (!String.IsNullOrEmpty(client.propEmailWork))
                 {
                     strRecepient = client.propEmailWork;
-                    strBody = clsEmail.generateEmailBody(((new clsCompany(Portfolio.propCompanyID)).propSignedConfirmation ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Portfolio.propCompany, null);
-                    clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Portfolio.propSwitch.propSwitchID, Portfolio.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
+                    strBody = clsEmail.generateEmailBody((Switch.propPortfolio.propConfirmationRequired ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Switch.propPortfolio.propCompany, null);
+                    clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Switch.propSwitchID, Switch.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
                 }
                 if (!String.IsNullOrEmpty(client.propEmailPersonal))
                 {
                     strRecepient = client.propEmailPersonal;
-                    strBody = clsEmail.generateEmailBody(((new clsCompany(Portfolio.propCompanyID)).propSignedConfirmation ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Portfolio.propCompany, null);
-                    clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Portfolio.propSwitch.propSwitchID, Portfolio.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
+                    strBody = clsEmail.generateEmailBody((Switch.propPortfolio.propConfirmationRequired ? "NotifyClientApprovedEmailReqSign" : "NotifyClientApprovedEmail"), null, null, ClientName, null, null, Switch.propPortfolio.propCompany, null);
+                    clsEmail.SendWithAttachment(strRecepient, strSender, strSubject, strBody, Switch.propSwitchID, Switch.propClientID, clsEmail.enumEmailPurpose.ApproveSwitchNotification, strFilename);
                 }
 
                 //:SwitchType_IFA Name_Client Name_yyyy-mm-dd.pdf

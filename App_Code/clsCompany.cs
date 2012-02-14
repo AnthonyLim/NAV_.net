@@ -48,9 +48,6 @@ namespace NAV
         private int intFeedListID;
         public int propFeedListID { get { return intFeedListID; } set { intFeedListID = value; } }
 
-        private Boolean hasSignedConfirmation;
-        public Boolean propSignedConfirmation {get { return hasSignedConfirmation; } set { hasSignedConfirmation = value; }}
-
         public bool setConfirmationStatus
         {
             set
@@ -63,8 +60,7 @@ namespace NAV
                 cmd.CommandText = "SWITCH_SignedConfirmationSet";
                 cmd.Parameters.Add("@CompanyID", System.Data.SqlDbType.Int).Value = this.propCompanyID;
                 cmd.Parameters.Add("@status", System.Data.SqlDbType.Bit).Value = value;
-                cmd.ExecuteNonQuery();
-                this.hasSignedConfirmation = value;
+                cmd.ExecuteNonQuery();                
             }
         }
 
@@ -104,36 +100,11 @@ namespace NAV
                 this.propCompanyWebSite = dr["CompanyWebSite"].ToString();
                 this.propCompanyType = dr["CompanyType"].ToString();
                 this.propFeedListID = dr["FeedListID"] != System.DBNull.Value ? int.Parse(dr["FeedListID"].ToString()) : 0;
-                this.propSignedConfirmation = dr["IsRequiredSignedConfirmation"] != System.DBNull.Value ? bool.Parse(dr["IsRequiredSignedConfirmation"].ToString()) : false;
             }
             con.Close();
             cmd.Dispose();
             con.Dispose();
-        }       
-        
-        public static List<clsCompany> getCompanyInsurance()
-        {
-            List<clsCompany> lstInsurance = new List<clsCompany>();
-            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
-            SqlDataReader dr;
-            SqlCommand cmd = new SqlCommand();
-            con.Open();
-            cmd.Connection = con;
-            cmd.CommandType = System.Data.CommandType.StoredProcedure;
-            cmd.CommandText = "SWITCH_SignedConfirmationGetAll";
-
-            dr = cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                lstInsurance.Add(new clsCompany((int)dr["CompanyID"]) { propSignedConfirmation = (bool)dr["IsRequired"] });
-            }
-            con.Close();
-            cmd.Dispose();
-            con.Dispose();
-                        
-            return lstInsurance;
-        }
+        }              
 
     }
 }

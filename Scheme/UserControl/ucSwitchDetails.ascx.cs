@@ -639,8 +639,8 @@ namespace NAV.Scheme.UserControl
             if (strButtonClick == enumButton.Approve.ToString())
             {
                 clsSwitchScheme.clsSwitchSchemeDetails.deleteAllDetails(intSwitchID);
-                clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(new clsSwitchScheme_Client(intSwitchID).propSwitchDetailsPortfolio, strUserID, false);
-                clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(new clsSwitchScheme_Client(intSwitchID).propSwitchDetailsContribution, strUserID, true);
+                clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(new clsSwitchScheme_Client(intSwitchID).propSwitchDetailsPortfolio, strUserID, false, true);
+                clsSwitchScheme.clsSwitchSchemeDetails.transferClientSwitchToIFA(new clsSwitchScheme_Client(intSwitchID).propSwitchDetailsContribution, strUserID, true, false);
 
                 clsSwitchScheme_Client.updateSwitchHeader(clsSwitch.enumSwitchStatus.Approved, intSwitchID, string.Empty);
                 clsSwitchScheme.updateSwitchHeader(intSwitchID, clsSwitch.enumSwitchStatus.Approved);

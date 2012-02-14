@@ -62,13 +62,13 @@ namespace NAV
 
         public clsSwitchDetails() {}
 
-        public static List<clsSwitchDetails> replicatePortfolioDetails(List<clsPortfolioDetails> _clsPortfolioDetails)
+        public static List<clsSwitchDetails> replicatePortfolioDetails(clsPortfolio _clsPortfolio)
         {
             List<clsSwitchDetails> listSwitchDetails = new List<clsSwitchDetails>();
             float fTotalAllocation = 0;
             double dPrice = 0;
 
-            foreach (clsPortfolioDetails PortfolioDetails in _clsPortfolioDetails)
+            foreach (clsPortfolioDetails PortfolioDetails in _clsPortfolio.propPortfolioDetails)
             {
                 clsSwitchDetails _clsSwitchDetails = new clsSwitchDetails();
                 _clsSwitchDetails.propFund = new clsFund(PortfolioDetails.propFundNameID);
@@ -76,7 +76,7 @@ namespace NAV
 
                 if (PortfolioDetails.propClientCurrency != PortfolioDetails.propFundCurrency)
                 {
-                    double dConvertedValue = clsCurrency.convertToClientCurrency(_clsPortfolioDetails[0].propClientID, PortfolioDetails.propPrice, PortfolioDetails.propFundCurrency);
+                    double dConvertedValue = clsCurrency.convertToClientCurrency(_clsPortfolio.propClientID, PortfolioDetails.propPrice, PortfolioDetails.propFundCurrency);
                     int intMarker = dConvertedValue.ToString().IndexOf('.');
                     string strIntegerPart = dConvertedValue.ToString().Substring(0, intMarker);
                     string strDecimalPart = dConvertedValue.ToString().Substring(intMarker, 4);
@@ -87,15 +87,15 @@ namespace NAV
                     dPrice = Math.Round(PortfolioDetails.propPrice, 4);
                 }
 
-                _clsSwitchDetails.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(_clsPortfolioDetails[0].propClientID, PortfolioDetails.propFundCurrency);
+                _clsSwitchDetails.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(_clsPortfolio.propClientID, PortfolioDetails.propFundCurrency);
                 _clsSwitchDetails.propTotalValue = float.Parse(Math.Round(double.Parse(PortfolioDetails.propTotalCurrentValueClient.ToString()), 0).ToString());
 
                 fTotalAllocation = fTotalAllocation + _clsSwitchDetails.propAllocation;
                 _clsSwitchDetails.propTotalAllocation = fTotalAllocation;
                 _clsSwitchDetails.propIsDeletable = false;
 
-                _clsSwitchDetails.propValue = float.Parse(((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(PortfolioDetails.propTotalCurrentValueClient.ToString())).ToString());
-                _clsSwitchDetails.propUnits = Convert.ToDecimal((((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(PortfolioDetails.propTotalCurrentValueClient.ToString())) / dPrice));
+                _clsSwitchDetails.propValue = float.Parse(((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(Math.Round(_clsPortfolio.propTotalValue, 0).ToString())).ToString());
+                _clsSwitchDetails.propUnits = Convert.ToDecimal((((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(Math.Round(_clsPortfolio.propTotalValue, 0).ToString())) / dPrice));
 
                 listSwitchDetails.Add(_clsSwitchDetails);
             }
@@ -266,7 +266,28 @@ namespace NAV
 
             return newListSwitchDetails;
         }
+        public static void insertSwitchDetails(int intSwitchID, string strClientID, string strPortfolioID)
+        {
+            SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
+            con.Open();
 
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandText = "[SWITCH_Customized_DetailsInsert]";
+
+            cmd.Parameters.Add("@param_intSwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
+            //cmd.Parameters.Add("@param_intFundID", System.Data.SqlDbType.Int).Value = SwitchDetail.propFund.propFundID;
+            //cmd.Parameters.Add("@param_fAllocation", System.Data.SqlDbType.Float).Value = SwitchDetail.propAllocation;
+            cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = strPortfolioID;
+            cmd.Parameters.Add("@param_strClientID", System.Data.SqlDbType.NVarChar).Value = strClientID;
+            //cmd.Parameters.Add("@param_intSwitchDetailsID", System.Data.SqlDbType.Int).Value = SwitchDetail.intSwitchDetailsID;
+            //cmd.Parameters.Add("@param_sintIsDeletable", System.Data.SqlDbType.SmallInt).Value = SwitchDetail.propIsDeletable == true ? 1 : 0;
+
+            cmd.ExecuteNonQuery();
+        }
         public static void insertSwitchDetails(List<clsSwitchDetails> listSwitchDetails, string strUserID, int intSwitchID)
         {
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
