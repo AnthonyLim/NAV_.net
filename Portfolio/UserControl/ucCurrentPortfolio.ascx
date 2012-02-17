@@ -96,6 +96,9 @@
                                     ItemStyle-HorizontalAlign="Right" ItemStyle-BorderStyle="None"  ItemStyle-CssClass="t1_column_color1"
                                     FooterStyle-BorderStyle="None" FooterStyle-CssClass="t1_column_color1"/>
                 </Columns>
+                <EmptyDataTemplate>
+                    NO DATA!!!
+                </EmptyDataTemplate>                
             </asp:GridView>
             </div>
         </td>

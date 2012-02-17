@@ -318,7 +318,7 @@ namespace NAV
             return int.Parse(cmd.ExecuteScalar().ToString());
 
         }
-        public static int insertSwitchHeaderWithModel(string strPortfolioID, string strClientID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        public static int insertSwitchHeaderWithModel(string strPortfolioID, string strClientID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription, Nullable<int> intModelID, string strModelGroupID, string strModelPortfolioID)
         {
 
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
@@ -335,6 +335,7 @@ namespace NAV
             cmd.Parameters.Add("@param_strCreated_By", System.Data.SqlDbType.NVarChar).Value = strUserID;
             cmd.Parameters.Add("@param_intSwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
             cmd.Parameters.Add("@param_strDescription", System.Data.SqlDbType.NVarChar).Value = strDescription;
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = intModelID;
             cmd.Parameters.Add("@param_strModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_strModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
 

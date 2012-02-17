@@ -12,6 +12,9 @@ namespace NAV
 
         #region Property
 
+        private int intModelID;
+        public int propModelID { get { return intModelID; } set { intModelID = value; } }
+
         private string strModelPortfolioID;
         public string propModelPortfolioID { get { return strModelPortfolioID; } set { strModelPortfolioID = value; } }
 
@@ -23,6 +26,9 @@ namespace NAV
 
         private string strModelPortfolioDesc;
         public string propModelPortfolioDesc { get { return strModelPortfolioDesc; } set { strModelPortfolioDesc = value; } }
+
+        private bool isConsumed;
+        public bool propIsConsumed { get { return isConsumed; } set { isConsumed = value; } }
 
         private List<clsModelPortfolioDetails> ModelPortfolioDetails;
         public List<clsModelPortfolioDetails> propModelPortfolioDetails { get { return ModelPortfolioDetails; } set { ModelPortfolioDetails = value; } }
@@ -51,18 +57,22 @@ namespace NAV
             {
                 while (dr.Read())
                 {
+                    this.intModelID = int.Parse(dr["ModelID"].ToString());
                     this.strModelPortfolioID = dr["ModelPortfolioID"].ToString();
                     this.strModelGroupID = dr["ModelGroupID"].ToString();
                     this.strModelPortfolioName = dr["ModelPortfolioName"].ToString();
                     this.strModelPortfolioDesc = dr["ModelPortfolioDesc"].ToString();
-                    this.ModelPortfolioDetails = clsModelPortfolioDetails.getModelPortfolioDetails(Portfolio, strModelGroupID, strModelPortfolioID);
+                    this.isConsumed = dr["IsConsumed"].ToString().Equals("1") ? true : false;
+                    this.ModelPortfolioDetails = clsModelPortfolioDetails.getModelPortfolioDetails(Portfolio, this.intModelID, this.strModelGroupID, this.strModelPortfolioID);
                 }
             }
             else
             {
+                this.intModelID = 0;
                 this.strModelGroupID = Portfolio.propClientID;
                 this.strModelPortfolioID = Portfolio.propPortfolioID;
                 this.strModelPortfolioName = Portfolio.propAccountNumber;
+                this.isConsumed = false;
                 this.ModelPortfolioDetails = clsModelPortfolioDetails.replicatePortfolioDetails(Portfolio.propPortfolioDetails);
             }
             dr.Dispose();
@@ -71,7 +81,7 @@ namespace NAV
             con.Close();
             //con.Dispose();
         }
-        
+
         public int saveModelPortfolioSwitch()
         {
             int result;
@@ -81,19 +91,19 @@ namespace NAV
             cmd.Connection = con;
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "SWITCH_ModelPortfolioSave";
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = this.intModelID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = this.propModelPortfolioID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = this.strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioName", System.Data.SqlDbType.NVarChar).Value = this.propModelPortfolioName;
             cmd.Parameters.Add("@param_ModelPortfolioDesc", System.Data.SqlDbType.NVarChar).Value = this.propModelPortfolioDesc;
 
-            result = (int)cmd.ExecuteNonQuery();
-
+            result = int.Parse(cmd.ExecuteScalar().ToString());
             cmd.Connection.Close();
             cmd.Dispose();
             con.Close();
             //con.Dispose();
 
-            
+
             return result;
         }
         public void deleteModelPortfolioSwitch()
@@ -117,12 +127,14 @@ namespace NAV
             cmd.Connection = con;
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "SWITCH_ModelPortfolioUpdate";
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = this.intModelID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = this.strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = this.strModelPortfolioID;
             cmd.Parameters.Add("@param_ModelPortfolioDesc", System.Data.SqlDbType.NVarChar).Value = this.strModelPortfolioDesc;
-            
+            cmd.Parameters.Add("@param_IsConsumed", System.Data.SqlDbType.Bit).Value = this.isConsumed == true ? 1 : 0;
+
             cmd.ExecuteNonQuery();
-            
+
             cmd.Connection.Close();
             cmd.Dispose();
             con.Close();

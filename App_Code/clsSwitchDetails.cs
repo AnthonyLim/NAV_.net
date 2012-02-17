@@ -96,6 +96,8 @@ namespace NAV
 
                 _clsSwitchDetails.propValue = float.Parse(((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(Math.Round(_clsPortfolio.propTotalValue, 0).ToString())).ToString());
                 _clsSwitchDetails.propUnits = Convert.ToDecimal((((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(Math.Round(_clsPortfolio.propTotalValue, 0).ToString())) / dPrice));
+                //_clsSwitchDetails.propValue = float.Parse(((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(_clsPortfolio.propTotalValue.ToString())).ToString());
+                //_clsSwitchDetails.propUnits = Convert.ToDecimal((((Math.Round(_clsSwitchDetails.propAllocation, 2) / 100) * int.Parse(_clsPortfolio.propTotalValue.ToString())) / dPrice));
 
                 listSwitchDetails.Add(_clsSwitchDetails);
             }

@@ -35,17 +35,20 @@ namespace NAV.Portfolio.UserControl
             this.gvPortfolioDetails.DataSource = listOriginalPortfolio;
             this.gvPortfolioDetails.DataBind();
 
-            Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
-            lblgvFooterCurrentValueClient.Text = listOriginalPortfolio[0].propTotalCurrentValueClient.ToString("n0");
+            if (listOriginalPortfolio.Count != 0)
+            { 
+                Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
+                lblgvFooterCurrentValueClient.Text = listOriginalPortfolio[0].propTotalCurrentValueClient.ToString("n0");
 
-            Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
-            lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+                Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
+                lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
 
-            Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
-            lblgvHeaderValueClientCurCurrency.Text = listOriginalPortfolio[0].propClientCurrency.ToString();
+                Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
+                lblgvHeaderValueClientCurCurrency.Text = listOriginalPortfolio[0].propClientCurrency.ToString();
 
-            Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
-            lblgvHeaderGainLossCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+                Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
+                lblgvHeaderGainLossCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+            }
 
         }
 

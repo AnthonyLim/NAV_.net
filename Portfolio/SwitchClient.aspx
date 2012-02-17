@@ -29,34 +29,6 @@
         });        
     </script>
 
-    <style type="text/css">
-        .modalBox
-        {
-            background-color : #f5f5f5;
-            border-width: 3px;
-            border-style: solid;
-            border-color: Blue;
-            padding: 3px;
-        }
-        .modalBackground
-        {
-            background-color: Gray;
-            filter: alpha(opacity=50);
-            opacity: 0.5;
-        }
-        .multilineTextbox
-        { 
-            resize: none;
-        }
-        .style1
-        {
-            width: 35%;
-        }
-        .style2
-        {
-            width: 65%;
-        }
-    </style>
 <script language="javascript" type="text/javascript">
     function hidePopup(oModalPopup) {
         var modalPopup = $find(oModalPopup);
@@ -297,6 +269,9 @@
                                     ItemStyle-HorizontalAlign="Right" ItemStyle-BorderStyle="None"  ItemStyle-CssClass="t1_column_color1"
                                     FooterStyle-BorderStyle="None" FooterStyle-CssClass="t1_column_color1"/>
                 </Columns>
+                <EmptyDataTemplate>
+                    NO DATA!!!
+                </EmptyDataTemplate>
             </asp:GridView>
             </div>
         </td>
@@ -375,6 +350,9 @@
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>
+                <EmptyDataTemplate>
+                    NO DATA!!!
+                </EmptyDataTemplate>                
             </asp:GridView>
             </div>
         </td>

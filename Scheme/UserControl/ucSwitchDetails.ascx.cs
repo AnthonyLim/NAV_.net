@@ -45,6 +45,11 @@ namespace NAV.Scheme.UserControl
                 populate((List<clsSwitchScheme.clsSwitchSchemeDetails>)Session["listSwitchContributionDetails"], true);
 
                 pageStatus(new clsSwitchScheme(Scheme).propStatus);
+
+                if (Scheme.propDetails.Count == 0)
+                {
+                    pageStatus((int)clsSwitch.enumSwitchStatus.Locked);
+                }
             }
             else
             {

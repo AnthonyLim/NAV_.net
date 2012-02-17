@@ -10,7 +10,7 @@ namespace NAV.Portfolio
      public partial class SwitchBulk : System.Web.UI.Page
     {
         #region Factors on Form
-         string ModelID()
+         string ModelGroupID()
          {
              if (Session["ModelID"] != null) { return Session["ModelID"].ToString(); }
              else return string.Empty;
@@ -45,7 +45,7 @@ namespace NAV.Portfolio
          }
          clsPortfolio Portfolio()
          {
-             return new clsPortfolio(ModelID(), ModelPortfolioID(), UserID());
+             return new clsPortfolio(ModelGroupID(), ModelPortfolioID(), UserID());
          }
 
          #endregion
@@ -60,12 +60,12 @@ namespace NAV.Portfolio
             }
             else
             {
-                Session["SourcePage"] = string.Format("/MP/details.asp?MID={0}&MPID={1}", ModelID(), ModelPortfolioID());
+                Session["SourcePage"] = string.Format("/MP/details.asp?MID={0}&MPID={1}", ModelGroupID(), ModelPortfolioID());
 
-                clsPortfolio oPortfolio = new clsPortfolio(ModelID(), ModelPortfolioID(), UserID());
+                clsPortfolio oPortfolio = new clsPortfolio(ModelGroupID(), ModelPortfolioID(), UserID());
                 populateHeader(oPortfolio);
                 populateDetails(oPortfolio.propPortfolioDetails);
-                clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelID(), ModelPortfolioID(), IFA_ID());
+                clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelGroupID(), ModelPortfolioID(), IFA_ID());
                 clsModelPortfolio _clsModelPortfolio = _clsModelGroup.propModelPortfolio;
                 populateSwitchDetails(_clsModelPortfolio.propModelPortfolioDetails);
             }
@@ -87,18 +87,18 @@ namespace NAV.Portfolio
         {
             captureSwitchGridviewDetails();
             List<clsModelPortfolioDetails> newListSwitchDetails = (List<clsModelPortfolioDetails>)Session["ModelPortfolioDetails"];
-            
-            clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelID(), ModelPortfolioID(), IFA_ID());
+
+            clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelGroupID(), ModelPortfolioID(), IFA_ID());
             int result = _clsModelGroup.saveModelGroupSwitch();
-            int result2 = _clsModelGroup.propModelPortfolio.saveModelPortfolioSwitch();
+            int intModelID = _clsModelGroup.propModelPortfolio.saveModelPortfolioSwitch();
             clsModelPortfolioDetails _clsModelPortfolioDetails = new clsModelPortfolioDetails();
-            clsModelPortfolioDetails.deleteModelPortfolioDetails(IFA_ID(), ModelID(), ModelPortfolioID());
-            _clsModelPortfolioDetails.saveModelPortfolioDetails(newListSwitchDetails, IFA_ID(), ModelID(), ModelPortfolioID());
+            clsModelPortfolioDetails.deleteModelPortfolioDetails(IFA_ID(), intModelID, ModelGroupID(), ModelPortfolioID());
+            _clsModelPortfolioDetails.saveModelPortfolioDetails(newListSwitchDetails, IFA_ID(), intModelID, ModelGroupID(), ModelPortfolioID());
         }
         protected void btnOkDescription_Click(object sender, EventArgs e)
         {
             saveSwitch();
-            clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelID(), ModelPortfolioID(), IFA_ID());
+            clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelGroupID(), ModelPortfolioID(), IFA_ID());
             _clsModelGroup.propModelPortfolio.propModelPortfolioDesc = txtDescription.Text.Trim();
             _clsModelGroup.propModelPortfolio.updateModelPortfolioHeader();
             Response.Redirect("SwitchBulkClientList.aspx");
@@ -180,10 +180,10 @@ namespace NAV.Portfolio
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             List<clsModelPortfolioDetails> ListSwitchDetails = (List<clsModelPortfolioDetails>)Session["ModelPortfolioDetails"];
-            clsModelPortfolio _clsModelPortfolio = new clsModelPortfolio(Portfolio(), ModelID(), ModelPortfolioID());
+            clsModelPortfolio _clsModelPortfolio = new clsModelPortfolio(Portfolio(), ModelGroupID(), ModelPortfolioID());
             _clsModelPortfolio.deleteModelPortfolioSwitch();
-            clsModelPortfolio _clsModelPortfolioNew = new clsModelPortfolio(Portfolio(), ModelID(), ModelPortfolioID());
-            string backPageURL = string.Format("https://{0}:{1}/MP/details.asp?MID={2}&MPID={3}", Request.ServerVariables["SERVER_NAME"], Request.ServerVariables["SERVER_PORT"], ModelID(), ModelPortfolioID());
+            clsModelPortfolio _clsModelPortfolioNew = new clsModelPortfolio(Portfolio(), ModelGroupID(), ModelPortfolioID());
+            string backPageURL = string.Format("https://{0}:{1}/MP/details.asp?MID={2}&MPID={3}", Request.ServerVariables["SERVER_NAME"], Request.ServerVariables["SERVER_PORT"], ModelGroupID(), ModelPortfolioID());
             ClientScript.RegisterStartupScript(this.GetType(), "alertCancelledSwitch", "alert('This Switch has been cancelled'); window.location='" + backPageURL + "';", true);
             //populateSwitchDetails(_clsModelPortfolioNew.propModelPortfolioDetails);
             //clsSwitch oSwitch = new clsSwitch(Portfolio(), UserID());
@@ -253,7 +253,7 @@ namespace NAV.Portfolio
             //NewSwitchDetail.propSwitchDetailsID = 0;
             //NewSwitchDetail.propSwitchID = ListSwitchDetails[0].propSwitchID;
             NewSwitchDetail.propTotalAllocation = ListSwitchDetails[ListSwitchDetails.Count - 1].propTotalAllocation;
-            NewSwitchDetail.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(ModelID(), NewSwitchDetail.propFund.propCurrency);
+            NewSwitchDetail.propCurrencyMultiplier = clsCurrency.getCurrencyMultiplier(ModelGroupID(), NewSwitchDetail.propFund.propCurrency);
             NewSwitchDetail.propIsDeletable = true;
 
             ListSwitchDetails.Add(NewSwitchDetail);
@@ -269,7 +269,7 @@ namespace NAV.Portfolio
 
             try
             {
-                newListSwitchDetails = clsModelPortfolioDetails.FundChange(intOldFundID, intNewFundID, PreviousListSwitchDetails, ModelID(), Portfolio().propPortfolioDetails[0].propClientCurrency);
+                newListSwitchDetails = clsModelPortfolioDetails.FundChange(intOldFundID, intNewFundID, PreviousListSwitchDetails, ModelGroupID(), Portfolio().propPortfolioDetails[0].propClientCurrency);
             }
             catch (Exception ex)
             {

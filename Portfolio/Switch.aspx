@@ -182,7 +182,7 @@
     <tr>
         <td>
             <div id="table1_container">
-            <asp:GridView runat="server" ID="gvPortfolioDetails" AutoGenerateColumns="false" Width="100%" ShowFooter="true" BorderStyle="None" CellPadding="0" CellSpacing="0" UseAccessibleHeader="true" CssClass="table1">
+            <asp:GridView runat="server" ID="gvPortfolioDetails" AutoGenerateColumns="false" Width="100%" ShowFooter="true" BorderStyle="None" CellPadding="0" CellSpacing="0" UseAccessibleHeader="true" EmptyDataText="No Data" CssClass="table1">
                 <Columns>
                     <asp:TemplateField HeaderText="Acq Date" HeaderStyle-HorizontalAlign="Right" HeaderStyle-BorderStyle="None" FooterStyle-BorderStyle="None" HeaderStyle-VerticalAlign="Top">
                         <HeaderStyle CssClass="t1_column_color1" VerticalAlign="Middle" HorizontalAlign="Center"/>

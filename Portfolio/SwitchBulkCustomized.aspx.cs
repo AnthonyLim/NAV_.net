@@ -54,17 +54,21 @@ namespace NAV.Portfolio
             if (!Page.IsPostBack)
             {
                 ((NAV)this.Page.Master).FindControl("btnBack_Classic").Visible = false;
-
+                ViewState["MID"] = Request.QueryString["MID"];
                 ViewState["MGID"] = Request.QueryString["MGID"];
                 ViewState["MPID"] = Request.QueryString["MPID"];
                 ViewState["CID"] = Request.QueryString["CID"];
                 ViewState["PID"] = Request.QueryString["PID"];
 
-                clsPortfolio _clsPortfolio = new clsPortfolio(ClientID(), PortfolioID());
-                _clsPortfolio.propModelID = ViewState["MGID"].ToString();
+                clsPortfolio _clsPortfolio = new clsPortfolio(ClientID(), PortfolioID(), UserID());
+                _clsPortfolio.propModelGroupID = ViewState["MGID"].ToString();
                 _clsPortfolio.propModelPortfolioID = ViewState["MPID"].ToString();
-                _clsPortfolio.propClient = new clsClient(ClientID());
-                _clsPortfolio.propSwitchTemp = new clsSwitchTemp(Portfolio(), UserID(), IFA_ID(), ViewState["MGID"].ToString(), ViewState["MPID"].ToString());
+
+                clsModelPortfolio _clsModelPortfolio = new clsModelPortfolio(_clsPortfolio, ViewState["MGID"].ToString(), ViewState["MPID"].ToString());
+                clsSwitchTemp _clsSwitchTemp = new clsSwitchTemp();
+                _clsSwitchTemp.propModelGroupID = _clsModelPortfolio.propModelGroupID;
+                _clsSwitchTemp.propModelPortfolioID = _clsModelPortfolio.propModelPortfolioID;
+                _clsPortfolio.propSwitchTemp = new clsSwitchTemp(_clsPortfolio, UserID(), IFA_ID(), _clsModelPortfolio.propModelID, ViewState["MGID"].ToString(), ViewState["MPID"].ToString());
 
                 //Load the data
                 populateHeader(_clsPortfolio);
@@ -106,11 +110,10 @@ namespace NAV.Portfolio
 
         private void saveSwitch()
         {
-            
             List<clsSwitchDetails> newListSwitchDetails = (List<clsSwitchDetails>)Session["SwitchDetails"];
-            clsSwitchTemp.insertSwitchHeaderTemp(IFA_ID(), ViewState["MGID"].ToString(), ViewState["MPID"].ToString(), ClientID(), PortfolioID(), UserID());
+            clsSwitchTemp.insertSwitchHeaderTemp(IFA_ID(), int.Parse(ViewState["MID"].ToString()), ViewState["MGID"].ToString(), ViewState["MPID"].ToString(), ClientID(), PortfolioID(), UserID());
             clsSwitchTemp.deleteSwitchDetailsTemp(ClientID(), PortfolioID());
-            clsSwitchTemp.insertSwitchDetailsTemp(newListSwitchDetails, ClientID(), PortfolioID(), UserID());
+            clsSwitchTemp.insertSwitchDetailsTemp(int.Parse(ViewState["MID"].ToString()), newListSwitchDetails, ClientID(), PortfolioID(), UserID());
         }
         #region Populate Data
 

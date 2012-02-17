@@ -59,28 +59,35 @@ namespace NAV.Portfolio
             this.gvBulkSwitchListDiscretionaryNo.DataSource = clsPortfolioListDiscretionaryNo;
             this.gvBulkSwitchListDiscretionaryNo.DataBind();
         }
-        private void saveSwitch(string strClientID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, int intSwitchID, List<clsSwitchDetails> clsSwitchDetailsList, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        private int saveSwitch(string strClientID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, int intSwitchID, List<clsSwitchDetails> clsSwitchDetailsList, string strDescription, int intModelID, string strModelGroupID, string strModelPortfolioID)
         {
-            //clsSwitch.enumSwitchStatus enumSwitchStatus = (clsSwitch.enumSwitchStatus)Enum.ToObject(typeof(clsSwitch.enumSwitchStatus), intSwitchStatus);
-            //int intNewSwitchID = clsSwitch.insertSwitchHeader(strPortfolioID, strClientID, UserID(), enumSwitchStatus, null, strDescription, ModelPortfolioID());
-            //clsSwitchDetails.insertSwitchDetails(clsSwitchDetailsList, UserID(), intNewSwitchID);
-
-            int intNewSwitchID = clsSwitch.insertSwitchHeaderWithModel(strPortfolioID, strClientID, strUserID, enumSwitchStatus, intSwitchID, strDescription, ModelID(), ModelPortfolioID());
+            int intNewSwitchID = clsSwitch.insertSwitchHeaderWithModel(strPortfolioID, strClientID, strUserID, enumSwitchStatus, intSwitchID, strDescription, intModelID, ModelID(), ModelPortfolioID());
             clsSwitch.deleteSwitchDetails(intNewSwitchID);
             clsSwitchDetails.insertSwitchDetails(clsSwitchDetailsList, strUserID, intNewSwitchID);
+
+            return intNewSwitchID;
         }
-        private void saveCustomizedSwitch(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, int intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        private int saveCustomizedSwitch(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, int intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
         {
             int intNewSwitchID = clsSwitch.insertCustomizedSwitchHeaderWithModel(intIFA_ID, strClientID, strPortfolioID, strUserID, enumSwitchStatus, intSwitchID, strDescription, strModelGroupID, strModelPortfolioID);
+
             clsSwitch.deleteSwitchDetails(intNewSwitchID);
             clsSwitchDetails.insertSwitchDetails(intNewSwitchID, strClientID, strPortfolioID);
+
+            return intNewSwitchID;
+        }
+        private void saveSwitchHistory(clsPortfolio _clsPortfolio, int intSwitchID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, string strDescription)
+        {
+            clsSwitch oSwitch = new clsSwitch(_clsPortfolio, strUserID);
+            int intHistoryID = clsHistory.insertHeader(strPortfolioID, intSwitchID, Convert.ToInt16(enumSwitchStatus));
+            clsHistory.insertDetailsIFA(intHistoryID, oSwitch.propSwitchDetails);
+            clsHistory.insertMessage(intHistoryID, strDescription);
         }
         private string getSMSMessage(string strClientID, string strPortfolioID, string strUserID)
         {
             clsPortfolio _clsPortfolio = new clsPortfolio();
             _clsPortfolio.getPortfolioHeader(strClientID, strPortfolioID);
             string strPortfolioName = _clsPortfolio.propCompany;
-            //int intDiscretionary = int.Parse(Session["HasDiscretionary"].ToString());
 
             clsSMS.subclsSMSTemplate osubclsSMSTemplate = new clsSMS.subclsSMSTemplate(clsSMS.subclsSMSTemplate.enumSMSTemplateID.ProposeSwitch);
             string strReplacerVariable = clsSMS.subclsSMSTemplate.strPortfolioNameVariable;
@@ -109,6 +116,7 @@ namespace NAV.Portfolio
         }
         private void doBulkSwitch()
         {
+            int intSwitchID = 0;
             string strPopupMessage = "Message sent.";
             GridView gvClientList = new GridView();
             List<clsSwitchDetails> clsSwitchDetailsList = new List<clsSwitchDetails>();
@@ -127,9 +135,8 @@ namespace NAV.Portfolio
 
                 clsSwitchDetailsList.Add(_clsSwitchDetails);
             }
-                gvClientList = this.gvBulkSwitchListDiscretionaryYes;
-
-            clsSwitch.enumSwitchStatus enumSwitchStatus;// = (clsSwitch.enumSwitchStatus)Enum.ToObject(typeof(clsSwitch.enumSwitchStatus), intSwitchStatus);
+            gvClientList = this.gvBulkSwitchListDiscretionaryYes;
+            clsSwitch.enumSwitchStatus enumSwitchStatus;
             
             foreach (GridViewRow row in gvClientList.Rows)
             {
@@ -148,7 +155,7 @@ namespace NAV.Portfolio
                 string strClientID = Convert.ToString(gvClientList.DataKeys[row.RowIndex].Values[0]);
                 string strPortfolioID = Convert.ToString(gvClientList.DataKeys[row.RowIndex].Values[1]);
 
-                if (cbox.Checked && lblCustomized.Text == "No")
+                if (cbox.Checked)
                 {
                     string strMessage = getSMSMessage(strClientID, strPortfolioID, UserID());
                     string strMobileNum = clsSMS.getMobileNumber(strClientID);
@@ -160,18 +167,33 @@ namespace NAV.Portfolio
                     {
                         if (lblCustomized.Text.Trim() == "Yes")
                         {
-                            saveCustomizedSwitch(IFA_ID(), strClientID, strPortfolioID, UserID(), enumSwitchStatus, int.Parse(lblSwitchID.Text.Trim()), _clsModelPortfolio.propModelPortfolioDesc, ModelID(), ModelPortfolioID());
+                            intSwitchID = saveCustomizedSwitch(IFA_ID(), strClientID, strPortfolioID, UserID(), enumSwitchStatus, int.Parse(lblSwitchID.Text.Trim()), _clsModelPortfolio.propModelPortfolioDesc, ModelID(), ModelPortfolioID());
+                            clsPortfolio _clsPortfolio = new clsPortfolio(strClientID, strPortfolioID, UserID());
+                            saveSwitchHistory(_clsPortfolio, intSwitchID, strPortfolioID, UserID(), enumSwitchStatus, _clsModelPortfolio.propModelPortfolioDesc);
+                            _clsModelPortfolio.propIsConsumed = true;
+
                         }
                         else
                         {
-                            saveSwitch(strClientID, strPortfolioID, UserID(), enumSwitchStatus, int.Parse(lblSwitchID.Text.Trim()), clsSwitchDetailsList, _clsModelPortfolio.propModelPortfolioDesc, ModelID(), ModelPortfolioID());
+                            clsPortfolio _clsPortfolio = new clsPortfolio(strClientID, strPortfolioID, UserID());
+                            _clsPortfolio.propModelGroupID = ModelID();
+                            _clsPortfolio.propModelPortfolioID = ModelPortfolioID();
+                            clsSwitchTemp _clsSwitchTemp = new clsSwitchTemp();
+                            _clsSwitchTemp.propModelGroupID = _clsModelPortfolio.propModelGroupID;
+                            _clsSwitchTemp.propModelPortfolioID = _clsModelPortfolio.propModelPortfolioID;
+                            _clsPortfolio.propSwitchTemp = new clsSwitchTemp(_clsPortfolio, UserID(), IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID());
+                            intSwitchID = saveSwitch(strClientID, strPortfolioID, UserID(), enumSwitchStatus, int.Parse(lblSwitchID.Text.Trim()), _clsPortfolio.propSwitchTemp.propSwitchDetails, _clsModelPortfolio.propModelPortfolioDesc, _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID());
+                            saveSwitchHistory(_clsPortfolio, intSwitchID, strPortfolioID, UserID(), enumSwitchStatus, _clsModelPortfolio.propModelPortfolioDesc);
+                            _clsModelPortfolio.propIsConsumed = true;
                         }
                     }
                 }
+                _clsModelPortfolio.propIsConsumed = true;
+                _clsModelPortfolio.updateModelPortfolioHeader();
+                clsSwitchTemp.deleteSwitchTempByModel(_clsModelPortfolio.propModelID);
             }
-            clsSwitchTemp.doBulkSwitch();
-            List<clsPortfolio> clsPortfolioListDiscretionaryYes = clsPortfolio.getPortfolioList(IFA_ID(), ModelID(), ModelPortfolioID(), true);
-            List<clsPortfolio> clsPortfolioListDiscretionaryNo = clsPortfolio.getPortfolioList(IFA_ID(), ModelID(), ModelPortfolioID(), false);
+            List<clsPortfolio> clsPortfolioListDiscretionaryYes = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), true);
+            List<clsPortfolio> clsPortfolioListDiscretionaryNo = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), false);
             populateModelClientList(clsPortfolioListDiscretionaryYes, clsPortfolioListDiscretionaryNo);
         }
 
@@ -183,9 +205,12 @@ namespace NAV.Portfolio
             if (!Page.IsPostBack)
             {
                 ((NAV)this.Page.Master).FindControl("btnBack_Classic").Visible = false;
-                //ViewState["HasDiscretionary"] = 0;
-                List<clsPortfolio> clsPortfolioListDiscretionaryYes = clsPortfolio.getPortfolioList(IFA_ID(), ModelID(), ModelPortfolioID(), true);
-                List<clsPortfolio> clsPortfolioListDiscretionaryNo = clsPortfolio.getPortfolioList(IFA_ID(), ModelID(), ModelPortfolioID(), false);
+
+                clsModelGroup _clsModelGroup = new clsModelGroup(Portfolio(), ModelID(), ModelPortfolioID(), IFA_ID());
+                clsModelPortfolio _clsModelPortfolio = _clsModelGroup.propModelPortfolio;
+
+                List<clsPortfolio> clsPortfolioListDiscretionaryYes = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), true);
+                List<clsPortfolio> clsPortfolioListDiscretionaryNo = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), false);
                 populateModelClientList(clsPortfolioListDiscretionaryYes, clsPortfolioListDiscretionaryNo);
 
             }
@@ -203,23 +228,8 @@ namespace NAV.Portfolio
                 _clsModelPortfolio.updateModelPortfolioHeader();
             }
             doBulkSwitch();
-
-            /*
-            Button buttonClicked = (Button)sender;
-            Response.Write(buttonClicked.ID.Trim());
-            if (buttonClicked.ID.Trim() == "btnProceedDiscretionaryYes")
-            {
-                ViewState["HasDiscretionary"] = 1;
-                Response.Write(ViewState["HasDiscretionary"].ToString());
-                //doBulkSwitch(this.gvBulkSwitchListDiscretionaryYes);
-            }
-            else
-            {
-                ViewState["HasDiscretionary"] = 0;
-                Response.Write(ViewState["HasDiscretionary"].ToString());
-            }
-            this.mpeSwitchPopup1.Show();
-             */
+            string backPageURL = string.Format("https://{0}:{1}/MP/details.asp?MID={2}&MPID={3}", Request.ServerVariables["SERVER_NAME"], Request.ServerVariables["SERVER_PORT"], ModelID(), ModelPortfolioID());
+            ClientScript.RegisterStartupScript(this.GetType(), "alertSaveSuccess", "alert('Bulk Switch successfull'); window.location='" + backPageURL + "';", true);
         } 
         #endregion
 
@@ -249,24 +259,3 @@ namespace NAV.Portfolio
         #endregion
     }
 }
-/*
- protected void btnBulkSwitch_Click(object sender, EventArgs e)
-        {
-            foreach (GridViewRow row in this.gvBulkSwitchListDiscretionaryYes.Rows)
-            {
-                CheckBox cbox = (CheckBox)row.FindControl("gvBulkSwitchListCheckbox");
-                Label lblClientID = (Label)row.FindControl("gvBulkSwitchListLabelClientID");
-                Label lblPortfolioID = (Label)row.FindControl("gvBulkSwitchListLabelPortfolioID");
-                string strClientID = Convert.ToString(gvBulkSwitchListDiscretionaryYes.DataKeys[row.RowIndex].Values[0]);
-                string strPortfolioID = Convert.ToString(gvBulkSwitchListDiscretionaryYes.DataKeys[row.RowIndex].Values[1]);
-                if (cbox.Checked)
-                {
-                    //if ((lbl.Text.Trim() != clsSwitch.enumSwitchStatus.Saved.ToString()) && (lbl.Text.Trim() != clsSwitch.enumSwitchStatus.Draft.ToString()))
-                    //{
-                    //    int intHistoryID = clsHistory.insertHeader(strPortfolioID, int.Parse(lnk.Text), (Int16)clsSwitch.enumSwitchStatus.Cancelled);
-                    //}
-                    //clsSwitch.deleteSwitch(int.Parse(lnk.Text));
-                }
-            }
-        }
-*/

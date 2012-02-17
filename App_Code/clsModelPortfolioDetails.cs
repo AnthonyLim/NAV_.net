@@ -12,6 +12,7 @@ namespace NAV
 
         #region Properties
 
+        private int intModelID;
         private string strModelGroupID;
         private string strModelPortfolioID;
         private int intFundID;
@@ -24,6 +25,7 @@ namespace NAV
         private bool bIsDeletable;
         private float fCurrencyMultiplier;
 
+        public int propModelID { get { return intModelID; } set { intModelID = value; } }
         public string propModelGroupID { get { return strModelGroupID; } set { strModelGroupID = value; } }
         public string propModelPortfolioID { get { return strModelPortfolioID; } set { strModelPortfolioID = value; } }
         public int propFundID { get { return intFundID; } set { intFundID = value; } }
@@ -40,12 +42,7 @@ namespace NAV
 
         public clsModelPortfolioDetails() { }
 
-        //public clsModelPortfolioDetails(clsPortfolio Portfolio, string strModelGroupID, string strModolPortfolioID) 
-        //{
-        //    getModelPortfolioDetails(Portfolio, strModelGroupID, strModolPortfolioID);
-        //}
-
-        public static List<clsModelPortfolioDetails> getModelPortfolioDetails(clsPortfolio Portfolio, string strModelGroupID, string strModolPortfolioID)
+        public static List<clsModelPortfolioDetails> getModelPortfolioDetails(clsPortfolio Portfolio, int intModelID, string strModelGroupID, string strModolPortfolioID)
         {
 
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
@@ -60,6 +57,7 @@ namespace NAV
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.CommandText = "[SWITCH_ModelPortfolioDetailsGet]";
 
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = intModelID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModolPortfolioID;
 
@@ -72,6 +70,7 @@ namespace NAV
 
                 clsModelPortfolioDetails ModelPortfolioDetails = new clsModelPortfolioDetails();
 
+                ModelPortfolioDetails.propModelID = int.Parse(dr1["ModelID"].ToString());
                 ModelPortfolioDetails.propAllocation = float.Parse(Math.Round(double.Parse(dr1["Allocation"].ToString()), 2).ToString());
                 ModelPortfolioDetails.propFund = new clsFund(int.Parse(dr1["FundID"].ToString()));
                 ModelPortfolioDetails.propFundID = int.Parse(dr1["FundID"].ToString());
@@ -145,7 +144,7 @@ namespace NAV
 
                 fTotalAllocation = fTotalAllocation + _clsModelPortfolioDetails.propAllocation;
                 _clsModelPortfolioDetails.propTotalAllocation = fTotalAllocation;
-                _clsModelPortfolioDetails.propIsDeletable = false;
+                _clsModelPortfolioDetails.propIsDeletable = true;
 
                 _clsModelPortfolioDetails.propValue = float.Parse(((Math.Round(_clsModelPortfolioDetails.propAllocation, 2) / 100) * int.Parse(PortfolioDetails.propTotalCurrentValueClient.ToString())).ToString());
                 _clsModelPortfolioDetails.propUnits = Convert.ToDecimal((((Math.Round(_clsModelPortfolioDetails.propAllocation, 2) / 100) * int.Parse(PortfolioDetails.propTotalCurrentValueClient.ToString())) / dPrice));
@@ -273,7 +272,7 @@ namespace NAV
 
             return newListModelPortfolioDetails;
         }
-        public void saveModelPortfolioDetails(List<clsModelPortfolioDetails> listModelPortfolioDetails, int intIFA_ID, string strModelGroupID, string strModelPortfolioID)
+        public void saveModelPortfolioDetails(List<clsModelPortfolioDetails> listModelPortfolioDetails, int intIFA_ID, int intModelID, string strModelGroupID, string strModelPortfolioID)
         {
             con.Open();
             foreach (clsModelPortfolioDetails ModelPortfolioDetails in listModelPortfolioDetails)
@@ -285,6 +284,7 @@ namespace NAV
                 cmd.CommandText = "[SWITCH_ModelPortfolioDetailsInsertUpdate]";
 
                 cmd.Parameters.Add("@param_IFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+                cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = intModelID;
                 cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
                 cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
                 cmd.Parameters.Add("@param_FundID", System.Data.SqlDbType.Int).Value = ModelPortfolioDetails.propFund.propFundID;
@@ -330,7 +330,7 @@ namespace NAV
         //    }
         //}
 
-        public static void deleteModelPortfolioDetails(int intIFA_ID, string strModelGroupID, string strModelPortfolioID)
+        public static void deleteModelPortfolioDetails(int intIFA_ID, int intModelID, string strModelGroupID, string strModelPortfolioID)
         {
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
             con.Open();
@@ -342,6 +342,7 @@ namespace NAV
             cmd.CommandText = "[SWITCH_ModelPortfolioDetailsDelete]";
 
             cmd.Parameters.Add("@param_IFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.Int).Value = intModelID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
 

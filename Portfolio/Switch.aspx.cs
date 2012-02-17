@@ -103,26 +103,22 @@ namespace NAV.Portfolio
                 {
                     strPortfolioName = Session[clsSystem_Session.strSession.code.ToString()].ToString();
                 }
-                Session["SwitchDetails"] = null;
-                Session["HasDiscretionary"] = Portfolio().propPortfolioDetails[0].propMFPercent;
-
                 setSessionCodepage();
 
                 populateHeader(Portfolio(), strPortfolioName);
                 this.populateDetails(Portfolio().propPortfolioDetails);
-                //Session["SwitchDetails"] = Portfolio().propSwitch.propSwitchDetails;
                 if (Portfolio().propSwitch.propStatus == (int)clsSwitch.enumSwitchStatus.Amended)
                 {
                     clsSwitch_Client oClientSwitch = new clsSwitch_Client(Portfolio().propSwitch.propSwitchID);
                     populateSwitchDetailsClient(oClientSwitch);
                 }
-                //if (Portfolio().propSwitch.propSwitchDetails[0].propSwitchID == 0)
-                //{
-                //    saveSwitch(clsSwitch.enumSwitchStatus.Draft, null, string.Empty);
-                //}
-                clsSwitch oSwitch = new clsSwitch(Portfolio(), UserID());
-                populateSwitchDetails(oSwitch.propSwitchDetails);
-                pageStatus(Portfolio().propSwitch.propStatus);
+
+                if (Portfolio().propPortfolioDetails.Count > 0)
+                {
+                    clsSwitch oSwitch = new clsSwitch(Portfolio(), UserID());
+                    populateSwitchDetails(oSwitch.propSwitchDetails);
+                    pageStatus(Portfolio().propSwitch.propStatus);
+                }
             }
         }
         private void btnSave_Click()
@@ -217,25 +213,39 @@ namespace NAV.Portfolio
             this.lblValue_PolicyCategory.Text = _clsPortfolio.propLiquidity;
             this.lblValue_Profile.Text = _clsPortfolio.propRiskProfile;
             this.lblValue_SpecialistInformation.Text = _clsPortfolio.propRetentionTerm;
-            //this.lblValue_Discretionary.Text = _clsPortfolio.propMFPercent == 0 ? "no" : "yes";
-            this.lblValue_Discretionary.Text = _clsPortfolio.propPortfolioDetails[0].propMFPercent == 0 ? "no" : "yes";
+            if (_clsPortfolio.propPortfolioDetails.Count > 0)
+            {
+                this.lblValue_Discretionary.Text = _clsPortfolio.propPortfolioDetails[0].propMFPercent == 0 ? "no" : "yes";
+            }
+            else
+            {
+                btnSave.Disabled = true;
+                btnSwitch.Disabled = true;
+                btnCancel.Enabled = false;
+                lblSwitchStatusTitle.Visible = false;
+            }
         }
         private void populateDetails(List<clsPortfolioDetails> listPortfolioDetails)
         {
             this.gvPortfolioDetails.DataSource = listPortfolioDetails;
             this.gvPortfolioDetails.DataBind();
+            if (listPortfolioDetails.Count > 0)
+            {
+                Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
+                lblgvFooterCurrentValueClient.Text = listPortfolioDetails[0].propTotalCurrentValueClient.ToString("n0");
 
-            Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
-            lblgvFooterCurrentValueClient.Text = listPortfolioDetails[0].propTotalCurrentValueClient.ToString("n0");
+                Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
+                lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listPortfolioDetails[0].propPortfolioCurrency.ToString();
 
-            Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
-            lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listPortfolioDetails[0].propPortfolioCurrency.ToString();
+                Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
+                lblgvHeaderValueClientCurCurrency.Text = listPortfolioDetails[0].propClientCurrency.ToString();
 
-            Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
-            lblgvHeaderValueClientCurCurrency.Text = listPortfolioDetails[0].propClientCurrency.ToString();
+                Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
+                lblgvHeaderGainLossCurrency.Text = listPortfolioDetails[0].propPortfolioCurrency.ToString();
 
-            Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
-            lblgvHeaderGainLossCurrency.Text = listPortfolioDetails[0].propPortfolioCurrency.ToString();
+                Session["SwitchDetails"] = null;
+                Session["HasDiscretionary"] = Portfolio().propPortfolioDetails[0].propMFPercent;
+            }
         }
         private void populateSwitchDetailsClient(clsSwitch_Client oSwitchClient)
         {
@@ -256,43 +266,46 @@ namespace NAV.Portfolio
             this.gvSwitchDetails.DataSource = listSwitchDetails;
             this.gvSwitchDetails.DataBind();
 
-            this.lblSwitchStatusValue.Text = new clsSwitch(listSwitchDetails[0].propSwitchID).propStatusString;
-            int intStatus = new clsSwitch(listSwitchDetails[0].propSwitchID).propStatus;
-
-            Label gvSwitchFooterLblTotalValue = (Label)this.gvSwitchDetails.FooterRow.Cells[3].FindControl("gvSwitchFooterLblTotalValue");
-            gvSwitchFooterLblTotalValue.Text = listSwitchDetails[0].propTotalValue.ToString("n0");
-
-            Label gvSwitchFooterLblTotalAllocationOrig = (Label)this.gvSwitchDetails.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocationOrig");
-            gvSwitchFooterLblTotalAllocationOrig.Text = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
-
-            Label gvSwitchFooterLblTotalAllocation = (Label)this.gvSwitchDetails.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
-            gvSwitchFooterLblTotalAllocation.Text = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
-
-            gvSwitchFooterHfTotalAllocation.Value = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
-
-            this.hfCurrentValueClientTotal.Value = listSwitchDetails[0].propTotalValue.ToString("n0");
-            this.hfFundCount.Value = listSwitchDetails.Count.ToString();
-
-            if (float.Parse(gvSwitchFooterLblTotalAllocationOrig.Text) != 100)
+            if (listSwitchDetails.Count > 0)
             {
-                gvSwitchFooterLblTotalAllocation.Style.Add("color", "#FF0000");
-                gvSwitchFooterLblTotalAllocationOrig.Style.Add("color", "#FF0000");
-            }
-            else
-            {
-                gvSwitchFooterLblTotalAllocation.Style.Add("color", "#000000");
-                gvSwitchFooterLblTotalAllocationOrig.Style.Add("color", "#000000");
-            }
+                this.lblSwitchStatusValue.Text = new clsSwitch(listSwitchDetails[0].propSwitchID).propStatusString;
+                int intStatus = new clsSwitch(listSwitchDetails[0].propSwitchID).propStatus;
 
-            if (new clsSwitch(listSwitchDetails[0].propSwitchID).propStatusString == clsSwitch.enumSwitchStatus.Saved.ToString())
-            {
-                this.btnSave.Disabled = true;
+                Label gvSwitchFooterLblTotalValue = (Label)this.gvSwitchDetails.FooterRow.Cells[3].FindControl("gvSwitchFooterLblTotalValue");
+                gvSwitchFooterLblTotalValue.Text = listSwitchDetails[0].propTotalValue.ToString("n0");
+
+                Label gvSwitchFooterLblTotalAllocationOrig = (Label)this.gvSwitchDetails.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocationOrig");
+                gvSwitchFooterLblTotalAllocationOrig.Text = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
+
+                Label gvSwitchFooterLblTotalAllocation = (Label)this.gvSwitchDetails.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
+                gvSwitchFooterLblTotalAllocation.Text = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
+
+                gvSwitchFooterHfTotalAllocation.Value = listSwitchDetails[listSwitchDetails.Count - 1].propTotalAllocation.ToString("n2");
+
+                this.hfCurrentValueClientTotal.Value = listSwitchDetails[0].propTotalValue.ToString("n0");
+                this.hfFundCount.Value = listSwitchDetails.Count.ToString();
+
+                if (float.Parse(gvSwitchFooterLblTotalAllocationOrig.Text) != 100)
+                {
+                    gvSwitchFooterLblTotalAllocation.Style.Add("color", "#FF0000");
+                    gvSwitchFooterLblTotalAllocationOrig.Style.Add("color", "#FF0000");
+                }
+                else
+                {
+                    gvSwitchFooterLblTotalAllocation.Style.Add("color", "#000000");
+                    gvSwitchFooterLblTotalAllocationOrig.Style.Add("color", "#000000");
+                }
+
+                if (new clsSwitch(listSwitchDetails[0].propSwitchID).propStatusString == clsSwitch.enumSwitchStatus.Saved.ToString())
+                {
+                    this.btnSave.Disabled = true;
+                }
+                else
+                {
+                    this.btnSave.Disabled = false;
+                }
+                Session["SwitchDetails"] = listSwitchDetails;
             }
-            else
-            {
-                this.btnSave.Disabled = false;
-            }
-            Session["SwitchDetails"] = listSwitchDetails;
         }
         #endregion
 

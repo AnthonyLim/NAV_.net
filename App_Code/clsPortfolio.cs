@@ -12,8 +12,11 @@ namespace NAV
 
         #region properties
 
-        private String strModelID;
-        public String propModelID { get { return strModelID; } set { strModelID = value; } }
+        private int intModelID;
+        public int propModelID { get { return intModelID; } set { intModelID = value; } }
+
+        private String strModelGroupID;
+        public String propModelGroupID { get { return strModelGroupID; } set { strModelGroupID = value; } }
 
         private String strModelPortfolioID;
         public String propModelPortfolioID { get { return strModelPortfolioID; } set { strModelPortfolioID = value; } }
@@ -128,7 +131,7 @@ namespace NAV
                 this.strPortfolioID = dr["PortfolioID"].ToString();
                 this.strClientID = dr["ClientID"].ToString();
                 this.strPortfolioTypeID = dr["PortfolioTypeID"].ToString();
-                this.dtPortfolioStartDate = DateTime.Parse(dr["PortfolioStartDate"].ToString());
+                this.dtPortfolioStartDate = dr["PortfolioStartDate"] != System.DBNull.Value ? DateTime.Parse(dr["PortfolioStartDate"].ToString()) : DateTime.ParseExact("01/01/1800", "dd/MM/yyyy", null);//DateTime.Parse(dr["PortfolioStartDate"].ToString());
                 this.strPlanStatus = dr["PlanStatus"].ToString();
                 this.strLiquidity = dr["Liquidity"].ToString();
                 this.strRiskProfile = dr["RiskProfile"].ToString();
@@ -137,7 +140,7 @@ namespace NAV
                 this.boolExcludeFromReports = Boolean.Parse(dr["ExcludeFromReports"].ToString());
                 this.boolClientGenerated = Boolean.Parse(dr["ClientGenerated"].ToString());
                 this.propConfirmationRequired = Boolean.Parse(dr["SwitchConfirmationRequired"].ToString());
-
+                this.fTotalValue = dr["TotalCurrentValueClient"] != System.DBNull.Value ? float.Parse(dr["TotalCurrentValueClient"].ToString()) : 0f;
             }
 
             dr.Close();
@@ -224,7 +227,7 @@ namespace NAV
 
             return listPortfolioDetails;
         }
-        public static List<clsPortfolio> getPortfolioList(int intIFA_ID, string strModelID, string strModelPortfolioID, bool hasDiscretionary)
+        public static List<clsPortfolio> getPortfolioList(int intIFA_ID, int intModelID, string strModelGroupID, string strModelPortfolioID, bool hasDiscretionary)
         {
             List<clsPortfolio> clsPortfolioList = new List<clsPortfolio>();
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
@@ -236,7 +239,8 @@ namespace NAV
             cmd.CommandText = "[SWITCH_ModelPortfolioClientGet]";
 
             cmd.Parameters.Add("@param_IFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
-            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.NVarChar).Value = strModelID;
+            cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.NVarChar).Value = intModelID;
+            cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
             cmd.Parameters.Add("@param_HasDiscretionary", System.Data.SqlDbType.Bit).Value = hasDiscretionary;
 
@@ -244,7 +248,8 @@ namespace NAV
             while (dr.Read())
             {
                 clsPortfolio _clsPortfolio = new clsPortfolio();
-                _clsPortfolio.propModelID = dr["ModelGroupID"].ToString();
+                _clsPortfolio.propModelID = intModelID;
+                _clsPortfolio.propModelGroupID = dr["ModelGroupID"].ToString();
                 _clsPortfolio.propModelPortfolioID = dr["ModelPortfolioID"].ToString();
                 _clsPortfolio.propClientID = dr["ClientID"].ToString();
                 _clsPortfolio.propClient = new clsClient(_clsPortfolio.propClientID);
@@ -255,7 +260,7 @@ namespace NAV
                 _clsPortfolio.propSwitch = new clsSwitch();
                 _clsPortfolio.propSwitch.propSwitchID = int.Parse(dr["SwitchID"].ToString());
                 _clsPortfolio.propSwitchTemp = new clsSwitchTemp();
-                _clsPortfolio.propSwitchTemp.propSwitchID = int.Parse(dr["SwitchTemp"].ToString());
+                _clsPortfolio.propSwitchTemp.propModelID = int.Parse(dr["SwitchTemp"].ToString());
                 clsPortfolioList.Add(_clsPortfolio);
             }
             return clsPortfolioList;

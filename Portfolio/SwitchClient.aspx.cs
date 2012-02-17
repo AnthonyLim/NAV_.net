@@ -36,8 +36,8 @@ namespace NAV.Portfolio
 
             if (!Page.IsPostBack)
             {
-                Session["SourcePage"] = "portfoliodetails.asp"; //local
-                //Session["SourcePage"] = "/report/portfoliodetails.asp"; //deploy
+                //Session["SourcePage"] = "portfoliodetails.asp"; //local
+                Session["SourcePage"] = "/report/portfoliodetails.asp"; //deploy
 
                 strClientID = Session[clsSystem_Session.strSession.clientID.ToString()].ToString();
                 strPortfolioID = Session[clsSystem_Session.strSession.tempportfolioid.ToString()].ToString();
@@ -45,8 +45,16 @@ namespace NAV.Portfolio
 
                 clsPortfolio objPortfolio = new clsPortfolio(strClientID, strPortfolioID, strUserID);
 
-                Session["IFAPermit"] = objPortfolio.propPortfolioDetails[0].propSwitchIFAPermit;
+                if (objPortfolio.propPortfolioDetails.Count != 0)
+                {
+                    Session["IFAPermit"] = objPortfolio.propPortfolioDetails[0].propSwitchIFAPermit;
+                }
+                else 
+                { 
+                    Session["IFAPermit"] = false; 
+                }
 
+                
                 enableButtons((clsSwitch.enumSwitchStatus)objPortfolio.propSwitch.propStatus);
                 showhideButtons(enumPageState.hideAll);
                     
@@ -62,7 +70,7 @@ namespace NAV.Portfolio
 
                 if (objPortfolio.propSwitch.propStatus == (int)clsSwitch.enumSwitchStatus.Amended)
                 {
-                    showhideAmendArea(true);
+                    showhideAmendArea(false);
                 }
             }
             else 
@@ -82,8 +90,8 @@ namespace NAV.Portfolio
 
             String strHistoryURL = "SwitchHistory.aspx?SID=" + strSwitchID + "&PID=" + PortfolioID + "&CID=" + ClientID;
 
-            //Session["SourcePage"] = "/ASPX/Portfolio/SwitchClient.aspx"; //Depl..            
-            Session["SourcePage"] = "../ASPX/Portfolio/SwitchClient.aspx"; //Devt..
+            Session["SourcePage"] = "/ASPX/Portfolio/SwitchClient.aspx"; //Depl..            
+            //Session["SourcePage"] = "../ASPX/Portfolio/SwitchClient.aspx"; //Devt..
 
             Response.Redirect(strHistoryURL);
         }
@@ -366,44 +374,59 @@ namespace NAV.Portfolio
             this.gvPortfolioDetails.DataSource = listOriginalPortfolio;
             this.gvPortfolioDetails.DataBind();
 
-            Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
-            lblgvFooterCurrentValueClient.Text = listOriginalPortfolio[0].propTotalCurrentValueClient.ToString("n0");
+            if (listOriginalPortfolio.Count != 0)
+            {
+                Label lblgvFooterCurrentValueClient = (Label)this.gvPortfolioDetails.FooterRow.Cells[7].FindControl("gvFooterCurrentValueClient");
+                lblgvFooterCurrentValueClient.Text = listOriginalPortfolio[0].propTotalCurrentValueClient.ToString("n0");
 
-            Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
-            lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+                Label lblgvHeaderPurchaseCostFundPortfolioCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[5].FindControl("gvHeaderPurchaseCostFundPortfolioCurrency");
+                lblgvHeaderPurchaseCostFundPortfolioCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
 
-            Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
-            lblgvHeaderValueClientCurCurrency.Text = listOriginalPortfolio[0].propClientCurrency.ToString();
+                Label lblgvHeaderValueClientCurCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[7].FindControl("gvHeaderValueClientCurCurrency");
+                lblgvHeaderValueClientCurCurrency.Text = listOriginalPortfolio[0].propClientCurrency.ToString();
 
-            Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
-            lblgvHeaderGainLossCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+                Label lblgvHeaderGainLossCurrency = (Label)this.gvPortfolioDetails.HeaderRow.Cells[6].FindControl("gvHeaderGainLossCurrency");
+                lblgvHeaderGainLossCurrency.Text = listOriginalPortfolio[0].propPortfolioCurrency.ToString();
+            }
 
         }
 
         private void populateProposedSwitch(List<clsSwitchDetails> listProposedSwitch)
-        {
+        {                       
 
             this.gvSwitchDetails_IFA.DataSource = listProposedSwitch;
             this.gvSwitchDetails_IFA.DataBind();
 
-            Label gvSwitchFooterLblTotalValue = (Label)this.gvSwitchDetails_IFA.FooterRow.Cells[3].FindControl("gvSwitchFooterLblTotalValue");
-            gvSwitchFooterLblTotalValue.Text = listProposedSwitch[0].propTotalValue.ToString("n0");
+            if (listProposedSwitch.Count != 0)
+            {
+                Label gvSwitchFooterLblTotalValue = (Label)this.gvSwitchDetails_IFA.FooterRow.Cells[3].FindControl("gvSwitchFooterLblTotalValue");
+                gvSwitchFooterLblTotalValue.Text = listProposedSwitch[0].propTotalValue.ToString("n0");
 
-            Label gvSwitchFooterLblTotalAllocation = (Label)this.gvSwitchDetails_IFA.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
-            gvSwitchFooterLblTotalAllocation.Text = listProposedSwitch[listProposedSwitch.Count - 1].propTotalAllocation.ToString("n2");
+                Label gvSwitchFooterLblTotalAllocation = (Label)this.gvSwitchDetails_IFA.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
+                gvSwitchFooterLblTotalAllocation.Text = listProposedSwitch[listProposedSwitch.Count - 1].propTotalAllocation.ToString("n2");
 
-            this.lblSwitchDetails_IFAStatusValue.Text = new clsSwitch(listProposedSwitch[0].propSwitchID).propStatusString;
-            this.txtProposedSwitchDesc.Text = new clsSwitch(listProposedSwitch[0].propSwitchID).propDescription.ToString();
+                this.lblSwitchDetails_IFAStatusValue.Text = new clsSwitch(listProposedSwitch[0].propSwitchID).propStatusString;
+                this.txtProposedSwitchDesc.Text = new clsSwitch(listProposedSwitch[0].propSwitchID).propDescription.ToString();
 
-            int intStatus = new clsSwitch(listProposedSwitch[0].propSwitchID).propStatus;
+                int intStatus = new clsSwitch(listProposedSwitch[0].propSwitchID).propStatus;
 
-            if ((intStatus == (int)clsSwitch.enumSwitchStatus.Approved) || (intStatus == (int)clsSwitch.enumSwitchStatus.Locked))
+                if ((intStatus == (int)clsSwitch.enumSwitchStatus.Approved) || (intStatus == (int)clsSwitch.enumSwitchStatus.Locked))
+                {
+                    this.btnApproveSwitch.Disabled = true;
+                    this.btnAmendSwitch.Enabled = false;
+                    this.btnDeclineSwitch.Enabled = false;
+                    this.btnContactMe.Enabled = false;
+                }
+            }
+            else 
             {
                 this.btnApproveSwitch.Disabled = true;
                 this.btnAmendSwitch.Enabled = false;
                 this.btnDeclineSwitch.Enabled = false;
                 this.btnContactMe.Enabled = false;
             }
+
+
         }
 
         private void populateAmendSwitch(List<clsSwitchDetails_Client> listAmendSwitch)

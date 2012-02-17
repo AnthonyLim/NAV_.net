@@ -72,8 +72,11 @@
                         <ItemTemplate>
                             <asp:Label runat="server" ID="gvDetailsAllocation" Text='<% #Eval("propAllocation", "{0:n2}") %>'/>
                         </ItemTemplate>                        
-                    </asp:TemplateField>
+                    </asp:TemplateField>                    
                 </Columns>
+                <EmptyDataTemplate>
+                    NO DATA!!!
+                </EmptyDataTemplate>
             </asp:GridView>
             </div>
         </td>

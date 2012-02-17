@@ -28,15 +28,17 @@ namespace NAV.Scheme.UserControl
             this.gvCurrentHoldings.DataSource = Scheme.propDetails;
             this.gvCurrentHoldings.DataBind();
 
-            Label lblgvFooterValueFundCur = (Label)this.gvCurrentHoldings.FooterRow.Cells[3].FindControl("gvFooterValueFundCur");
-            lblgvFooterValueFundCur.Text = Scheme.propSC_TotalValue.ToString("n0");
+            if (Scheme.propDetails.Count != 0)
+            {
+                Label lblgvFooterValueFundCur = (Label)this.gvCurrentHoldings.FooterRow.Cells[3].FindControl("gvFooterValueFundCur");
+                lblgvFooterValueFundCur.Text = Scheme.propSC_TotalValue.ToString("n0");
 
-            Label lblgvFooterCurrentValueClient = (Label)this.gvCurrentHoldings.FooterRow.Cells[4].FindControl("gvFooterCurrentValueClient");
-            lblgvFooterCurrentValueClient.Text = Scheme.propCC_TotalValue.ToString("n0");
+                Label lblgvFooterCurrentValueClient = (Label)this.gvCurrentHoldings.FooterRow.Cells[4].FindControl("gvFooterCurrentValueClient");
+                lblgvFooterCurrentValueClient.Text = Scheme.propCC_TotalValue.ToString("n0");
 
-            Label lblgvHeaderClientCurrency = (Label)this.gvCurrentHoldings.HeaderRow.Cells[4].FindControl("gvHeaderClientCurrency");
-            lblgvHeaderClientCurrency.Text = Scheme.propClient.propCurrency.ToString();
-            
+                Label lblgvHeaderClientCurrency = (Label)this.gvCurrentHoldings.HeaderRow.Cells[4].FindControl("gvHeaderClientCurrency");
+                lblgvHeaderClientCurrency.Text = Scheme.propClient.propCurrency.ToString();
+            }
         }
 
         protected string CheckNull(object objGrid)
