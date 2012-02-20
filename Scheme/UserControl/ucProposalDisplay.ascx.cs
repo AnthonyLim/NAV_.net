@@ -175,13 +175,14 @@ namespace NAV.Scheme.UserControl
 
                 Label gvSwitchFooterLblTotalAllocationClient = (Label)this.gvSwitchDetails.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
                 gvSwitchFooterLblTotalAllocationClient.Text = SwitchDetailsList[SwitchDetailsList.Count - 1].propTotalAllocation.ToString("n2");
+
             }
             else
             {
                 this.lblTitle_ProposedSwitch.Visible = false;
                 this.lblTitle_ProposedSwitchContribution.Visible = false;
-                this.table1_container.Visible = false;
-                this.table1_container2.Visible = false;
+                //this.table1_container.Visible = false;
+                //this.table1_container2.Visible = false;
             }
 
             if (SwitchDetailsListContribution != null)
@@ -191,7 +192,7 @@ namespace NAV.Scheme.UserControl
 
                 Label gvSwitchFooterLblTotalAllocationContributionClient = (Label)this.gvSwitchDetailsContribution.FooterRow.Cells[4].FindControl("gvSwitchFooterLblTotalAllocation");
                 gvSwitchFooterLblTotalAllocationContributionClient.Text = SwitchDetailsListContribution[SwitchDetailsListContribution.Count - 1].propTotalAllocation.ToString("n2");
-            }            
+            }
         }
 
         public class clsSwitchDetailsList

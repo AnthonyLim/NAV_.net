@@ -59,15 +59,6 @@ namespace NAV.Scheme.UserControl {
         protected global::System.Web.UI.WebControls.Label txtProposedSwitchDesc;
         
         /// <summary>
-        /// table1_container control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl table1_container;
-        
-        /// <summary>
         /// gvSwitchDetails control.
         /// </summary>
         /// <remarks>
@@ -84,15 +75,6 @@ namespace NAV.Scheme.UserControl {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitle_ProposedSwitchContribution;
-        
-        /// <summary>
-        /// table1_container2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl table1_container2;
         
         /// <summary>
         /// gvSwitchDetailsContribution control.

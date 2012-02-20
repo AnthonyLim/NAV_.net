@@ -59,11 +59,13 @@ namespace NAV
 
         protected static string PortfolioOutput_GetHTML()
         {
-            return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Portfolio.aspx");
+            return File.ReadAllText(HttpContext.Current.Server.MapPath("./Output/Templates/SWITCH_Portfolio.txt"));
+            //return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Portfolio.aspx");
         }
         protected static string SchemeOutput_GetHTML()
         {
-            return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Scheme.aspx");
+            return File.ReadAllText(HttpContext.Current.Server.MapPath("./Output/Templates/SWITCH_Scheme.txt"));
+            //return clsPDF.ToHTMLString("https://" + HttpContext.Current.Request["HTTP_HOST"] + HttpContext.Current.Request.ApplicationPath + "/Output/Templates/SWITCH_Scheme.aspx");
         }
 
         public static string generateOutputFile(enumOutputType outputType,string strTemplate, StyleSheet Style,int SwitchID,enumSwitchType SwitchType)

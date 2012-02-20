@@ -18,7 +18,7 @@
     </tr>     
     <tr>
         <td>
-            <div id="table1_container" runat="server">
+            <div id="table1_container" >
             <asp:GridView runat="server" ID="gvSwitchDetails" AutoGenerateColumns="false" Width="100%" ShowFooter="true" BorderStyle="None" CellPadding="0" CellSpacing="0" UseAccessibleHeader="true" CssClass="table1" >
                 <Columns>
                     <asp:TemplateField ItemStyle-HorizontalAlign="Right" >                        
@@ -74,12 +74,17 @@
                             <asp:Label runat="server" ID="gvSwitchHeaderValue" Text='<% #Eval("propAllocation", "{0:0.00}") %>' />
                         </ItemTemplate>
                         <FooterTemplate>
-                            <asp:Label runat="server" ID="gvSwitchFooterLblTotalAllocation" Font-Bold="true" />
+                            <asp:Label runat="server" ID="gvSwitchFooterLblTotalAllocation" Font-Bold="true"  />
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
             </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            &nbsp;
         </td>
     </tr>
     <tr>
@@ -89,7 +94,7 @@
     </tr>   
     <tr>
         <td>
-            <div id="table1_container2" runat="server" class="table1_container">
+            <div id="table1_container2" class="table1_container">
             <asp:GridView runat="server" ID="gvSwitchDetailsContribution" AutoGenerateColumns="false" Width="100%" ShowFooter="true" BorderStyle="None" CellPadding="0" CellSpacing="0" UseAccessibleHeader="true" CssClass="table1" >
                 <Columns>
                     <asp:TemplateField ItemStyle-HorizontalAlign="Right" >                        
@@ -155,4 +160,3 @@
     </tr>
 </table>&nbsp;
 <br />&nbsp;
-

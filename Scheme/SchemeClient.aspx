@@ -15,8 +15,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<br />
-<br />
+<table border="0" align="left" cellpadding="0" cellspacing="0" width="100%" class="sms_template">
+    <tr>
+        <td align="left">
+            <asp:LinkButton runat="server" ID="lbtnHistory" Text="History"  Font-Size="X-Small" OnClick="lbtnHistory_Click"></asp:LinkButton>
+        </td>                 
+    </tr>    
+</table>
 <table width="100%">    
     <tr>
         <td>

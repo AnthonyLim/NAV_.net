@@ -19,8 +19,9 @@ namespace NAV.Scheme
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Session["SourcePage"] = "/report/schemedetails.asp";
-
+            //Session["SourcePage"] = "schemedetails.asp"; //Devt
+            Session["SourcePage"] = "/report/schemedetails.asp"; //Deploy
+                       
             String strSchemeID = Session[clsSystem_Session.strSession.tempschemeid.ToString()].ToString();
             String strUserID = Session[clsSystem_Session.strSession.User.ToString()].ToString();
             String strClientID = Session[clsSystem_Session.strSession.clientID.ToString()].ToString();
@@ -46,6 +47,24 @@ namespace NAV.Scheme
                 default:
                     break;
             }
+        }
+
+        protected void lbtnHistory_Click(object sender, EventArgs e)
+        {
+            String strSchemeID = Session[clsSystem_Session.strSession.tempschemeid.ToString()].ToString();
+            String strUserID = Session[clsSystem_Session.strSession.User.ToString()].ToString();
+            String strClientID = Session[clsSystem_Session.strSession.clientID.ToString()].ToString();
+
+            clsScheme Scheme = new clsScheme(strClientID, strSchemeID);
+            clsSwitchScheme SwitchScheme = new clsSwitchScheme(Scheme);
+
+            string strSwitchID = SwitchScheme.propSwitchID.ToString();
+
+            String strHistoryURL = "SchemeHistory.aspx?SID=" + strSwitchID + "&SchID=" + strSchemeID + "&CID=" + strClientID;
+            //Session["SourcePage"] = "../ASPX/Scheme/SchemeClient.aspx"; //Devt
+            Session["SourcePage"] = "/ASPX/Scheme/SchemeClient.aspx"; //Deploy
+            Response.Redirect(strHistoryURL);
+
         }
     }
 }
