@@ -23,24 +23,6 @@ namespace NAV.Portfolio {
         protected global::AjaxControlToolkit.ToolkitScriptManager ToolkitScriptManager1;
         
         /// <summary>
-        /// lbtnSMSTemplateList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnSMSTemplateList;
-        
-        /// <summary>
-        /// lbtnEmailTemplateList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnEmailTemplateList;
-        
-        /// <summary>
         /// lbtnHistory control.
         /// </summary>
         /// <remarks>
@@ -48,15 +30,6 @@ namespace NAV.Portfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtnHistory;
-        
-        /// <summary>
-        /// lbtnSignedConfirmation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtnSignedConfirmation;
         
         /// <summary>
         /// lblValue_PortfolioName control.

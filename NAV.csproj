@@ -35,10 +35,7 @@
       <HintPath>C:\AjaxControlToolkit.Binary.NET35\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.1.3.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL" />
-    <Reference Include="SmsNav, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Users\KiteSystemsPhilsInc\Downloads\NAV - codes\SMS\sms\SmsNav\SmsNav\bin\Debug\SmsNav.dll</HintPath>
-    </Reference>
+    <Reference Include="SmsNav, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core">
@@ -66,41 +63,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\EmailTemplate_List.aspx.cs">
-      <DependentUpon>EmailTemplate_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\EmailTemplate_List.aspx.designer.cs">
-      <DependentUpon>EmailTemplate_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SMSTemplate_List.aspx.cs">
-      <DependentUpon>SMSTemplate_List.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SMSTemplate_List.aspx.designer.cs">
-      <DependentUpon>SMSTemplate_List.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeMaintenance.aspx.cs">
-      <DependentUpon>SwitchFeeMaintenance.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeMaintenance.aspx.designer.cs">
-      <DependentUpon>SwitchFeeMaintenance.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeReport.aspx.cs">
-      <DependentUpon>SwitchFeeReport.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeReport.aspx.designer.cs">
-      <DependentUpon>SwitchFeeReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeReportList.aspx.cs">
-      <DependentUpon>SwitchFeeReportList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\SwitchFeeReportList.aspx.designer.cs">
-      <DependentUpon>SwitchFeeReportList.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Code\clsClient.cs" />
     <Compile Include="App_Code\clsCompany.cs" />
     <Compile Include="App_Code\clsSystem_Session.cs" />
@@ -120,11 +82,11 @@
     <Compile Include="App_Code\clsSwitchScheme.cs" />
     <Compile Include="App_Code\clsSwitchFee.cs" />
     <Compile Include="App_Code\clsSwitchScheme_Client.cs" />
-    <Compile Include="App_Code\clsOutput.cs" />
     <Compile Include="App_Code\clsModelGroup.cs" />
     <Compile Include="App_Code\clsModelPortfolio.cs" />
     <Compile Include="App_Code\clsModelPortfolioDetails.cs" />
     <Compile Include="App_Code\clsSwitchTemp.cs" />
+    <Compile Include="App_Code\clsOutput.cs" />
     <Compile Include="NAV.Master.cs">
       <DependentUpon>NAV.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -310,7 +272,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin\SMSTemplate_List.aspx" />
     <Content Include="css\360_stylesheet_1.css" />
     <Content Include="css\360_stylesheet_2.css" />
     <Content Include="css\360_stylesheet_3.css" />
@@ -760,10 +721,6 @@
     <None Include="css\NAV_stylesheet_1.css.bak" />
     <None Include="css\NAV_stylesheet_2.css.bak" />
     <None Include="css\YUE_stylesheet_1.css.bak" />
-    <Content Include="Admin\EmailTemplate_List.aspx" />
-    <Content Include="Admin\SwitchFeeMaintenance.aspx" />
-    <Content Include="Admin\SwitchFeeReport.aspx" />
-    <Content Include="Admin\SwitchFeeReportList.aspx" />
     <Content Include="App_Browsers\SafariFix.browser" />
     <Content Include="Images\add_btn.png" />
     <Content Include="Images\Logos\NAV.png" />

@@ -60,18 +60,9 @@
     
 <table border="0" align="left" cellpadding="0" cellspacing="0" width="100%" class="sms_template">
     <tr>
-        <td align="left">
-            <asp:LinkButton runat="server" ID="lbtnSMSTemplateList" Text="Admin - SMS Templates"  Font-Size="X-Small" OnClick="lbtnSMSTemplateList_Click"></asp:LinkButton>
-        </td>
-        <td>
-            <asp:LinkButton runat="server" ID="lbtnEmailTemplateList" Text="Admin - Email Templates"  Font-Size="X-Small" OnClick="lbtnEmailTemplateList_Click"></asp:LinkButton>
-        </td>
         <td>
             <asp:LinkButton runat="server" ID="lbtnHistory" Text="History"  Font-Size="X-Small" OnClick="lbtnHistory_Click"></asp:LinkButton>
         </td>                 
-        <td align="left">
-            <asp:LinkButton runat="server" ID="lbtnSignedConfirmation" Text="Email Signed Confirmation"  Font-Size="X-Small" OnClick="lbtnSignedConfirmation1"></asp:LinkButton>
-        </td>         
     </tr>
 </table>    
 <br />&nbsp;

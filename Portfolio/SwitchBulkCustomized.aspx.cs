@@ -59,7 +59,7 @@ namespace NAV.Portfolio
                 ViewState["MPID"] = Request.QueryString["MPID"];
                 ViewState["CID"] = Request.QueryString["CID"];
                 ViewState["PID"] = Request.QueryString["PID"];
-
+                
                 clsPortfolio _clsPortfolio = new clsPortfolio(ClientID(), PortfolioID(), UserID());
                 _clsPortfolio.propModelGroupID = ViewState["MGID"].ToString();
                 _clsPortfolio.propModelPortfolioID = ViewState["MPID"].ToString();
@@ -69,7 +69,7 @@ namespace NAV.Portfolio
                 _clsSwitchTemp.propModelGroupID = _clsModelPortfolio.propModelGroupID;
                 _clsSwitchTemp.propModelPortfolioID = _clsModelPortfolio.propModelPortfolioID;
                 _clsPortfolio.propSwitchTemp = new clsSwitchTemp(_clsPortfolio, UserID(), IFA_ID(), _clsModelPortfolio.propModelID, ViewState["MGID"].ToString(), ViewState["MPID"].ToString());
-
+                
                 //Load the data
                 populateHeader(_clsPortfolio);
                 populateDetails(_clsPortfolio.propPortfolioDetails);
@@ -286,7 +286,6 @@ namespace NAV.Portfolio
                         SwitchDetails.propUnits = hfCurrentUnit.Value.ToString() == string.Empty ? 0 : decimal.Parse(hfCurrentUnit.Value.ToString());
                         fTotalAllocation = fTotalAllocation + SwitchDetails.propAllocation;
                         SwitchDetails.propTotalAllocation = fTotalAllocation;
-                        Response.Write(hfSelectedFundID.Value + "-" + SwitchDetails.propFund.propFundID.ToString() + "<br>");
                     }
                     Session["SwitchDetails"] = ListSwitchDetails;
                 }

@@ -126,7 +126,7 @@ namespace NAV
 
             return oSwitchFeeList;
         }
-        public static void saveSwitchFee(int intIFA_ID, string strIFA_Name, decimal dAnnual_Fee, decimal dPerSwitch_Fee, string strUser, bool bAccessDenied)
+        public static void saveSwitchFee(int intIFA_ID, string strIFA_Name, decimal dAnnual_Fee, decimal dPerSwitch_Fee, bool bAccessDenied)
         {
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
             SqlCommand cmd = new SqlCommand();
@@ -140,8 +140,6 @@ namespace NAV
             cmd.Parameters.Add("@param_IFA_Username", System.Data.SqlDbType.NVarChar).Value = strIFA_Name;
             cmd.Parameters.Add("@param_Annual_Fee", System.Data.SqlDbType.Decimal).Value = dAnnual_Fee;
             cmd.Parameters.Add("@param_Per_Switch_Fee", System.Data.SqlDbType.Decimal).Value = dPerSwitch_Fee;
-            cmd.Parameters.Add("param_Created_By", System.Data.SqlDbType.NVarChar).Value = strUser;
-            cmd.Parameters.Add("param_Updated_By", System.Data.SqlDbType.NVarChar).Value = strUser;
             cmd.Parameters.Add("param_Access_Denied", System.Data.SqlDbType.Bit).Value = bAccessDenied;
 
             cmd.ExecuteNonQuery();

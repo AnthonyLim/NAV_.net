@@ -115,6 +115,7 @@ namespace NAV
             cmd.CommandText = "[SWITCH_Temp_HeaderGet]";
 
             cmd.Parameters.Add("@param_intIFA_ID", System.Data.SqlDbType.Int).Value = intIFA_ID;
+            cmd.Parameters.Add("@param_intModelID", System.Data.SqlDbType.Int).Value = _intModelID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
             cmd.Parameters.Add("@param_strPortfolioID", System.Data.SqlDbType.NVarChar).Value = Portfolio.propPortfolioID;
@@ -126,12 +127,12 @@ namespace NAV
             {
                 while (dr.Read())
                 {
+                    this.intModelID = int.Parse(dr["ModelID"].ToString());
                     this.propClientID = dr["ClientID"].ToString();
                     this.propDate_Created = DateTime.Parse(dr["Date_Created"].ToString());
                     this.propPortfolioID = dr["PortfolioID"].ToString();
                     //this.propStatus = short.Parse(dr["Status"].ToString());
                     //this.propStatusString = clsSwitch.getSwitchStringStatus(this.propStatus);
-                    this.propSwitchID = 77;//int.Parse(dr["SwitchID"].ToString());
                     //if (propStatus == (int)enumSwitchStatus.Declined_Client)
                     //{
                     //    this.propSwitchDetails = clsSwitchDetails.replicatePortfolioDetails(Portfolio);
@@ -146,7 +147,6 @@ namespace NAV
             }
             else
             {
-                this.propSwitchID = 0;
                 this.propPortfolioID = Portfolio.propPortfolioID;
                 this.propClientID = Portfolio.propClientID;
                 this.propStatus = (short)clsSwitch.enumSwitchStatus.Saved;
@@ -236,9 +236,6 @@ namespace NAV
             List<clsSwitchDetails> listPortfolioDetails = clsSwitchDetails.replicatePortfolioDetails(_clsPortfolio);
             List<clsSwitchDetails> listModelPortfolioDetails = replicateModelPortfolio(_clsPortfolio, intModelID, _strModelGroupID, _strModelPortfolioID);
 
-            //List<clsSwitchDetails> listSwitchDetails = _clsPortfolio.propSwitch.propSwitchDetails;
-            //List<clsSwitchDetails> listSwitchTempDetails = _clsPortfolio.propSwitchTemp.propSwitchDetails;
-            //List<clsSwitchDetails> listSwitchFinalDetails = new List<clsSwitchDetails>();
             foreach (clsSwitchDetails origSwitchDetails in listPortfolioDetails)
             {
                 foreach (clsSwitchDetails modelSwitchDetails in listModelPortfolioDetails)
@@ -246,6 +243,8 @@ namespace NAV
                     if (origSwitchDetails.propFundID != modelSwitchDetails.propFundID)
                     {
                         origSwitchDetails.propAllocation = 0;
+                        origSwitchDetails.propValue = 0;
+                        origSwitchDetails.propUnits = 0;
                     }
                 }
                 listSwitchDetails.Add(origSwitchDetails);
@@ -300,7 +299,7 @@ namespace NAV
                 //newClsSwitchDetails.propSwitchDetailsID = int.Parse(dr1["SwitchDetailsID"].ToString());
                 //newClsSwitchDetails.propSwitchID = int.Parse(dr1["SwitchID"].ToString());
                 //newClsSwitchDetails.propUpdated_By = dr1["Updated_By"].ToString();
-                //newClsSwitchDetails.propIsDeletable = dr1["isDeletable"].ToString().Equals("1") ? true : false;
+                newClsSwitchDetails.propIsDeletable = dr1["isDeletable"].ToString().Equals("1") ? true : false;
 
                 //if (Portfolio.propPortfolioDetails[0].propClientCurrency != newClsSwitchDetails.propFund.propCurrency)
                 if (_clsPortfolio.propClient.propCurrency != newClsSwitchDetails.propFund.propCurrency)

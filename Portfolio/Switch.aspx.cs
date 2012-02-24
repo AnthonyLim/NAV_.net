@@ -176,14 +176,7 @@ namespace NAV.Portfolio
             List<clsSwitchDetails> oSwitchDetailsList = clsSwitchDetails.removeSwitchDetails(int.Parse(e.CommandArgument.ToString()), PreviousListSwitchDetails);
             populateSwitchDetails(oSwitchDetailsList);
         }
-        protected void lbtnSMSTemplateList_Click(object sender, EventArgs e)
-        { //<<---temporary!!!!
-            Response.Redirect("../Admin/SMSTemplate_List.aspx");
-        }
-        protected void lbtnEmailTemplateList_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("../Admin/EmailTemplate_List.aspx");
-        }
+
         protected void lbtnHistory_Click(object sender, EventArgs e)
         {
             List<clsSwitchDetails> SwitchDetails = (List<clsSwitchDetails>)Session["SwitchDetails"];
@@ -191,11 +184,6 @@ namespace NAV.Portfolio
             String strHistoryURL = "SwitchHistory.aspx?SID=" + strSwitchID + "&PID=" + PortfolioID() + "&CID=" + ClientID();
             Session["SourcePage"] = "/ASPX/Portfolio/Switch.aspx";
             Response.Redirect(strHistoryURL);
-        }
-        protected void lbtnSignedConfirmation1(object sender, EventArgs e)
-        {
-            Session["SourcePage"] = "/ASPX/Portfolio/Switch.aspx";
-            Response.Redirect("../Admin/EmailSignedConfirmation_List.aspx");
         }
 
         #endregion

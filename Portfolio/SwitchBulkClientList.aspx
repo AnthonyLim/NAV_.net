@@ -86,7 +86,7 @@
                         <ItemStyle CssClass="t1_column_color1" HorizontalAlign="Center" BorderStyle="None" />                        
                         <FooterStyle CssClass="t1_column_color1" BorderStyle="None" />
                         <ItemTemplate>
-                            <asp:Label runat="server" ID="lblCustomized" Text='<%#((int)Eval("propSwitchTemp.propSwitchID")) > 0 ? "Yes": "No" %>'></asp:Label>
+                            <asp:Label runat="server" ID="lblCustomized" Text='<%#((int)Eval("propSwitchTemp.propModelID")) > 0 ? "Yes": "No" %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderStyle-HorizontalAlign="Right" HeaderStyle-BorderStyle="None" FooterStyle-BorderStyle="None" HeaderStyle-VerticalAlign="Top">
@@ -94,7 +94,7 @@
                         <ItemStyle CssClass="t1_column_color2" HorizontalAlign="Center" BorderStyle="None" />  
                         <FooterStyle CssClass="t1_column_color2" BorderStyle="None" />
                         <ItemTemplate>
-                            <asp:LinkButton ID="lbtnModify" runat="server" Text="Modify" PostBackUrl='<%# String.Format("~/Portfolio/SwitchBulkCustomized.aspx?MGID={0}&MPID={1}&CID={2}&PID={3}", Eval("propModelID"), Eval("propModelPortfolioID"), Eval("propClientID"), Eval("propPortfolioID"))%>' ></asp:LinkButton>
+                            <asp:LinkButton ID="lbtnModify" runat="server" Text="Modify" PostBackUrl='<%# String.Format("~/Portfolio/SwitchBulkCustomized.aspx?MID={0}&MGID={1}&MPID={2}&CID={3}&PID={4}", Eval("propModelID"), Eval("propModelGroupID"), Eval("propModelPortfolioID"), Eval("propClientID"), Eval("propPortfolioID"))%>' ></asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Selected" HeaderStyle-HorizontalAlign="Right" HeaderStyle-BorderStyle="None" FooterStyle-BorderStyle="None" HeaderStyle-VerticalAlign="Top">

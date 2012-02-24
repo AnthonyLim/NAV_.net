@@ -449,7 +449,6 @@
             totalAlloc1.style.color = "#FF0000";
             totalAlloc2.style.color = "#FF0000";
             btnSave.disabled = true;
-            btnSwitch.disabled = true;
 
         } else {
             totalAlloc1.innerHTML = _total;
@@ -457,13 +456,11 @@
             window.document.getElementById("ctl00_ContentPlaceHolder1_gvSwitchFooterHfTotalAllocation").value = totalAlloc2.innerHTML
             if (parseFloat(_total) != 100) {
                 btnSave.disabled = true;
-                btnSwitch.disabled = true;
                 totalAlloc1.style.color = "#FF0000";
                 totalAlloc2.style.color = "#FF0000";
             }
             else {
                 btnSave.disabled = false;
-                btnSwitch.disabled = false;
                 totalAlloc1.style.color = "#000000";
                 totalAlloc2.style.color = "#000000";
             }

@@ -70,10 +70,8 @@ namespace NAV.Portfolio
         private int saveCustomizedSwitch(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, int intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
         {
             int intNewSwitchID = clsSwitch.insertCustomizedSwitchHeaderWithModel(intIFA_ID, strClientID, strPortfolioID, strUserID, enumSwitchStatus, intSwitchID, strDescription, strModelGroupID, strModelPortfolioID);
-
             clsSwitch.deleteSwitchDetails(intNewSwitchID);
             clsSwitchDetails.insertSwitchDetails(intNewSwitchID, strClientID, strPortfolioID);
-
             return intNewSwitchID;
         }
         private void saveSwitchHistory(clsPortfolio _clsPortfolio, int intSwitchID, string strPortfolioID, string strUserID, clsSwitch.enumSwitchStatus enumSwitchStatus, string strDescription)
@@ -158,20 +156,18 @@ namespace NAV.Portfolio
                 if (cbox.Checked)
                 {
                     string strMessage = getSMSMessage(strClientID, strPortfolioID, UserID());
-                    string strMobileNum = clsSMS.getMobileNumber(strClientID);
+                    string strMobileNum = "639228829490";//clsSMS.getMobileNumber(strClientID);
                     if (strMobileNum.Trim().Equals(string.Empty))
                     {
-                        strMobileNum = "9228829490";
+                        strMobileNum = "639228829490";
                     }
-                    if (sendSMS(UserID(), strMessage, strPopupMessage, strMobileNum))
-                    {
+                    //if (sendSMS(UserID(), strMessage, strPopupMessage, strMobileNum))
+                    //{
                         if (lblCustomized.Text.Trim() == "Yes")
                         {
                             intSwitchID = saveCustomizedSwitch(IFA_ID(), strClientID, strPortfolioID, UserID(), enumSwitchStatus, int.Parse(lblSwitchID.Text.Trim()), _clsModelPortfolio.propModelPortfolioDesc, ModelID(), ModelPortfolioID());
                             clsPortfolio _clsPortfolio = new clsPortfolio(strClientID, strPortfolioID, UserID());
                             saveSwitchHistory(_clsPortfolio, intSwitchID, strPortfolioID, UserID(), enumSwitchStatus, _clsModelPortfolio.propModelPortfolioDesc);
-                            _clsModelPortfolio.propIsConsumed = true;
-
                         }
                         else
                         {
@@ -186,12 +182,14 @@ namespace NAV.Portfolio
                             saveSwitchHistory(_clsPortfolio, intSwitchID, strPortfolioID, UserID(), enumSwitchStatus, _clsModelPortfolio.propModelPortfolioDesc);
                             _clsModelPortfolio.propIsConsumed = true;
                         }
-                    }
+                    //}
                 }
-                _clsModelPortfolio.propIsConsumed = true;
-                _clsModelPortfolio.updateModelPortfolioHeader();
-                clsSwitchTemp.deleteSwitchTempByModel(_clsModelPortfolio.propModelID);
             }
+            //Clean up temp table
+            _clsModelPortfolio.propIsConsumed = true;
+            _clsModelPortfolio.updateModelPortfolioHeader();
+            clsSwitchTemp.deleteSwitchTempByModel(_clsModelPortfolio.propModelID);
+
             List<clsPortfolio> clsPortfolioListDiscretionaryYes = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), true);
             List<clsPortfolio> clsPortfolioListDiscretionaryNo = clsPortfolio.getPortfolioList(IFA_ID(), _clsModelPortfolio.propModelID, ModelID(), ModelPortfolioID(), false);
             populateModelClientList(clsPortfolioListDiscretionaryYes, clsPortfolioListDiscretionaryNo);

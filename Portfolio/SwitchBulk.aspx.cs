@@ -237,7 +237,6 @@ namespace NAV.Portfolio
             List<clsModelPortfolioDetails> ListSwitchDetails = (List<clsModelPortfolioDetails>)Session["ModelPortfolioDetails"];
             foreach (clsModelPortfolioDetails SwitchDetail in ListSwitchDetails)
             {
-                Response.Write(SwitchDetail.propFundID + "<br>");
                 if (SwitchDetail.propFund.propFundID == intNewFundID)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "alertErrDuplicateFund", "alert('Duplicate funds. Please choose another.');", true);
@@ -350,7 +349,6 @@ namespace NAV.Portfolio
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('error on funds popUps  : '" + this.hfPopUpFundAction.Value + ");", true);
                     break;
             }
-            Response.Write("YYY " + this.hfPopUpFundAction.Value);
         }
         protected void clearPopupFundFields()
         {

@@ -226,7 +226,7 @@ namespace NAV.Portfolio
                         clsHistory.insertDetailsClient(intHistoryID, (List<clsSwitchDetails_Client>)Session["SwitchDetails_Client"]);
                         clsHistory.insertMessage(intHistoryID, new clsSwitch_Client(intSwitchID).propDescription);
 
-                        NotifyApprovedSwtich(new clsSwitch(new clsPortfolio(strClientID, strPortfolioID), ""));
+                        NotifyApprovedSwtich(new clsSwitch(new clsPortfolio(strClientID, strPortfolioID, ""), ""));
 
                         ClientScript.RegisterStartupScript(this.GetType(), "showApproveSwitch", string.Format("showApproveSwitchPanel();"), true);
 
