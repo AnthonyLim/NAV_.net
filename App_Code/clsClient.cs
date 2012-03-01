@@ -87,6 +87,9 @@ namespace NAV
         private String strEmailPersonal;
         public String propEmailPersonal { get { return strEmailPersonal; } set { strEmailPersonal = value; } }
 
+        private string strMobileNumber;
+        public string propMobileNumber { get { return strMobileNumber; } set { strMobileNumber = value; } }
+
         #endregion
 
         public clsClient(string strClientID) { getClient(strClientID); }
@@ -131,6 +134,7 @@ namespace NAV
                 this.strIFAUpdatedBy = dr["IFAUpdatedBy"].ToString();
                 this.propEmailPersonal = dr["PersonalEmail"].ToString();
                 this.propEmailWork = dr["WorkEmail"].ToString();
+                this.strMobileNumber = dr["Mobile"].ToString();
             }
             con.Close();
             cmd.Dispose();

@@ -227,7 +227,7 @@ namespace NAV
 
             return listPortfolioDetails;
         }
-        public static List<clsPortfolio> getPortfolioList(int intIFA_ID, int intModelID, string strModelGroupID, string strModelPortfolioID, bool hasDiscretionary)
+        public static List<clsPortfolio> getClientListWithModel(int intIFA_ID, int intModelID, string strModelGroupID, string strModelPortfolioID, string strSortBy)
         {
             List<clsPortfolio> clsPortfolioList = new List<clsPortfolio>();
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
@@ -242,7 +242,7 @@ namespace NAV
             cmd.Parameters.Add("@param_ModelID", System.Data.SqlDbType.NVarChar).Value = intModelID;
             cmd.Parameters.Add("@param_ModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_ModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
-            cmd.Parameters.Add("@param_HasDiscretionary", System.Data.SqlDbType.Bit).Value = hasDiscretionary;
+            cmd.Parameters.Add("@param_SortBy", System.Data.SqlDbType.NVarChar).Value = strSortBy;
 
             dr = cmd.ExecuteReader();
             while (dr.Read())

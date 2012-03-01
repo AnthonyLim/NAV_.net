@@ -284,7 +284,7 @@
             <div runat="server" id="divSwitch">
                 <center>
                     <button id="btnSave" onclick="javascript:SwitchSave();" type="button" causesvalidation="true" runat="server">Save</button>&nbsp;        
-                    <input type="button" id="btnSwitch" runat="server" value="Select Client"/>
+                    <input type="button" id="btnSwitch" runat="server" value="Switch"/>
                     <asp:Button runat="server" ID="btnCancel"  Text="Cancel" UseSubmitBehavior="false" CausesValidation="false" OnClientClick='if (!confirm("Cancel this switch?")) { return; }' OnClick="btnCancel_Click" />
                 </center>
             </div>

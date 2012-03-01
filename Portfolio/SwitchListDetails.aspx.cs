@@ -30,16 +30,11 @@ namespace NAV
                 strPortfolioID = ViewState["PortfolioID"].ToString();
                 intSwitchID = (int)ViewState["SwitchID"];
 
-                string strPortfolioForename = Request.QueryString["PortfolioForename"].ToString();
-                string strPortfolioSurname = Request.QueryString["PortfolioSurname"].ToString();
-
-                string strPortfolioName = string.Format("{0} {1}",strPortfolioForename, strPortfolioSurname);
-
                 clsPortfolio oPortfolio = new clsPortfolio(strClientID, strPortfolioID, strUserID);
 
                 ViewState["Company"] = oPortfolio.propCompany;
                 
-                populateHeader(oPortfolio, strPortfolioName);
+                populateHeader(oPortfolio);
                 populateSwitchDetails(oPortfolio.propSwitch);
             }
         }
@@ -62,9 +57,10 @@ namespace NAV
             clsPortfolio oPortfolio = new clsPortfolio(strClientID, strPortfolioID, strUserID);
             populateSwitchDetails(oPortfolio.propSwitch);
         }
-        private void populateHeader(clsPortfolio _clsPortfolio, string strPortfolioName)
+
+        private void populateHeader(clsPortfolio _clsPortfolio)
         {
-            this.lblValue_PortfolioName.Text = strPortfolioName;
+            this.lblValue_PortfolioName.Text = _clsPortfolio.propClient.propForename + " " + _clsPortfolio.propClient.propSurname;
             this.lblValue_Company.Text = _clsPortfolio.propCompany;
             this.lblValue_PortfolioType.Text = _clsPortfolio.propPortfolioType;
             this.lblValue_Currency.Text = _clsPortfolio.propPortfolioCurrency;

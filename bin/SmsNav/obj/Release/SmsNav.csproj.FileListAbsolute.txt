@@ -1,0 +1,8 @@
+C:\Documents and Settings\Owner\Local Settings\Application Data\Temporary Projects\SmsNav\bin\Release\SmsNav.dll
+C:\Documents and Settings\Owner\Local Settings\Application Data\Temporary Projects\SmsNav\bin\Release\SmsNav.pdb
+C:\Documents and Settings\Owner\Local Settings\Application Data\Temporary Projects\SmsNav\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\Owner\Local Settings\Application Data\Temporary Projects\SmsNav\obj\Release\SmsNav.dll
+C:\Documents and Settings\Owner\Local Settings\Application Data\Temporary Projects\SmsNav\obj\Release\SmsNav.pdb
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Release\ResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Release\SmsNav.dll
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Release\SmsNav.pdb

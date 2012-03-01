@@ -294,7 +294,7 @@ namespace NAV
 
             return SwitchStringStatus;
         }
-        public static int insertCustomizedSwitchHeaderWithModel(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strDescription, string strModelGroupID, string strModelPortfolioID)
+        public static int insertCustomizedSwitchHeaderWithModel(int intIFA_ID, string strClientID, string strPortfolioID, string strUserID, enumSwitchStatus SwitchStatus, Nullable<int> intSwitchID, string strModelGroupID, string strModelPortfolioID)
         {
 
             SqlConnection con = new clsSystem_DBConnection(clsSystem_DBConnection.strConnectionString.NavIntegrationDB).propConnection;
@@ -311,7 +311,6 @@ namespace NAV
             cmd.Parameters.Add("@param_intStatus", System.Data.SqlDbType.SmallInt).Value = SwitchStatus;
             cmd.Parameters.Add("@param_strCreated_By", System.Data.SqlDbType.NVarChar).Value = strUserID;
             cmd.Parameters.Add("@param_intSwitchID", System.Data.SqlDbType.Int).Value = intSwitchID;
-            cmd.Parameters.Add("@param_strDescription", System.Data.SqlDbType.NVarChar).Value = strDescription;
             cmd.Parameters.Add("@param_strModelGroupID", System.Data.SqlDbType.NVarChar).Value = strModelGroupID;
             cmd.Parameters.Add("@param_strModelPortfolioID", System.Data.SqlDbType.NVarChar).Value = strModelPortfolioID;
 

@@ -19,6 +19,27 @@ namespace NAV
                 {
                     //Response.Write(key + " - " + Session[key].ToString() + "<br />");
                 }
+
+                switch (Session["lang"].ToString())
+                {
+                    case "1":
+                        Response.Charset = "big5";
+                        Session.CodePage = 1252;
+                        break;
+
+                    case "2":
+                        Response.Charset = "big5";
+                        Session.CodePage = 950;
+                        break;
+                    case "3":
+                        Response.Charset = "Shift_JIS";
+                        Session.CodePage = 932;
+                        break;
+                    default:
+                        Response.Charset = "big5";
+                        Session.CodePage = 950;
+                        break;
+                }
             }
             else
             {

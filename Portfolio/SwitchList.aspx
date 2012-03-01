@@ -99,7 +99,7 @@
                         <HeaderStyle CssClass="t1_column_color1" VerticalAlign="Middle" HorizontalAlign="Center" />
                         <ItemStyle HorizontalAlign="Right"  BorderStyle="None" CssClass="t1_column_color1" />
                         <FooterStyle BorderStyle="None" CssClass="t1_column_color1"/>
-                        <ItemTemplate><asp:CheckBox ID="gvSwitchListCheckbox" runat="server" /></ItemTemplate>
+                        <ItemTemplate><asp:CheckBox ID="gvSwitchListCheckbox" runat="server" Visible='<%# bool.Parse(isCancelCheckBoxVisible(int.Parse(Eval("propStatus").ToString())).ToString().ToLower())%>'/></ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="propClientID" InsertVisible="true" Visible="false"/>
                     <asp:BoundField DataField="propPortfolioID" InsertVisible="true" Visible="false" />

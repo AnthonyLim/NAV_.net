@@ -13,7 +13,9 @@ C:\NAV\obj\Debug\NAV.pdb
 \\172.29.20.10\c$\NAV\bin\NAV.dll
 \\172.29.20.10\c$\NAV\bin\NAV.pdb
 \\172.29.20.10\c$\NAV\bin\AjaxControlToolkit.dll
+\\172.29.20.10\c$\NAV\bin\SmsNav.dll
 \\172.29.20.10\c$\NAV\bin\AjaxControlToolkit.pdb
+\\172.29.20.10\c$\NAV\bin\SmsNav.pdb
 \\172.29.20.10\c$\NAV\bin\ar\AjaxControlToolkit.resources.dll
 \\172.29.20.10\c$\NAV\bin\cs\AjaxControlToolkit.resources.dll
 \\172.29.20.10\c$\NAV\bin\de\AjaxControlToolkit.resources.dll

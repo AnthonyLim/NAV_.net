@@ -1,0 +1,15 @@
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\bin\Debug\SmsNav.dll
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\bin\Debug\SmsNav.pdb
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Debug\ResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Debug\SmsNav.dll
+\\vmware-host\Shared Folders\My Documents\Visual Studio 2008\Projects\SmsNav\SmsNav\obj\Debug\SmsNav.pdb
+D:\1-Projects\NAV-Switch-Project\sms\SmsNav\SmsNav\bin\Debug\SmsNav.dll
+D:\1-Projects\NAV-Switch-Project\sms\SmsNav\SmsNav\bin\Debug\SmsNav.pdb
+D:\1-Projects\NAV-Switch-Project\sms\SmsNav\SmsNav\obj\Debug\ResolveAssemblyReference.cache
+D:\1-Projects\NAV-Switch-Project\sms\SmsNav\SmsNav\obj\Debug\SmsNav.dll
+D:\1-Projects\NAV-Switch-Project\sms\SmsNav\SmsNav\obj\Debug\SmsNav.pdb
+D:\1-Projects\NAV-Switch-Project\Reference\SMS\SmsNav\SmsNav\bin\Debug\SmsNav.dll
+D:\1-Projects\NAV-Switch-Project\Reference\SMS\SmsNav\SmsNav\bin\Debug\SmsNav.pdb
+D:\1-Projects\NAV-Switch-Project\Reference\SMS\SmsNav\SmsNav\obj\Debug\ResolveAssemblyReference.cache
+D:\1-Projects\NAV-Switch-Project\Reference\SMS\SmsNav\SmsNav\obj\Debug\SmsNav.dll
+D:\1-Projects\NAV-Switch-Project\Reference\SMS\SmsNav\SmsNav\obj\Debug\SmsNav.pdb

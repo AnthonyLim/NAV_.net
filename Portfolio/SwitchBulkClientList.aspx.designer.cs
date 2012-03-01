@@ -32,13 +32,13 @@ namespace NAV.Portfolio {
         protected global::System.Web.UI.WebControls.Label lblTitle_BulkSwitchList;
         
         /// <summary>
-        /// gvBulkSwitchListDiscretionaryYes control.
+        /// gvClientListInModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBulkSwitchListDiscretionaryYes;
+        protected global::System.Web.UI.WebControls.GridView gvClientListInModel;
         
         /// <summary>
         /// btnPreviousPage control.
@@ -50,58 +50,13 @@ namespace NAV.Portfolio {
         protected global::System.Web.UI.WebControls.Button btnPreviousPage;
         
         /// <summary>
-        /// btnProceedDiscretionaryYes control.
+        /// btnBulkSwitch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProceedDiscretionaryYes;
-        
-        /// <summary>
-        /// panel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panel1;
-        
-        /// <summary>
-        /// lblTitle_DiscretionaryNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTitle_DiscretionaryNo;
-        
-        /// <summary>
-        /// gvBulkSwitchListDiscretionaryNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBulkSwitchListDiscretionaryNo;
-        
-        /// <summary>
-        /// btnProceedDiscretionaryNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnProceedDiscretionaryNo;
-        
-        /// <summary>
-        /// Button2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button btnBulkSwitch;
         
         /// <summary>
         /// btnTest control.
@@ -113,103 +68,49 @@ namespace NAV.Portfolio {
         protected global::System.Web.UI.WebControls.Button btnTest;
         
         /// <summary>
-        /// mpeSwitchPopup1 control.
+        /// mpeClientPopup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpeSwitchPopup1;
+        protected global::AjaxControlToolkit.ModalPopupExtender mpeClientPopup;
         
         /// <summary>
-        /// panelSwitchPopup1 control.
+        /// panelClientPopup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelSwitchPopup1;
+        protected global::System.Web.UI.WebControls.Panel panelClientPopup;
         
         /// <summary>
-        /// lblSwitchMessage control.
+        /// gvClientAndMobileNumberList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSwitchMessage;
+        protected global::System.Web.UI.WebControls.GridView gvClientAndMobileNumberList;
         
         /// <summary>
-        /// btnSwitchProceed control.
+        /// btnProceedBulkSwitch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton btnSwitchProceed;
+        protected global::System.Web.UI.WebControls.Button btnProceedBulkSwitch;
         
         /// <summary>
-        /// btnSwitchCancel control.
+        /// btnCancelBulkSwitch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSwitchCancel;
-        
-        /// <summary>
-        /// mpeSwitchPopup2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpeSwitchPopup2;
-        
-        /// <summary>
-        /// panelSwitchPopup2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelSwitchPopup2;
-        
-        /// <summary>
-        /// lblMessage2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage2;
-        
-        /// <summary>
-        /// btnSwitchYes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSwitchYes;
-        
-        /// <summary>
-        /// btnSwitchNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSwitchNo;
-        
-        /// <summary>
-        /// mpeSwitchPopup3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpeSwitchPopup3;
+        protected global::System.Web.UI.WebControls.Button btnCancelBulkSwitch;
         
         /// <summary>
         /// panelSwitchPopup3 control.

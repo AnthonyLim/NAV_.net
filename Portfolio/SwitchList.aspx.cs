@@ -191,5 +191,17 @@ namespace NAV
             item = new ListItem("", "");
             ddl.Items.Insert(0, item);
         }
+
+        public bool isCancelCheckBoxVisible(int iStatus)
+        {
+            if (iStatus == (int)clsSwitch.enumSwitchStatus.Proposed)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
